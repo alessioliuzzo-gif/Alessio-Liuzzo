@@ -91,7 +91,7 @@ Beim ersten iOS-Build fragt EAS nach deiner Apple-ID und legt Zertifikate selbst
 > DU BESTIMMST MIT
 > • Reiche Ideen ein und stimme ab. Was die meisten wollen, bauen wir zuerst.
 >
-> Keine Werbung. Wir verkaufen keine Daten. Dein Konto kannst du jederzeit in der App löschen.
+> Wir verkaufen keine Daten. Dein Konto kannst du jederzeit in der App löschen.
 >
 > Und das ist erst der Anfang: Es kommen laufend neue Funktionen.
 
@@ -134,7 +134,7 @@ Beim ersten iOS-Build fragt EAS nach deiner Apple-ID und legt Zertifikate selbst
 > YOU HELP DECIDE
 > • Submit ideas and vote. What most people want gets built first.
 >
-> No ads. We do not sell data. You can delete your account in the app at any time.
+> We do not sell data. You can delete your account in the app at any time.
 >
 > And this is only the beginning: new features are added all the time.
 
@@ -158,7 +158,9 @@ Massgebend ist, was die App wirklich tut. Stand heute:
 | Käufe (erst wenn das Abo an ist) | App-Funktionalität |
 | Kontaktdaten: Adresse, Telefon (erst wenn der Druck an ist, erhoben von Stripe) | App-Funktionalität |
 
-"Tracking": Nein. Werbung: keine.
+"Tracking": Nein. Werbung: heute keine.
+
+**Wenn später Werbung dazukommt,** ändern sich diese Angaben: Je nach Werbeanbieter werden Geräte-Kennungen und Nutzungsdaten für Werbung erhoben, und auf iOS braucht es die Abfrage "App-Tracking erlauben". Dann vor dem Update die Angaben bei Apple und Google sowie die Datenschutzerklärung anpassen.
 
 **Google Play ("Datensicherheit")**
 - Daten werden bei der Übertragung verschlüsselt: Ja.

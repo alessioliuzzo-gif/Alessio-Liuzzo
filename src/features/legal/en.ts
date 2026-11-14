@@ -21,7 +21,7 @@ export const privacyEn: LegalDocument = {
         'Technical data: IP address and time of requests (server logs), device type and operating system, push token.',
         'Printed calendar orders: name, shipping address, email, products and payment status. We never receive card data; Stripe processes payments.',
         'Subscriptions: receipts and subscription status from the App Store or Google Play.',
-        'We use no advertising or tracking cookies and do not sell data.',
+        'We do not sell data. The app currently shows no advertising and uses no advertising or tracking technology. If we introduce advertising, we will update this policy beforehand and ask for your consent where the law requires it.',
       ],
     },
     {

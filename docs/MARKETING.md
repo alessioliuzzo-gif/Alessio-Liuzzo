@@ -71,7 +71,7 @@ Das unterscheidet DayShot: kein endloses Scrollen, kein Druck, perfekt zu sein. 
 
 **Ziel:** sich von grossen Plattformen abheben.
 
-- **Botschaft:** Standard ist "Nur Freunde". Keine Werbung, kein Verkauf von Daten.
+- **Botschaft:** Standard ist "Nur Freunde". Kein Verkauf von Daten. Nicht mit "keine Werbung" werben: Werbung ist für später geplant.
 - **Sprüche:** "Kein Algorithmus. Nur deine Leute." und "Hier musst du niemandem gefallen."
 - **Format:** ruhige Bilder, ein Satz, viel Luft. Bewusst das Gegenteil von lauter Werbung.
 

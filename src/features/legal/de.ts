@@ -29,7 +29,7 @@ export const privacyDe: LegalDocument = {
         'Technische Daten: IP-Adresse und Zeitpunkt von Anfragen (Server-Protokolle), Gerätetyp und Betriebssystem, Push-Token für Benachrichtigungen.',
         'Bestellungen gedruckter Kalender: Name, Lieferadresse, E-Mail, bestellte Produkte und Zahlungsstatus. Kartendaten erhalten wir nicht; die Zahlung wickelt Stripe ab.',
         'Abonnements: Kaufbelege und Abo-Status aus dem App Store bzw. Google Play.',
-        'Auf deinem Gerät speichern wir Einstellungen wie Design und Sprache. Wir setzen keine Werbe- oder Tracking-Cookies ein und verkaufen keine Daten.',
+        'Auf deinem Gerät speichern wir Einstellungen wie Design und Sprache. Wir verkaufen keine Daten. Derzeit zeigt die App keine Werbung und setzt keine Werbe- oder Tracking-Technik ein. Führen wir Werbung ein, passen wir diese Erklärung vorher an und holen, wo das Gesetz es verlangt, deine Einwilligung ein.',
       ],
     },
     {

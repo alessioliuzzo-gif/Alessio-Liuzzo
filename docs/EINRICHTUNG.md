@@ -82,6 +82,16 @@ Die Widmung auf der Credits-Seite erscheint nur an einem Datum, das du in `src/c
 - **Kontakt im Feed-Abruf:** Wikimedia wünscht eine Kontaktangabe; trage deine E-Mail in `USER_AGENT` in `supabase/functions/refresh-feed/index.ts` ein.
 - **FR und IT gegenlesen lassen.** Die Rechtstexte gibt es nur auf Deutsch und Englisch.
 
+## Werbung (für später geplant, noch nicht eingebaut)
+
+Die App zeigt heute keine Werbung, und es ist kein Werbe-Baustein eingebaut. Wenn du Werbung einführst, braucht es:
+
+- einen Werbeanbieter und dessen Baustein in der App (neuer Build nötig),
+- einen Schalter in `app_config`, damit du Werbung ohne Update ein- und ausschalten kannst,
+- eine Einwilligungsabfrage (in der EU und der Schweiz für personalisierte Werbung, auf iOS zusätzlich "App-Tracking erlauben"),
+- angepasste Datenschutzerklärung und Store-Angaben,
+- eine Entscheidung, ob Abonnenten werbefrei bleiben (üblich und ein gutes Verkaufsargument für das Abo).
+
 ## Was nicht auf einem echten Handy geprüft ist
 
 Alles wurde mit automatischen Tests und im Browser geprüft, zusätzlich Konto und Löschen auf deinem iPhone. Nicht auf dem Gerät geprüft sind: Text und Sticker im Editor, Kamera, Push vom Server, Abo-Kauf, Bezahlung und der gedruckte Kalender (Format der Druckdatei muss zur Gelato-Vorgabe passen, Testbestellung nötig).
