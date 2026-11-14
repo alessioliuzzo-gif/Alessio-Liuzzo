@@ -38,6 +38,18 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "owner": "highway-production",
+    "extra": {
+      "eas": {
+        "projectId": "2bf93e3e-5f42-4334-9b76-8efafc0d8242"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2bf93e3e-5f42-4334-9b76-8efafc0d8242"
     }
   }
 }
