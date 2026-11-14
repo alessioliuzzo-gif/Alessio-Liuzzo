@@ -98,7 +98,16 @@
     "noComments": "No comments yet. Write the first one.",
     "commentPlaceholder": "Write a comment",
     "send": "Send",
-    "deleteComment": "Delete comment"
+    "deleteComment": "Delete comment",
+    "sharePost": "Share your own fact",
+    "shareHint": "Share an interesting fact, something funny or something you learned today.",
+    "postTitle": "Title",
+    "postBody": "Text (optional)",
+    "publish": "Publish",
+    "shareRules": "Your post is visible to everyone. No insults, no advertising, no texts from others without permission.",
+    "postLimit": "You can share at most 5 posts per day. Try again tomorrow.",
+    "deletePost": "Delete post",
+    "communityPost": "From the community"
   },
   "today": {
     "title": "Your daily photo",

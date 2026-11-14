@@ -5,16 +5,44 @@ import { getProfiles } from '@/features/social/api';
 import type { FeedComment, FeedItem, Profile } from '@/lib/database.types';
 import { requireSupabase } from '@/lib/supabase';
 
-export async function listFeedItems(lang: string): Promise<FeedItem[]> {
+export type DiscoverEntry = { item: FeedItem; author: Profile | null };
+
+/** Automatische Fakten und Beiträge von Nutzern in einer Sprache, neueste zuerst. */
+export async function listFeedItems(lang: string): Promise<DiscoverEntry[]> {
   const { data, error } = await requireSupabase()
     .from('feed_items')
     .select('*')
     .eq('lang', lang)
     .order('published_on', { ascending: false })
     .order('created_at', { ascending: false })
-    .limit(40);
+    .limit(60);
   if (error) throw error;
-  return data;
+  const authors = await getProfiles(
+    data.map((item) => item.user_id).filter((id): id is string => Boolean(id)),
+  );
+  return data.map((item) => ({
+    item,
+    author: item.user_id ? (authors.get(item.user_id) ?? null) : null,
+  }));
+}
+
+export const POST_TITLE_MAX = 80;
+export const POST_BODY_MAX = 500;
+
+/** Teilt einen eigenen Beitrag. Wirft 'post_limit_reached', wenn das Tageslimit erreicht ist. */
+export async function createPost(lang: string, title: string, body: string): Promise<void> {
+  const { error } = await requireSupabase()
+    .from('feed_items')
+    .insert({ kind: 'post', lang, title: title.trim(), body: body.trim() || null });
+  if (error)
+    throw new Error(
+      error.message.includes('post_limit_reached') ? 'post_limit_reached' : error.message,
+    );
+}
+
+export async function deletePost(id: string): Promise<void> {
+  const { error } = await requireSupabase().from('feed_items').delete().eq('id', id);
+  if (error) throw error;
 }
 
 export async function getFeedItem(id: string): Promise<FeedItem | null> {

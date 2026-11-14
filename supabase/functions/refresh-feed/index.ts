@@ -142,7 +142,8 @@ Deno.serve(async (req) => {
   }
 
   const cutoff = new Date(today.getTime() - KEEP_DAYS * 86400000).toISOString().slice(0, 10);
-  await admin.from('feed_items').delete().lt('published_on', cutoff);
+  // Nur automatische Einträge aufräumen, nie Beiträge von Nutzern.
+  await admin.from('feed_items').delete().neq('kind', 'post').lt('published_on', cutoff);
 
   return json(errors.length > 0 && inserted === 0 ? 502 : 200, { fetched: rows.length, inserted, errors });
 });

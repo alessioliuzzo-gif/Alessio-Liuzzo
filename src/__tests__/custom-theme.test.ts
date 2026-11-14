@@ -1,9 +1,18 @@
 import { contrastRatio } from '@/theme/contrast';
-import { ACCENTS, buildCustomTheme, DEFAULT_CUSTOM, FONTS, parseCustomSettings, SHAPES } from '@/theme/custom';
+import {
+  ACCENTS,
+  buildCustomTheme,
+  DEFAULT_CUSTOM,
+  FONTS,
+  parseCustomSettings,
+  SHAPES,
+} from '@/theme/custom';
 import { isThemeId, themes } from '@/theme/themes';
 
 describe('Eigenes Design', () => {
-  const combos = ACCENTS.flatMap((accent) => [false, true].map((dark) => ({ accent: accent.light, dark, id: accent.id })));
+  const combos = ACCENTS.flatMap((accent) =>
+    [false, true].map((dark) => ({ accent: accent.light, dark, id: accent.id })),
+  );
 
   it.each(combos)('$id (dunkel: $dark) ist lesbar', ({ accent, dark }) => {
     const { colors } = buildCustomTheme({ ...DEFAULT_CUSTOM, accent, dark });
@@ -25,13 +34,17 @@ describe('Eigenes Design', () => {
     expect(buildCustomTheme({ ...DEFAULT_CUSTOM, shape: 'sharp' }).radius.md).toBeLessThan(
       buildCustomTheme({ ...DEFAULT_CUSTOM, shape: 'round' }).radius.md,
     );
-    expect(Object.keys(buildCustomTheme(DEFAULT_CUSTOM).colors).sort()).toEqual(Object.keys(themes.warm.colors).sort());
+    expect(Object.keys(buildCustomTheme(DEFAULT_CUSTOM).colors).sort()).toEqual(
+      Object.keys(themes.warm.colors).sort(),
+    );
   });
 
   it('liest gespeicherte Einstellungen robust', () => {
     expect(parseCustomSettings(null)).toEqual(DEFAULT_CUSTOM);
     expect(parseCustomSettings('kein json')).toEqual(DEFAULT_CUSTOM);
-    expect(parseCustomSettings('{"dark":true,"accent":"#000001","shape":"oval","font":"comic"}')).toEqual({
+    expect(
+      parseCustomSettings('{"dark":true,"accent":"#000001","shape":"oval","font":"comic"}'),
+    ).toEqual({
       ...DEFAULT_CUSTOM,
       dark: true,
     });

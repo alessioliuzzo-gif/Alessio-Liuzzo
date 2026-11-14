@@ -63,8 +63,12 @@ export function parseCustomSettings(raw: string | null): CustomThemeSettings {
     return {
       dark: value.dark === true,
       accent: accent ? accent.light : DEFAULT_CUSTOM.accent,
-      shape: SHAPES.includes(value.shape as CustomShape) ? (value.shape as CustomShape) : DEFAULT_CUSTOM.shape,
-      font: FONTS.includes(value.font as CustomFont) ? (value.font as CustomFont) : DEFAULT_CUSTOM.font,
+      shape: SHAPES.includes(value.shape as CustomShape)
+        ? (value.shape as CustomShape)
+        : DEFAULT_CUSTOM.shape,
+      font: FONTS.includes(value.font as CustomFont)
+        ? (value.font as CustomFont)
+        : DEFAULT_CUSTOM.font,
     };
   } catch {
     return DEFAULT_CUSTOM;
@@ -76,7 +80,8 @@ export function buildCustomTheme(settings: CustomThemeSettings): Theme {
   const accent = ACCENTS.find((a) => a.light === settings.accent) ?? ACCENTS[0];
   const primary = settings.dark ? accent.dark : accent.light;
   // Text auf der Akzentfarbe: Weiss oder Schwarz, je nachdem was besser lesbar ist.
-  const onPrimary = contrastRatio('#FFFFFF', primary) >= contrastRatio('#111111', primary) ? '#FFFFFF' : '#111111';
+  const onPrimary =
+    contrastRatio('#FFFFFF', primary) >= contrastRatio('#111111', primary) ? '#FFFFFF' : '#111111';
   return {
     id: 'custom',
     isDark: settings.dark,

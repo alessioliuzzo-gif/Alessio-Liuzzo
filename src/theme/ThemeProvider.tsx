@@ -7,7 +7,12 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { type CalendarDesign, isCalendarDesign } from '@/features/rewards/rewards';
 import { readSetting, StorageKeys, writeSetting } from '@/lib/storage';
 
-import { buildCustomTheme, type CustomThemeSettings, DEFAULT_CUSTOM, parseCustomSettings } from './custom';
+import {
+  buildCustomTheme,
+  type CustomThemeSettings,
+  DEFAULT_CUSTOM,
+  parseCustomSettings,
+} from './custom';
 import { DEFAULT_THEME_ID, isThemeId, type Theme, type ThemeId, themes } from './themes';
 
 type ThemeContextValue = {
@@ -38,11 +43,11 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
       readSetting(StorageKeys.calendarDesign),
       readSetting(StorageKeys.customTheme),
     ]).then(([storedTheme, storedDesign, storedCustom]) => {
-        if (cancelled) return;
-        if (isThemeId(storedTheme)) setThemeIdState(storedTheme);
-        if (isCalendarDesign(storedDesign)) setDesignState(storedDesign);
-        setCustomState(parseCustomSettings(storedCustom));
-        setReady(true);
+      if (cancelled) return;
+      if (isThemeId(storedTheme)) setThemeIdState(storedTheme);
+      if (isCalendarDesign(storedDesign)) setDesignState(storedDesign);
+      setCustomState(parseCustomSettings(storedCustom));
+      setReady(true);
     });
     return () => {
       cancelled = true;

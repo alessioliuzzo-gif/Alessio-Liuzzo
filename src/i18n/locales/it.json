@@ -98,7 +98,16 @@
     "noComments": "Ancora nessun commento. Scrivi il primo.",
     "commentPlaceholder": "Scrivi un commento",
     "send": "Invia",
-    "deleteComment": "Elimina commento"
+    "deleteComment": "Elimina commento",
+    "sharePost": "Condividi un tuo fatto",
+    "shareHint": "Condividi un fatto curioso, qualcosa di divertente o ciò che hai imparato oggi.",
+    "postTitle": "Titolo",
+    "postBody": "Testo (facoltativo)",
+    "publish": "Pubblica",
+    "shareRules": "Il tuo post è visibile a tutti. Niente insulti, niente pubblicità, niente testi altrui senza permesso.",
+    "postLimit": "Puoi condividere al massimo 5 post al giorno. Riprova domani.",
+    "deletePost": "Elimina post",
+    "communityPost": "Dalla community"
   },
   "today": {
     "title": "La tua foto del giorno",

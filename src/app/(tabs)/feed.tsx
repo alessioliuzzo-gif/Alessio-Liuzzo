@@ -23,7 +23,12 @@ import { PlaceholderScreen } from '@/components/placeholder-screen';
 import { ContentMenu, UserRow } from '@/components/social';
 import { AppText, Card, Screen } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthProvider';
-import { countComments, listFeedItems } from '@/features/discover/api';
+import {
+  countComments,
+  deletePost,
+  type DiscoverEntry,
+  listFeedItems,
+} from '@/features/discover/api';
 import { PHOTO_ASPECT } from '@/features/editor/layout';
 import {
   countPhotoComments,
@@ -33,7 +38,6 @@ import {
   listPublicFeed,
 } from '@/features/social/api';
 import { friendIds } from '@/features/social/logic';
-import type { FeedItem } from '@/lib/database.types';
 import { useTheme } from '@/theme/ThemeProvider';
 import { spacing } from '@/theme/themes';
 
@@ -45,7 +49,7 @@ type Loaded =
       counts: Map<string, number>;
       friends: Set<string>;
     }
-  | { section: 'discover'; items: FeedItem[]; counts: Map<string, number> };
+  | { section: 'discover'; items: DiscoverEntry[]; counts: Map<string, number> };
 
 export default function FeedScreen() {
   const { t } = useTranslation();
@@ -78,7 +82,11 @@ function Feed({ me }: { me: string }) {
     try {
       if (section === 'discover') {
         const items = await listFeedItems(lang);
-        setData({ section, items, counts: await countComments(items.map((item) => item.id)) });
+        setData({
+          section,
+          items,
+          counts: await countComments(items.map((entry) => entry.item.id)),
+        });
       } else {
         const friends = friendIds(await listFriendships(), me);
         const photos =
@@ -160,59 +168,119 @@ function Feed({ me }: { me: string }) {
   );
 
   if (section === 'discover') {
-    const items = current?.section === 'discover' ? current.items : [];
+    const entries = current?.section === 'discover' ? current.items : [];
     return (
       <Screen>
         <FlatList
-          data={items}
-          keyExtractor={(item) => item.id}
-          ListHeaderComponent={header}
+          data={entries}
+          keyExtractor={(entry) => entry.item.id}
+          ListHeaderComponent={
+            <>
+              {header}
+              <PressableScale
+                accessibilityLabel={t('feed.sharePost')}
+                onPress={() => router.push('/post/new')}
+                style={[
+                  styles.shareCta,
+                  { backgroundColor: theme.colors.primary, borderRadius: theme.radius.lg },
+                ]}>
+                <Ionicons name="sparkles" size={20} color={theme.colors.onPrimary} />
+                <AppText style={{ color: theme.colors.onPrimary, fontWeight: '700' }}>
+                  {t('feed.sharePost')}
+                </AppText>
+              </PressableScale>
+            </>
+          }
           ListEmptyComponent={empty}
           refreshControl={refreshControl}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.list}
-          renderItem={({ item, index }) => (
-            <FadeIn delay={Math.min(index, 6) * 60}>
-              <Card>
-                {item.image_url && (
-                  <Image
-                    source={{ uri: item.image_url }}
-                    contentFit="cover"
-                    transition={150}
-                    style={[
-                      styles.factImage,
-                      { borderRadius: theme.radius.md, backgroundColor: theme.colors.surfaceAlt },
-                    ]}
-                  />
-                )}
-                <AppText variant="caption" muted>
-                  {t(item.kind === 'fact' ? 'feed.onThisDay' : 'feed.news')} ·{' '}
-                  {dateLabel(item.published_on)}
-                </AppText>
-                <AppText variant="heading">{item.title}</AppText>
-                {item.body && <AppText>{item.body}</AppText>}
-                <View style={styles.cardFooter}>
-                  <Pressable
-                    accessibilityRole="link"
-                    hitSlop={8}
-                    onPress={() => void Linking.openURL(item.source_url)}>
-                    <AppText variant="caption" style={{ color: theme.colors.primary }}>
-                      {t('feed.source', { name: item.source_name })}
+          renderItem={({ item: { item, author }, index }) => {
+            const isPost = item.kind === 'post';
+            const mine = isPost && item.user_id === me;
+            return (
+              <FadeIn delay={Math.min(index, 6) * 60}>
+                <Card>
+                  {isPost && (
+                    <UserRow
+                      profile={author}
+                      subtitle={dateLabel(item.published_on)}
+                      right={
+                        mine ? (
+                          <Pressable
+                            accessibilityRole="button"
+                            accessibilityLabel={t('feed.deletePost')}
+                            hitSlop={10}
+                            onPress={() =>
+                              void deletePost(item.id)
+                                .then(load)
+                                .catch(() => setFailed(true))
+                            }>
+                            <Ionicons
+                              name="trash-outline"
+                              size={18}
+                              color={theme.colors.textMuted}
+                            />
+                          </Pressable>
+                        ) : item.user_id ? (
+                          <ContentMenu
+                            targetType="post"
+                            targetId={item.id}
+                            userId={item.user_id}
+                            onBlocked={load}
+                          />
+                        ) : undefined
+                      }
+                    />
+                  )}
+                  {item.image_url && (
+                    <Image
+                      source={{ uri: item.image_url }}
+                      contentFit="cover"
+                      transition={150}
+                      style={[
+                        styles.factImage,
+                        { borderRadius: theme.radius.md, backgroundColor: theme.colors.surfaceAlt },
+                      ]}
+                    />
+                  )}
+                  {!isPost && (
+                    <AppText variant="caption" muted>
+                      {t(item.kind === 'fact' ? 'feed.onThisDay' : 'feed.news')} ·{' '}
+                      {dateLabel(item.published_on)}
                     </AppText>
-                  </Pressable>
-                  <CommentButton
-                    count={current?.counts.get(item.id) ?? 0}
-                    onPress={() =>
-                      router.push({
-                        pathname: '/comments/[type]/[id]',
-                        params: { type: 'fact', id: item.id },
-                      })
-                    }
-                  />
-                </View>
-              </Card>
-            </FadeIn>
-          )}
+                  )}
+                  <AppText variant="heading">{item.title}</AppText>
+                  {item.body && <AppText>{item.body}</AppText>}
+                  <View style={styles.cardFooter}>
+                    {item.source_url ? (
+                      <Pressable
+                        accessibilityRole="link"
+                        hitSlop={8}
+                        onPress={() => void Linking.openURL(item.source_url ?? '')}>
+                        <AppText variant="caption" style={{ color: theme.colors.primary }}>
+                          {t('feed.source', { name: item.source_name ?? '' })}
+                        </AppText>
+                      </Pressable>
+                    ) : (
+                      <AppText variant="caption" muted>
+                        {t('feed.communityPost')}
+                      </AppText>
+                    )}
+                    <CommentButton
+                      count={current?.counts.get(item.id) ?? 0}
+                      onPress={() =>
+                        router.push({
+                          pathname: '/comments/[type]/[id]',
+                          params: { type: 'fact', id: item.id },
+                        })
+                      }
+                    />
+                  </View>
+                </Card>
+              </FadeIn>
+            );
+          }}
         />
       </Screen>
     );
@@ -329,4 +397,12 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   action: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
+  shareCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    minHeight: 52,
+    marginTop: spacing.md,
+  },
 });

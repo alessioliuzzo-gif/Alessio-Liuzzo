@@ -98,7 +98,16 @@
     "noComments": "Noch keine Kommentare. Schreib den ersten.",
     "commentPlaceholder": "Kommentar schreiben",
     "send": "Senden",
-    "deleteComment": "Kommentar löschen"
+    "deleteComment": "Kommentar löschen",
+    "sharePost": "Eigenen Fakt teilen",
+    "shareHint": "Teile einen spannenden Fakt, ein lustiges Fundstück oder etwas, das du heute gelernt hast.",
+    "postTitle": "Titel",
+    "postBody": "Text (optional)",
+    "publish": "Veröffentlichen",
+    "shareRules": "Dein Beitrag ist für alle sichtbar. Keine Beleidigungen, keine Werbung, keine fremden Texte ohne Erlaubnis.",
+    "postLimit": "Du kannst höchstens 5 Beiträge pro Tag teilen. Morgen geht es weiter.",
+    "deletePost": "Beitrag löschen",
+    "communityPost": "Von der Community"
   },
   "today": {
     "title": "Dein Tagesfoto",

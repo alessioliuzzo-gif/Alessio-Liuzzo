@@ -131,11 +131,28 @@ begin
   select id into item from public.feed_items where external_id = 'test-1';
   insert into public.feed_comments (item_id, body) values (item, 'Spannend');
   begin
-    insert into public.feed_items (kind, lang, title, source_name, source_url, external_id)
-    values ('news', 'de', 'Fake', 'x', 'https://x.invalid', 'x');
-    raise exception 'TEST FEHLGESCHLAGEN: Nutzer können Feed-Einträge anlegen';
+    insert into public.feed_items (kind, lang, title) values ('news', 'de', 'Fake');
+    raise exception 'TEST FEHLGESCHLAGEN: Nutzer können automatische Einträge anlegen';
   exception when insufficient_privilege then null;
   end;
+  -- Eigene Beiträge sind erlaubt, aber höchstens 5 pro Tag.
+  begin
+    insert into public.feed_items (kind, lang, title) values ('post', 'de', repeat('x', 81));
+    raise exception 'TEST FEHLGESCHLAGEN: zu langer Titel möglich';
+  exception when check_violation then null;
+  end;
+  insert into public.feed_items (kind, lang, title, body) values ('post', 'de', 'Wusstest du?', 'Bens Fakt');
+  assert (select user_id from public.feed_items where body = 'Bens Fakt') = i.ben, 'Verfasser wird gesetzt';
+  insert into public.feed_items (kind, lang, title)
+  select 'post', 'de', 'Fakt ' || g from generate_series(2, 5) as g;
+  begin
+    insert into public.feed_items (kind, lang, title) values ('post', 'de', 'Fakt 6');
+    raise exception 'TEST FEHLGESCHLAGEN: mehr als 5 Beiträge pro Tag möglich';
+  exception when raise_exception then
+    if sqlerrm <> 'post_limit_reached' then raise; end if;
+  end;
+  insert into public.reports (target_type, target_id, reason)
+  select 'post', id, 'spam' from public.feed_items where body = 'Bens Fakt';
 
   insert into public.reports (target_type, target_id, reason) values ('photo', photo, 'spam');
   begin
@@ -162,7 +179,11 @@ begin
     raise exception 'TEST FEHLGESCHLAGEN: Kommentar zu unsichtbarem Foto möglich';
   exception when insufficient_privilege then null;
   end;
-  assert (select count(*) from public.feed_comments) = 1, 'Kommentare sind für alle Angemeldeten sichtbar';
+  assert (select count(*) from public.feed_comments where body = 'Spannend') = 1,
+    'Kommentare sind für alle Angemeldeten sichtbar';
+  assert (select count(*) from public.feed_items where user_id = '00000000-0000-4000-8000-0000000000b2') = 5, 'Beiträge sind für alle sichtbar';
+  delete from public.feed_items where user_id = '00000000-0000-4000-8000-0000000000b2';
+  assert (select count(*) from public.feed_items where user_id = '00000000-0000-4000-8000-0000000000b2') = 5, 'fremde Beiträge sind nicht löschbar';
   assert not exists (select 1 from public.daily_photos
     where user_id = '00000000-0000-4000-8000-0000000000a1'), 'Dritte sehen das Freunde-Foto nicht';
 end $$;
@@ -192,6 +213,8 @@ begin
     'Kommentare Blockierter sind ausgeblendet';
   assert not exists (select 1 from public.photo_comments where user_id = i.ben),
     'Foto-Kommentare Blockierter sind ausgeblendet';
+  assert not exists (select 1 from public.feed_items where user_id = i.ben),
+    'Beiträge Blockierter sind ausgeblendet';
 end $$;
 reset role;
 

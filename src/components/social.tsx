@@ -54,12 +54,8 @@ export function UserRow({
   onPress?: () => void;
 }) {
   const { t } = useTranslation();
-  return (
-    <Pressable
-      accessibilityRole={onPress ? 'button' : undefined}
-      disabled={!onPress}
-      onPress={onPress}
-      style={styles.userRow}>
+  const content = (
+    <>
       <Avatar profile={profile} />
       <View style={styles.flex}>
         <AppText numberOfLines={1} style={styles.name}>
@@ -69,8 +65,21 @@ export function UserRow({
           {subtitle ?? (profile ? `@${profile.username}` : '')}
         </AppText>
       </View>
+    </>
+  );
+  // Die Schaltflächen rechts liegen bewusst ausserhalb der antippbaren Zeile,
+  // damit sie eigenständig bedienbar bleiben.
+  return (
+    <View style={styles.userRow}>
+      {onPress ? (
+        <Pressable accessibilityRole="button" onPress={onPress} style={styles.userMain}>
+          {content}
+        </Pressable>
+      ) : (
+        <View style={styles.userMain}>{content}</View>
+      )}
       {right}
-    </Pressable>
+    </View>
   );
 }
 
@@ -220,6 +229,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm + spacing.xs,
     minHeight: 48,
   },
+  userMain: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: spacing.sm + spacing.xs },
   flex: { flex: 1 },
   name: { fontWeight: '600' },
   backdrop: {

@@ -7,7 +7,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 
 export type PhotoVisibility = 'friends' | 'public';
 
-export type ReportTarget = 'photo' | 'profile' | 'message' | 'comment';
+export type ReportTarget = 'photo' | 'profile' | 'message' | 'comment' | 'post';
 export type ReportReason = 'spam' | 'harassment' | 'nudity' | 'violence' | 'hate' | 'other';
 
 export type Database = {
@@ -93,18 +93,20 @@ export type Database = {
       feed_items: {
         Row: {
           id: string;
-          kind: 'fact' | 'news';
+          kind: 'fact' | 'news' | 'post';
+          /** Verfasser bei eigenen Beiträgen, sonst null */
+          user_id: string | null;
           lang: string;
           title: string;
           body: string | null;
-          source_name: string;
-          source_url: string;
+          source_name: string | null;
+          source_url: string | null;
           image_url: string | null;
           published_on: string;
           external_id: string;
           created_at: string;
         };
-        Insert: never;
+        Insert: { kind: 'post'; lang: string; title: string; body?: string | null };
         Update: never;
         Relationships: [];
       };

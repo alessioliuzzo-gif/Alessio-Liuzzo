@@ -12,9 +12,9 @@ Gebaut mit Expo (React Native), TypeScript und Expo Router. "DayShot" ist ein Ar
 | 2 | Tagesfoto und Editor | fertig (Text und Sticker auf dem Handy noch zu prüfen) |
 | 3 | Kalender mit Fotos, Jahres-Collage, Streak | fertig |
 | 4 | Belohnungen | fertig |
-| 5 | Freunde und Feeds | offen |
-| 6 | Chat | offen |
-| 7 | Moderation | offen |
+| 5 | Freunde und Feeds (inkl. Entdecken mit Fakten und eigenen Beiträgen) | fertig |
+| 6 | Chat | fertig |
+| 7 | Moderation | fertig |
 | 8 | Push-Benachrichtigungen | offen |
 | 9 | Abo (RevenueCat, hinter Feature Flag) | offen |
 | 10 | Kalenderdruck (Stripe, Gelato) | offen |
