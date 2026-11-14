@@ -1,0 +1,41 @@
+{
+  "tabs": {
+    "calendar": "Calendrier",
+    "feed": "Fil",
+    "today": "Aujourd'hui",
+    "chat": "Chat",
+    "profile": "Profil"
+  },
+  "calendar": {
+    "streak_one": "{{count}} jour de suite",
+    "streak_other": "{{count}} jours de suite",
+    "emptyHint": "Pas encore de photos. Ta première photo du jour apparaîtra ici.",
+    "previousMonth": "Mois précédent",
+    "nextMonth": "Mois suivant",
+    "backToToday": "Revenir à aujourd'hui"
+  },
+  "feed": {
+    "title": "Fil",
+    "placeholder": "Les photos du jour de tes amis apparaîtront bientôt ici."
+  },
+  "today": {
+    "title": "Ta photo du jour",
+    "placeholder": "Bientôt, tu pourras prendre et décorer ta photo du jour ici."
+  },
+  "chat": {
+    "title": "Chat",
+    "placeholder": "Bientôt, tu pourras discuter avec tes amis ici."
+  },
+  "profile": {
+    "title": "Profil",
+    "theme": "Thème",
+    "language": "Langue",
+    "version": "Version {{version}}"
+  },
+  "themes": {
+    "warm": "Chaleureux & rétro",
+    "bold": "Sombre & intense",
+    "minimal": "Clair & minimaliste",
+    "pastel": "Pastel & ludique"
+  }
+}

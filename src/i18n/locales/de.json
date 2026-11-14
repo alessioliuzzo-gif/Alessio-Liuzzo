@@ -1,0 +1,41 @@
+{
+  "tabs": {
+    "calendar": "Kalender",
+    "feed": "Feed",
+    "today": "Heute",
+    "chat": "Chat",
+    "profile": "Profil"
+  },
+  "calendar": {
+    "streak_one": "{{count}} Tag in Folge",
+    "streak_other": "{{count}} Tage in Folge",
+    "emptyHint": "Noch keine Fotos. Dein erstes Tagesfoto erscheint hier.",
+    "previousMonth": "Vorheriger Monat",
+    "nextMonth": "Nächster Monat",
+    "backToToday": "Zurück zu heute"
+  },
+  "feed": {
+    "title": "Feed",
+    "placeholder": "Hier siehst du bald die Tagesfotos deiner Freunde."
+  },
+  "today": {
+    "title": "Dein Tagesfoto",
+    "placeholder": "Hier nimmst du bald dein Foto des Tages auf und gestaltest es."
+  },
+  "chat": {
+    "title": "Chat",
+    "placeholder": "Hier chattest du bald mit deinen Freunden."
+  },
+  "profile": {
+    "title": "Profil",
+    "theme": "Design",
+    "language": "Sprache",
+    "version": "Version {{version}}"
+  },
+  "themes": {
+    "warm": "Warm & analog",
+    "bold": "Dunkel & kräftig",
+    "minimal": "Hell & minimalistisch",
+    "pastel": "Pastell & verspielt"
+  }
+}

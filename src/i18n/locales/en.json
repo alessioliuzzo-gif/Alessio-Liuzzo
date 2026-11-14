@@ -1,0 +1,41 @@
+{
+  "tabs": {
+    "calendar": "Calendar",
+    "feed": "Feed",
+    "today": "Today",
+    "chat": "Chat",
+    "profile": "Profile"
+  },
+  "calendar": {
+    "streak_one": "{{count}} day in a row",
+    "streak_other": "{{count}} days in a row",
+    "emptyHint": "No photos yet. Your first daily photo will appear here.",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "backToToday": "Back to today"
+  },
+  "feed": {
+    "title": "Feed",
+    "placeholder": "Your friends' daily photos will appear here soon."
+  },
+  "today": {
+    "title": "Your daily photo",
+    "placeholder": "Soon you can take and style your photo of the day here."
+  },
+  "chat": {
+    "title": "Chat",
+    "placeholder": "Soon you can chat with your friends here."
+  },
+  "profile": {
+    "title": "Profile",
+    "theme": "Theme",
+    "language": "Language",
+    "version": "Version {{version}}"
+  },
+  "themes": {
+    "warm": "Warm & analog",
+    "bold": "Dark & bold",
+    "minimal": "Light & minimal",
+    "pastel": "Pastel & playful"
+  }
+}
