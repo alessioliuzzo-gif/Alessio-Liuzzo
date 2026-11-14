@@ -8,16 +8,17 @@
     "scheme": "dayshot",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "bundleIdentifier": "ch.dayshot.app",
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#FAF4EA",
+        "backgroundColor": "#2B2622",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "ch.dayshot.app"
     },
     "web": {
       "output": "single",
@@ -30,7 +31,11 @@
         {
           "backgroundColor": "#FAF4EA",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 180,
+          "dark": {
+            "backgroundColor": "#2B2622",
+            "image": "./assets/images/splash-icon.png"
+          }
         }
       ],
       "expo-localization",

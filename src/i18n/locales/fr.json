@@ -129,10 +129,10 @@
     "visPublic": "Public",
     "visFriendsHint": "Seuls tes amis voient cette photo.",
     "visPublicHint": "Tous les utilisateurs peuvent voir cette photo dans le fil public.",
-    "cameraShort": "Go !",
     "keepStreak_one": "{{count}} jour de suite. Garde ta série en vie !",
     "keepStreak_other": "{{count}} jours de suite. Garde ta série en vie !",
-    "startStreak": "Commence ta série aujourd'hui !"
+    "startStreak": "Commence ta série aujourd'hui !",
+    "cameraCta": "Prendre la photo du jour"
   },
   "editor": {
     "title": "Décore ta photo",

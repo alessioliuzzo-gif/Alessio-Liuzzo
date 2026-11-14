@@ -129,10 +129,10 @@
     "visPublic": "Public",
     "visFriendsHint": "Only your friends see this photo.",
     "visPublicHint": "All users can see this photo in the public feed.",
-    "cameraShort": "Go!",
     "keepStreak_one": "{{count}} day in a row. Keep your streak alive!",
     "keepStreak_other": "{{count}} days in a row. Keep your streak alive!",
-    "startStreak": "Start your streak today!"
+    "startStreak": "Start your streak today!",
+    "cameraCta": "Shoot your daily photo"
   },
   "editor": {
     "title": "Style your photo",

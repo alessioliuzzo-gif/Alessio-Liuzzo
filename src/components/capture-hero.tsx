@@ -1,18 +1,21 @@
 /**
- * Der grosse, einladende Aufnahme-Knopf im "Heute"-Tab: ein pulsierender
- * Kreis mit Leuchtring, der beim Antippen federt. Darunter Serie und Anreiz.
+ * Der grosse Aufnahme-Knopf im "Heute"-Tab mit dem DayShot-Zeichen:
+ * Die Blendenlamellen drehen sich langsam, ein Leuchtring pulsiert. Beim
+ * Antippen schnappt die Blende wie ein Verschluss und es blitzt kurz auf.
  */
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Easing, Pressable, StyleSheet, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
+import { bladesSvg, frameSvg } from '@/features/brand/logo';
 import { useTheme } from '@/theme/ThemeProvider';
 import { spacing } from '@/theme/themes';
 
 import { AppText } from './ui';
 
-const SIZE = 168;
+const SIZE = 200;
 
 export function CaptureHero({
   streak,
@@ -25,34 +28,73 @@ export function CaptureHero({
 }) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const [pulse] = useState(() => new Animated.Value(0));
-  const [press] = useState(() => new Animated.Value(1));
   const [spin] = useState(() => new Animated.Value(0));
+  const [snap] = useState(() => new Animated.Value(0));
+  const [pulse] = useState(() => new Animated.Value(0));
+  const [flash] = useState(() => new Animated.Value(0));
+  const [press] = useState(() => new Animated.Value(1));
+
+  const colors = useMemo(
+    () => ({
+      base: theme.colors.primary,
+      blade: theme.colors.onPrimary,
+      sun: theme.colors.accent,
+      rings: theme.colors.text,
+    }),
+    [theme],
+  );
+  const blades = useMemo(() => bladesSvg(colors), [colors]);
+  const frame = useMemo(() => frameSvg(colors), [colors]);
 
   useEffect(() => {
-    const ring = Animated.loop(
-      Animated.timing(pulse, {
-        toValue: 1,
-        duration: 1800,
-        easing: Easing.out(Easing.quad),
-        useNativeDriver: true,
-      }),
-    );
     const rotate = Animated.loop(
       Animated.timing(spin, {
         toValue: 1,
-        duration: 9000,
+        duration: 14000,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
     );
-    ring.start();
+    const ring = Animated.loop(
+      Animated.timing(pulse, {
+        toValue: 1,
+        duration: 2000,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+    );
     rotate.start();
+    ring.start();
     return () => {
-      ring.stop();
       rotate.stop();
+      ring.stop();
     };
-  }, [pulse, spin]);
+  }, [spin, pulse]);
+
+  function shoot() {
+    snap.setValue(0);
+    flash.setValue(0);
+    Animated.parallel([
+      Animated.sequence([
+        Animated.timing(snap, {
+          toValue: 1,
+          duration: 140,
+          easing: Easing.in(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(snap, {
+          toValue: 0,
+          duration: 260,
+          easing: Easing.out(Easing.back(2)),
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.sequence([
+        Animated.timing(flash, { toValue: 1, duration: 90, useNativeDriver: true }),
+        Animated.timing(flash, { toValue: 0, duration: 380, useNativeDriver: true }),
+      ]),
+    ]).start(() => onCamera());
+  }
 
   const springTo = (value: number) =>
     Animated.spring(press, {
@@ -62,10 +104,14 @@ export function CaptureHero({
       bounciness: 12,
     }).start();
 
-  // Der Leuchtring wächst und verblasst immer wieder.
-  const ringScale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.45] });
-  const ringOpacity = pulse.interpolate({ inputRange: [0, 0.7, 1], outputRange: [0.45, 0.08, 0] });
-  const rotation = spin.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+  const rotation = Animated.add(spin, Animated.multiply(snap, 0.18)).interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
+  // Beim Auslösen zieht sich die Blende kurz zusammen.
+  const bladeScale = snap.interpolate({ inputRange: [0, 1], outputRange: [1, 0.86] });
+  const ringScale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.38] });
+  const ringOpacity = pulse.interpolate({ inputRange: [0, 0.7, 1], outputRange: [0.4, 0.07, 0] });
 
   return (
     <View style={styles.wrap}>
@@ -81,37 +127,43 @@ export function CaptureHero({
             },
           ]}
         />
-        {/* Gestrichelter Kreis, der sich langsam dreht wie ein Objektiv. */}
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.dashed,
-            { borderColor: theme.colors.accent, transform: [{ rotate: rotation }] },
-          ]}
-        />
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t('today.camera')}
           disabled={disabled}
-          onPress={onCamera}
-          onPressIn={() => springTo(0.9)}
+          onPress={shoot}
+          onPressIn={() => springTo(0.92)}
           onPressOut={() => springTo(1)}>
           <Animated.View
             style={[
-              styles.button,
+              styles.logo,
               {
-                backgroundColor: theme.colors.primary,
                 shadowColor: theme.colors.primary,
-                transform: [{ scale: press }],
                 opacity: disabled ? 0.6 : 1,
+                transform: [{ scale: press }],
               },
             ]}>
-            <Ionicons name="camera" size={58} color={theme.colors.onPrimary} />
-            <AppText style={[styles.label, { color: theme.colors.onPrimary }]}>
-              {t('today.cameraShort')}
-            </AppText>
+            <View style={[styles.disc, { backgroundColor: theme.colors.primary }]} />
+            <Animated.View
+              style={[styles.layer, { transform: [{ rotate: rotation }, { scale: bladeScale }] }]}>
+              <SvgXml xml={blades} width={SIZE} height={SIZE} />
+            </Animated.View>
+            <View style={styles.layer} pointerEvents="none">
+              <SvgXml xml={frame} width={SIZE} height={SIZE} />
+            </View>
+            <Animated.View pointerEvents="none" style={[styles.flash, { opacity: flash }]} />
           </Animated.View>
         </Pressable>
+      </View>
+
+      <View
+        style={[
+          styles.cta,
+          { backgroundColor: theme.colors.primary, borderRadius: theme.radius.pill },
+        ]}>
+        <AppText style={[styles.ctaText, { color: theme.colors.onPrimary }]}>
+          {t('today.cameraCta')}
+        </AppText>
       </View>
 
       <View
@@ -129,30 +181,38 @@ export function CaptureHero({
 }
 
 const styles = StyleSheet.create({
-  wrap: { alignItems: 'center', gap: spacing.lg, paddingVertical: spacing.lg },
-  stage: { width: SIZE * 1.5, height: SIZE * 1.5, alignItems: 'center', justifyContent: 'center' },
-  ring: { position: 'absolute', width: SIZE, height: SIZE, borderRadius: SIZE / 2 },
-  dashed: {
-    position: 'absolute',
-    width: SIZE + 26,
-    height: SIZE + 26,
-    borderRadius: (SIZE + 26) / 2,
-    borderWidth: 3,
-    borderStyle: 'dashed',
-  },
-  button: {
+  wrap: { alignItems: 'center', gap: spacing.md, paddingVertical: spacing.md },
+  stage: { width: SIZE * 1.3, height: SIZE * 1.3, alignItems: 'center', justifyContent: 'center' },
+  ring: { position: 'absolute', width: SIZE * 0.86, height: SIZE * 0.86, borderRadius: SIZE },
+  logo: {
     width: SIZE,
     height: SIZE,
-    borderRadius: SIZE / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 2,
-    shadowOpacity: 0.45,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 10,
+    shadowOpacity: 0.5,
+    shadowRadius: 22,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 12,
   },
-  label: { fontWeight: '800', fontSize: 15, letterSpacing: 0.5, textTransform: 'uppercase' },
+  // Gefüllter Kreis hinter den Lamellen, passend zum Innenrand des Rings.
+  disc: {
+    position: 'absolute',
+    left: SIZE * 0.155,
+    top: SIZE * 0.155,
+    width: SIZE * 0.69,
+    height: SIZE * 0.69,
+    borderRadius: SIZE,
+  },
+  layer: { position: 'absolute', left: 0, top: 0, width: SIZE, height: SIZE },
+  flash: {
+    position: 'absolute',
+    left: SIZE * 0.1,
+    top: SIZE * 0.1,
+    width: SIZE * 0.8,
+    height: SIZE * 0.8,
+    borderRadius: SIZE,
+    backgroundColor: '#FFFFFF',
+  },
+  cta: { paddingHorizontal: spacing.lg, paddingVertical: spacing.sm + 2 },
+  ctaText: { fontWeight: '800', fontSize: 16, letterSpacing: 0.6, textTransform: 'uppercase' },
   streakPill: {
     flexDirection: 'row',
     alignItems: 'center',

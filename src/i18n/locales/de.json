@@ -129,10 +129,10 @@
     "visPublic": "Öffentlich",
     "visFriendsHint": "Nur deine Freunde sehen dieses Foto.",
     "visPublicHint": "Alle Nutzer können dieses Foto im öffentlichen Feed sehen.",
-    "cameraShort": "Los!",
     "keepStreak_one": "{{count}} Tag in Folge. Halte deine Serie am Leben!",
     "keepStreak_other": "{{count}} Tage in Folge. Halte deine Serie am Leben!",
-    "startStreak": "Starte heute deine Serie!"
+    "startStreak": "Starte heute deine Serie!",
+    "cameraCta": "Tagesfoto schiessen"
   },
   "editor": {
     "title": "Foto gestalten",
