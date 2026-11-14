@@ -28,26 +28,30 @@ export function ExtrasCard() {
     onPress: () => void,
     strong: boolean,
   ) => (
-    <PressableScale
-      accessibilityLabel={label}
-      onPress={onPress}
-      style={[
-        styles.tile,
-        {
-          borderRadius: theme.radius.lg,
-          backgroundColor: strong ? theme.colors.primary : theme.colors.surfaceAlt,
-        },
-      ]}>
-      <Ionicons
-        name={icon}
-        size={26}
-        color={strong ? theme.colors.onPrimary : theme.colors.primary}
-      />
-      <AppText
-        style={{ color: strong ? theme.colors.onPrimary : theme.colors.text, fontWeight: '700' }}>
-        {label}
-      </AppText>
-    </PressableScale>
+    // Die Breite gehört auf diese äussere Hülle: Sie ist das Element im Raster.
+    <View style={styles.cell}>
+      <PressableScale
+        accessibilityLabel={label}
+        onPress={onPress}
+        style={[
+          styles.tile,
+          {
+            borderRadius: theme.radius.lg,
+            backgroundColor: strong ? theme.colors.primary : theme.colors.surfaceAlt,
+          },
+        ]}>
+        <Ionicons
+          name={icon}
+          size={28}
+          color={strong ? theme.colors.onPrimary : theme.colors.primary}
+        />
+        <AppText
+          numberOfLines={2}
+          style={{ color: strong ? theme.colors.onPrimary : theme.colors.text, fontWeight: '700' }}>
+          {label}
+        </AppText>
+      </PressableScale>
+    </View>
   );
 
   return (
@@ -68,12 +72,6 @@ export function ExtrasCard() {
 
 const styles = StyleSheet.create({
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
-  tile: {
-    width: '48%',
-    flexGrow: 1,
-    minHeight: 92,
-    padding: spacing.md,
-    gap: spacing.sm,
-    justifyContent: 'center',
-  },
+  cell: { width: '48%', flexGrow: 1 },
+  tile: { minHeight: 96, padding: spacing.md, gap: spacing.sm, justifyContent: 'center' },
 });
