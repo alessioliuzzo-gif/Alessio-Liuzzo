@@ -37,7 +37,3 @@ $$;
 grant usage on schema public, auth, storage to anon, authenticated, service_role;
 grant execute on function auth.uid() to anon, authenticated, service_role;
 grant all on storage.objects, storage.buckets to anon, authenticated, service_role;
--- Supabase gibt neuen Tabellen in "public" standardmässig alle Rechte für diese
--- Rollen. Genau deshalb ist RLS so wichtig, und deshalb bilden wir es hier nach.
-alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
-alter default privileges in schema public grant execute on functions to anon, authenticated, service_role;

@@ -24,8 +24,11 @@ create policy "app_config: öffentliche Werte lesen"
   to anon, authenticated
   using (is_public);
 
--- Schreiben darf niemand über die App. Du änderst Werte im Supabase-Dashboard.
-revoke insert, update, delete, truncate on public.app_config from anon, authenticated;
+-- Rechte ausdrücklich setzen, unabhängig davon, ob das Projekt neue Tabellen
+-- automatisch freigibt: Lesen ja, Schreiben nie. Du änderst Werte im
+-- Supabase-Dashboard.
+revoke all on public.app_config from anon, authenticated;
+grant select on public.app_config to anon, authenticated;
 
 insert into public.app_config (key, value, is_public, description) values
   ('subscriptions_enabled', 'false', true, 'Feature Flag: Abo und Paywall sichtbar (true/false)'),

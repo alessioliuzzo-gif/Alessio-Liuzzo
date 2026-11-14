@@ -19,14 +19,22 @@ trap cleanup EXIT
 run "$BIN/initdb -D $DATA -U postgres -A trust" >/dev/null
 run "$BIN/pg_ctl -D $DATA -o '-p $PORT -c listen_addresses=localhost -k $DATA' -w start" >/dev/null
 
-PSQL=(psql -h localhost -p "$PORT" -U postgres -d postgres -v ON_ERROR_STOP=1 -q)
+PSQL=(psql -h localhost -p "$PORT" -U postgres -v ON_ERROR_STOP=1 -q)
 
-"${PSQL[@]}" -f "$ROOT/tests/local_stub.sql"
-for migration in "$ROOT"/migrations/*.sql; do
-  echo "Migration: $(basename "$migration")"
-  "${PSQL[@]}" -f "$migration"
-done
-for test in "$ROOT"/tests/*.test.sql; do
-  echo "Test: $(basename "$test")"
-  "${PSQL[@]}" -t -f "$test"
+# Zwei Durchläufe: einmal mit, einmal ohne automatische Freigabe neuer Tabellen.
+for mode in strict expose; do
+  echo "== Variante: $mode =="
+  "${PSQL[@]}" -d postgres -c "create database test_$mode"
+  DB=(-d "test_$mode")
+  "${PSQL[@]}" "${DB[@]}" -f "$ROOT/tests/local_stub.sql" 2>/dev/null \
+    || "${PSQL[@]}" "${DB[@]}" -f <(grep -v '^create role' "$ROOT/tests/local_stub.sql")
+  if [ "$mode" = expose ]; then "${PSQL[@]}" "${DB[@]}" -f "$ROOT/tests/local_expose_tables.sql"; fi
+  for migration in "$ROOT"/migrations/*.sql; do
+    echo "Migration: $(basename "$migration")"
+    "${PSQL[@]}" "${DB[@]}" -f "$migration"
+  done
+  for test in "$ROOT"/tests/*.test.sql; do
+    echo "Test: $(basename "$test")"
+    "${PSQL[@]}" "${DB[@]}" -t -f "$test" | grep -v '^ *{' | sed '/^$/d'
+  done
 done
