@@ -384,5 +384,52 @@
       "cancelled": "Cancelled"
     },
     "entry": "Print calendar"
+  },
+  "album": {
+    "title": "My album",
+    "privateHint": "Only you can see your albums. They never appear in any feed.",
+    "empty": "Keep memories here that are yours alone: trips, people, special days.",
+    "new": "New album",
+    "name": "Album name",
+    "create": "Create album",
+    "count_one": "{{count}} memory",
+    "count_other": "{{count}} memories",
+    "emptyAlbum": "Still empty. Add your first memory.",
+    "favorites": "Favourites only",
+    "favorite": "Favourite",
+    "delete": "Delete album",
+    "caption": "What do you want to remember?",
+    "date": "Date",
+    "dateHint": "Format: YYYY-MM-DD",
+    "dateInvalid": "Please enter a valid date as YYYY-MM-DD.",
+    "saved": "Saved.",
+    "deleteMemory": "Delete memory"
+  },
+  "ideas": {
+    "title": "Ideas & wishes",
+    "intro": "You help shape DayShot. Submit ideas and vote for the wishes of others. What gets the most votes gets built first.",
+    "comingTitle": "Coming next",
+    "coming": {
+      "video": "Year-in-review video",
+      "widgets": "Home screen widget",
+      "groups": "Shared albums with friends",
+      "stickers": "New stickers, filters and frames"
+    },
+    "comingMore": "And there is much more to come. We keep building new features.",
+    "submitTitle": "Your idea",
+    "fieldTitle": "Short and snappy",
+    "fieldBody": "Description (optional)",
+    "submit": "Submit idea",
+    "thanks": "Thank you! Your idea has been submitted.",
+    "limit": "You can submit at most 3 ideas per day.",
+    "listTitle": "Community ideas",
+    "empty": "No ideas yet. Be the first!",
+    "vote": "Vote",
+    "delete": "Delete idea",
+    "status": {
+      "planned": "Planned",
+      "done": "Done",
+      "declined": "Not planned"
+    }
   }
 }

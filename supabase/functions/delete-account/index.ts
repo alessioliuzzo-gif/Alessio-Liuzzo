@@ -22,7 +22,7 @@ function json(status: number, body: Record<string, unknown>) {
 
 // Buckets mit Nutzerdateien im Ordner "<user-id>/". Spätere Phasen ergänzen hier
 // den Bucket der Tagesfotos.
-const USER_BUCKETS = ['avatars', 'photos'];
+const USER_BUCKETS = ['avatars', 'photos', 'memories'];
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });

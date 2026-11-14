@@ -384,5 +384,52 @@
       "cancelled": "Annullato"
     },
     "entry": "Stampa calendario"
+  },
+  "album": {
+    "title": "Il mio album",
+    "privateHint": "Solo tu vedi i tuoi album. Non compaiono in nessun feed.",
+    "empty": "Conserva qui i ricordi solo tuoi: viaggi, persone, giorni speciali.",
+    "new": "Nuovo album",
+    "name": "Nome dell'album",
+    "create": "Crea album",
+    "count_one": "{{count}} ricordo",
+    "count_other": "{{count}} ricordi",
+    "emptyAlbum": "Ancora vuoto. Aggiungi il tuo primo ricordo.",
+    "favorites": "Solo preferiti",
+    "favorite": "Preferito",
+    "delete": "Elimina album",
+    "caption": "Cosa vuoi ricordare?",
+    "date": "Data",
+    "dateHint": "Formato: AAAA-MM-GG",
+    "dateInvalid": "Inserisci una data valida nel formato AAAA-MM-GG.",
+    "saved": "Salvato.",
+    "deleteMemory": "Elimina ricordo"
+  },
+  "ideas": {
+    "title": "Idee e desideri",
+    "intro": "Contribuisci a creare DayShot. Proponi idee e vota quelle degli altri. Ciò che riceve più voti viene realizzato per primo.",
+    "comingTitle": "In arrivo",
+    "coming": {
+      "video": "Video riepilogo dell'anno",
+      "widgets": "Widget per la schermata Home",
+      "groups": "Album condivisi con gli amici",
+      "stickers": "Nuovi sticker, filtri e cornici"
+    },
+    "comingMore": "E molto altro ancora. Aggiungiamo continuamente nuove funzioni.",
+    "submitTitle": "La tua idea",
+    "fieldTitle": "Breve e incisivo",
+    "fieldBody": "Descrizione (facoltativa)",
+    "submit": "Invia l'idea",
+    "thanks": "Grazie! La tua idea è stata inviata.",
+    "limit": "Puoi inviare al massimo 3 idee al giorno.",
+    "listTitle": "Idee della community",
+    "empty": "Ancora nessuna idea. Inizia tu!",
+    "vote": "Vota",
+    "delete": "Elimina idea",
+    "status": {
+      "planned": "Pianificato",
+      "done": "Realizzato",
+      "declined": "Non previsto"
+    }
   }
 }

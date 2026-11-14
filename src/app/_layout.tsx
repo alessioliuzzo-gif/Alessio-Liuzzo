@@ -88,6 +88,10 @@ function RootNavigator() {
           <Stack.Screen name="photo/[day]" options={{ presentation: 'modal' }} />
           <Stack.Screen name="year/[year]" />
           <Stack.Screen name="friends" />
+          <Stack.Screen name="album/index" />
+          <Stack.Screen name="album/[id]" />
+          <Stack.Screen name="memory/[id]" />
+          <Stack.Screen name="ideas" />
           <Stack.Screen name="premium" options={{ presentation: 'modal' }} />
           <Stack.Screen name="print" />
           <Stack.Screen name="secret" options={{ presentation: 'modal' }} />

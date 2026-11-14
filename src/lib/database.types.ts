@@ -7,7 +7,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 
 export type PhotoVisibility = 'friends' | 'public';
 
-export type ReportTarget = 'photo' | 'profile' | 'message' | 'comment' | 'post';
+export type ReportTarget = 'photo' | 'profile' | 'message' | 'comment' | 'post' | 'idea';
 export type ReportReason = 'spam' | 'harassment' | 'nudity' | 'violence' | 'hate' | 'other';
 
 export type Database = {

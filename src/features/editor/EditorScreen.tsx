@@ -34,6 +34,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button, Notice, Segmented } from '@/components/form';
 import { AppText } from '@/components/ui';
+import { addMemory } from '@/features/album/api';
 import { useAuth } from '@/features/auth/AuthProvider';
 import { toDateKey } from '@/features/calendar/month-grid';
 import { saveDailyPhoto } from '@/features/photos/api';
@@ -139,7 +140,8 @@ export default function EditorScreen() {
   const { session } = useAuth();
   const { unlocked, reload: reloadPhotos } = usePhotoLibrary();
   const { available: subscriptionAvailable, isPremium } = useSubscription();
-  const { uri } = useLocalSearchParams<{ uri?: string }>();
+  // Mit "album" speichert der Editor eine private Erinnerung statt des Tagesfotos.
+  const { uri, album } = useLocalSearchParams<{ uri?: string; album?: string }>();
 
   const image = useImage(uri ?? null);
   const canvasRef = useCanvasRef();
@@ -235,6 +237,11 @@ export default function EditorScreen() {
       const snapshot = await canvasRef.current?.makeImageSnapshotAsync();
       if (!snapshot) throw new Error('snapshot failed');
       const jpeg = snapshot.encodeToBytes(ImageFormat.JPEG, isPremium ? 96 : 85);
+      if (album) {
+        const memoryId = await addMemory({ userId, albumId: album, jpeg });
+        router.replace({ pathname: '/memory/[id]', params: { id: memoryId } });
+        return;
+      }
       const thumbnail = makeThumbnail(jpeg) ?? jpeg;
       await saveDailyPhoto({ userId, day: toDateKey(new Date()), jpeg, thumbnail, visibility });
       await reloadPhotos();
@@ -495,23 +502,25 @@ export default function EditorScreen() {
       </View>
 
       <View style={styles.footer}>
-        <Segmented
-          label={t('today.visibility')}
-          value={visibility}
-          onChange={setVisibility}
-          options={[
-            {
-              value: 'friends',
-              label: t('today.visFriends'),
-              icon: 'people-outline',
-            },
-            {
-              value: 'public',
-              label: t('today.visPublic'),
-              icon: 'earth-outline',
-            },
-          ]}
-        />
+        {!album && (
+          <Segmented
+            label={t('today.visibility')}
+            value={visibility}
+            onChange={setVisibility}
+            options={[
+              {
+                value: 'friends',
+                label: t('today.visFriends'),
+                icon: 'people-outline',
+              },
+              {
+                value: 'public',
+                label: t('today.visPublic'),
+                icon: 'earth-outline',
+              },
+            ]}
+          />
+        )}
         <Button label={t('editor.save')} onPress={save} loading={saving} disabled={!image} />
       </View>
     </SafeAreaView>

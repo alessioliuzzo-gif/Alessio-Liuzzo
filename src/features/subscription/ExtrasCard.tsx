@@ -21,7 +21,6 @@ export function ExtrasCard() {
   const router = useRouter();
   const { printEnabled } = useAppConfig();
   const { available, isPremium } = useSubscription();
-  if (!available && !printEnabled) return null;
 
   const tile = (
     icon: React.ComponentProps<typeof Ionicons>['name'],
@@ -52,7 +51,9 @@ export function ExtrasCard() {
   );
 
   return (
-    <View style={styles.row}>
+    <View style={styles.wrap}>
+      {tile('book-outline', t('album.title'), () => router.push('/album'), false)}
+      {tile('bulb-outline', t('ideas.title'), () => router.push('/ideas'), false)}
       {available &&
         tile(
           'sparkles',
@@ -66,6 +67,13 @@ export function ExtrasCard() {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', gap: spacing.sm },
-  tile: { flex: 1, minHeight: 92, padding: spacing.md, gap: spacing.sm, justifyContent: 'center' },
+  wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+  tile: {
+    width: '48%',
+    flexGrow: 1,
+    minHeight: 92,
+    padding: spacing.md,
+    gap: spacing.sm,
+    justifyContent: 'center',
+  },
 });

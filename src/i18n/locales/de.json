@@ -384,5 +384,52 @@
       "cancelled": "Abgebrochen"
     },
     "entry": "Kalender drucken"
+  },
+  "album": {
+    "title": "Mein Album",
+    "privateHint": "Nur du siehst deine Alben. Sie erscheinen in keinem Feed.",
+    "empty": "Halte hier Erinnerungen fest, die nur dir gehören: Reisen, Menschen, besondere Tage.",
+    "new": "Neues Album",
+    "name": "Name des Albums",
+    "create": "Album anlegen",
+    "count_one": "{{count}} Erinnerung",
+    "count_other": "{{count}} Erinnerungen",
+    "emptyAlbum": "Noch leer. Füge deine erste Erinnerung hinzu.",
+    "favorites": "Nur Favoriten",
+    "favorite": "Favorit",
+    "delete": "Album löschen",
+    "caption": "Was möchtest du festhalten?",
+    "date": "Datum",
+    "dateHint": "Format: JJJJ-MM-TT",
+    "dateInvalid": "Bitte ein gültiges Datum im Format JJJJ-MM-TT eingeben.",
+    "saved": "Gespeichert.",
+    "deleteMemory": "Erinnerung löschen"
+  },
+  "ideas": {
+    "title": "Ideen & Wünsche",
+    "intro": "Du gestaltest DayShot mit. Reiche Ideen ein und stimme für die Wünsche anderer. Was die meisten Stimmen hat, bauen wir zuerst.",
+    "comingTitle": "Das kommt als Nächstes",
+    "coming": {
+      "video": "Jahresrückblick als Video",
+      "widgets": "Widget für den Startbildschirm",
+      "groups": "Gemeinsame Alben mit Freunden",
+      "stickers": "Neue Sticker, Filter und Rahmen"
+    },
+    "comingMore": "Und es kommt noch viel mehr. Wir bauen laufend neue Funktionen.",
+    "submitTitle": "Deine Idee",
+    "fieldTitle": "Kurz und knackig",
+    "fieldBody": "Beschreibung (optional)",
+    "submit": "Idee einreichen",
+    "thanks": "Danke! Deine Idee ist eingereicht.",
+    "limit": "Du kannst höchstens 3 Ideen pro Tag einreichen.",
+    "listTitle": "Ideen der Community",
+    "empty": "Noch keine Ideen. Mach den Anfang!",
+    "vote": "Abstimmen",
+    "delete": "Idee löschen",
+    "status": {
+      "planned": "Geplant",
+      "done": "Umgesetzt",
+      "declined": "Nicht geplant"
+    }
   }
 }

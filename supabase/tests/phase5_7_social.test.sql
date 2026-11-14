@@ -106,6 +106,34 @@ begin
     'Freund darf die Bilddatei lesen';
 
   insert into public.push_tokens (token, platform) values ('ExponentPushToken[ben]', 'ios');
+  insert into public.albums (title) values ('Bens Album');
+  insert into public.memories (album_id, storage_path, caption)
+  select id, i.ben || '/m1.jpg', 'geheim' from public.albums;
+  begin
+    insert into public.memories (album_id, storage_path) select id, i.anna || '/x.jpg' from public.albums;
+    raise exception 'TEST FEHLGESCHLAGEN: Erinnerung zeigt auf fremden Ordner';
+  exception when check_violation then null;
+  end;
+  insert into storage.objects (bucket_id, name) values ('memories', i.ben || '/m1.jpg');
+  insert into public.ideas (title) values ('Dunkler Kalender');
+  insert into public.idea_votes (idea_id) select id from public.ideas where title = 'Dunkler Kalender';
+  begin
+    insert into public.idea_votes (idea_id) select id from public.ideas where title = 'Dunkler Kalender';
+    raise exception 'TEST FEHLGESCHLAGEN: doppelte Stimme möglich';
+  exception when unique_violation then null;
+  end;
+  begin
+    update public.ideas set vote_count = 999;
+    raise exception 'TEST FEHLGESCHLAGEN: Stimmenzahl manipulierbar';
+  exception when insufficient_privilege then null;
+  end;
+  insert into public.ideas (title) values ('Idee 2'), ('Idee 3');
+  begin
+    insert into public.ideas (title) values ('Idee 4');
+    raise exception 'TEST FEHLGESCHLAGEN: mehr als 3 Ideen pro Tag';
+  exception when raise_exception then
+    if sqlerrm <> 'idea_limit_reached' then raise; end if;
+  end;
   begin
     insert into public.push_tokens (token, user_id, platform) values ('ExponentPushToken[fake]', i.anna, 'ios');
     raise exception 'TEST FEHLGESCHLAGEN: Push-Token für andere speicherbar';
@@ -174,8 +202,27 @@ set local role authenticated;
 select set_config('request.jwt.claims', '{"sub":"00000000-0000-4000-8000-0000000000c3"}', true);
 do $$
 begin
-  assert not exists (select 1 from public.messages), 'Dritte lesen keine fremden Nachrichten';
+  assert not exists (select 1 from public.messages where body = 'Schönes Foto!'),
+    'Dritte lesen keine fremden Nachrichten';
   assert not exists (select 1 from public.push_tokens), 'Dritte sehen keine fremden Push-Token';
+  assert not exists (select 1 from public.albums), 'Alben sind privat';
+  assert not exists (select 1 from public.memories), 'Erinnerungen sind privat';
+  assert not exists (select 1 from storage.objects where bucket_id = 'memories'), 'Album-Bilder sind privat';
+  begin
+    insert into public.memories (album_id, storage_path)
+    values ((select current_setting('test.photo_id'))::uuid, (select auth.uid()) || '/x.jpg');
+    raise exception 'TEST FEHLGESCHLAGEN: Erinnerung in fremdes Album möglich';
+  exception when others then
+    if sqlerrm like 'TEST FEHLGESCHLAGEN%' then raise; end if;
+  end;
+  insert into public.idea_votes (idea_id) select id from public.ideas where title = 'Dunkler Kalender';
+  assert (select vote_count from public.ideas where title = 'Dunkler Kalender') = 2, 'Stimmen werden gezählt';
+  delete from public.idea_votes;
+  assert (select vote_count from public.ideas where title = 'Dunkler Kalender') = 1,
+    'nur die eigene Stimme lässt sich zurückziehen';
+  delete from public.ideas;
+  assert (select count(*) from public.ideas where title like 'Idee%' or title = 'Dunkler Kalender') = 3,
+    'fremde Ideen sind nicht löschbar';
   begin
     insert into public.print_orders (user_id, start_month, amount_chf) values ((select auth.uid()), '2027-01', 0);
     raise exception 'TEST FEHLGESCHLAGEN: Nutzer können Druckaufträge selbst anlegen';
@@ -189,7 +236,9 @@ begin
   assert not exists (select 1 from public.app_config where key = 'print_margin_chf'),
     'die Marge ist für die App unsichtbar';
   assert exists (select 1 from public.app_config where key = 'print_price_chf'), 'der Preis ist sichtbar';
-  assert not exists (select 1 from public.photo_comments), 'Dritte sehen keine Kommentare zu Freunde-Fotos';
+  assert not exists (select 1 from public.photo_comments
+    where photo_id = (select current_setting('test.photo_id'))::uuid),
+    'Dritte sehen keine Kommentare zu Freunde-Fotos';
   begin
     insert into public.photo_comments (photo_id, body)
     select id, 'heimlich' from pg_catalog.unnest(array[]::uuid[]) as id;
@@ -284,7 +333,7 @@ select set_config('request.jwt.claims', '{}', true);
 do $$
 declare t text;
 begin
-  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports','push_tokens','subscriptions','print_orders'] loop
+  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports','push_tokens','subscriptions','print_orders','albums','memories','ideas','idea_votes'] loop
     begin
       execute format('select 1 from public.%I', t);
       raise exception 'TEST FEHLGESCHLAGEN: anon kann % lesen', t;
