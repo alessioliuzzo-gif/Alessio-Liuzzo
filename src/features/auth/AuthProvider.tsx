@@ -3,6 +3,7 @@
  * und das dazugehörige Profil.
  */
 import type { Session } from '@supabase/supabase-js';
+import * as Linking from 'expo-linking';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import type { Profile } from '@/lib/database.types';
@@ -28,6 +29,10 @@ type AuthContextValue = {
   /** @returns 'signed-in' oder 'confirm-email', wenn zuerst die E-Mail bestätigt werden muss */
   signUp: (input: SignUpInput) => Promise<'signed-in' | 'confirm-email'>;
   signOut: () => Promise<void>;
+  /** Schickt eine E-Mail mit einem Link, der die App zum Zurücksetzen öffnet. */
+  requestPasswordReset: (email: string) => Promise<void>;
+  /** Setzt ein neues Passwort für den angemeldeten Nutzer. */
+  updatePassword: (password: string) => Promise<void>;
   deleteAccount: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -100,6 +105,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           email: email.trim(),
           password,
           options: {
+            // Der Bestätigungslink in der E-Mail öffnet direkt die App.
+            emailRedirectTo: Linking.createURL('/auth-callback'),
             // Diese Angaben liest der Datenbank-Trigger handle_new_user und
             // legt daraus das Profil an (inklusive Alters- und AGB-Prüfung).
             data: {
@@ -119,6 +126,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       async signOut() {
         const { error } = await requireSupabase().auth.signOut();
+        if (error) throw error;
+      },
+
+      async requestPasswordReset(email) {
+        const { error } = await requireSupabase().auth.resetPasswordForEmail(email.trim(), {
+          redirectTo: Linking.createURL('/reset-password'),
+        });
+        if (error) throw error;
+      },
+
+      async updatePassword(password) {
+        const { error } = await requireSupabase().auth.updateUser({ password });
         if (error) throw error;
       },
 

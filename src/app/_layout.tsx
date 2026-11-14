@@ -92,6 +92,9 @@ function RootNavigator() {
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
         <Stack.Screen name="legal/[doc]" options={{ presentation: 'modal' }} />
+        {/* Ziele der E-Mail-Links: in beiden Login-Zuständen erreichbar. */}
+        <Stack.Screen name="auth-callback" />
+        <Stack.Screen name="reset-password" />
       </Stack>
     </ThemeProvider>
   );

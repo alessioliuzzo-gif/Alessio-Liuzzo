@@ -66,7 +66,9 @@ export function frameSvg(colors: LogoColors, options: { background?: string } = 
     const deg = i * 45;
     return `<line x1="${point(6.2, deg).split(' ')[0]}" y1="${point(6.2, deg).split(' ')[1]}" x2="${point(8.4, deg).split(' ')[0]}" y2="${point(8.4, deg).split(' ')[1]}" stroke="${colors.sun}" stroke-width="1.6" stroke-linecap="round"/>`;
   }).join('');
-  const background = options.background ? `<rect width="${VIEW}" height="${VIEW}" fill="${options.background}"/>` : '';
+  const background = options.background
+    ? `<rect width="${VIEW}" height="${VIEW}" fill="${options.background}"/>`
+    : '';
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VIEW} ${VIEW}">`,
     background,

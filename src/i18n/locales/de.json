@@ -36,8 +36,19 @@
     "acceptMiddle": "und habe die",
     "acceptSuffix": " gelesen.",
     "checkEmailTitle": "Bestätige deine E-Mail",
-    "checkEmailBody": "Wir haben einen Link an {{email}} geschickt. Öffne ihn und melde dich danach hier an.",
-    "toSignIn": "Zur Anmeldung"
+    "checkEmailBody": "Wir haben einen Link an {{email}} geschickt. Öffne ihn auf diesem Handy, dann wirst du direkt angemeldet.",
+    "toSignIn": "Zur Anmeldung",
+    "confirming": "Einen Moment, wir melden dich an …",
+    "linkInvalid": "Dieser Link ist ungültig oder abgelaufen. Fordere einen neuen an.",
+    "newPasswordTitle": "Neues Passwort",
+    "newPassword": "Neues Passwort",
+    "passwordChanged": "Dein Passwort wurde geändert.",
+    "continue": "Weiter",
+    "forgotLink": "Passwort vergessen?",
+    "forgotTitle": "Passwort vergessen",
+    "forgotBody": "Gib deine E-Mail-Adresse ein. Wir schicken dir einen Link, mit dem du in der App ein neues Passwort wählst.",
+    "forgotSent": "Falls ein Konto mit {{email}} existiert, ist ein Link unterwegs. Öffne ihn auf diesem Handy.",
+    "sendLink": "Link senden"
   },
   "validation": {
     "emailRequired": "Bitte gib deine E-Mail-Adresse ein.",
@@ -265,7 +276,7 @@
   "legal": {
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzerklärung",
-    "draftPending": "Dieser Text ist noch in Arbeit und folgt vor der Veröffentlichung der App."
+    "updated": "Stand: {{version}}"
   },
   "customTheme": {
     "mode": "Hell oder dunkel",

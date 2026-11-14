@@ -36,8 +36,19 @@
     "acceptMiddle": "and have read the",
     "acceptSuffix": ".",
     "checkEmailTitle": "Confirm your email",
-    "checkEmailBody": "We sent a link to {{email}}. Open it, then sign in here.",
-    "toSignIn": "Go to sign in"
+    "checkEmailBody": "We sent a link to {{email}}. Open it on this phone and you will be signed in directly.",
+    "toSignIn": "Go to sign in",
+    "confirming": "One moment, signing you in …",
+    "linkInvalid": "This link is invalid or has expired. Request a new one.",
+    "newPasswordTitle": "New password",
+    "newPassword": "New password",
+    "passwordChanged": "Your password has been changed.",
+    "continue": "Continue",
+    "forgotLink": "Forgot password?",
+    "forgotTitle": "Forgot password",
+    "forgotBody": "Enter your email address. We will send you a link to choose a new password in the app.",
+    "forgotSent": "If an account exists for {{email}}, a link is on its way. Open it on this phone.",
+    "sendLink": "Send link"
   },
   "validation": {
     "emailRequired": "Please enter your email address.",
@@ -265,7 +276,7 @@
   "legal": {
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
-    "draftPending": "This text is still being written and will follow before the app is released."
+    "updated": "Version: {{version}}"
   },
   "customTheme": {
     "mode": "Light or dark",

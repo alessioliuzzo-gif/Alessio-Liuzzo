@@ -122,3 +122,32 @@ describe('parseAppConfig', () => {
     ).toEqual(DEFAULT_APP_CONFIG);
   });
 });
+
+import { parseAuthLink } from '@/features/auth/link-session';
+
+describe('parseAuthLink', () => {
+  it('liest Tokens aus dem Teil nach #', () => {
+    expect(
+      parseAuthLink('dayshot://reset-password#access_token=a&refresh_token=r&type=recovery'),
+    ).toEqual({
+      kind: 'tokens',
+      accessToken: 'a',
+      refreshToken: 'r',
+      type: 'recovery',
+    });
+  });
+  it('meldet Fehler aus dem Link', () => {
+    expect(
+      parseAuthLink(
+        'exp://x/--/auth-callback#error=access_denied&error_description=Email+link+is+invalid',
+      ),
+    ).toEqual({
+      kind: 'error',
+      description: 'Email link is invalid',
+    });
+  });
+  it('ignoriert Adressen ohne Anmeldedaten', () => {
+    expect(parseAuthLink('dayshot://reset-password')).toEqual({ kind: 'none' });
+    expect(parseAuthLink(null)).toEqual({ kind: 'none' });
+  });
+});

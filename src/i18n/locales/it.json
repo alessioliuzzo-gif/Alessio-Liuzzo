@@ -36,8 +36,19 @@
     "acceptMiddle": "e ho letto la nostra",
     "acceptSuffix": ".",
     "checkEmailTitle": "Conferma la tua e-mail",
-    "checkEmailBody": "Abbiamo inviato un link a {{email}}. Aprilo e poi accedi qui.",
-    "toSignIn": "Vai all'accesso"
+    "checkEmailBody": "Abbiamo inviato un link a {{email}}. Aprilo su questo telefono e sarai collegato direttamente.",
+    "toSignIn": "Vai all'accesso",
+    "confirming": "Un momento, ti stiamo collegando …",
+    "linkInvalid": "Questo link non è valido o è scaduto. Richiedine uno nuovo.",
+    "newPasswordTitle": "Nuova password",
+    "newPassword": "Nuova password",
+    "passwordChanged": "La tua password è stata cambiata.",
+    "continue": "Continua",
+    "forgotLink": "Password dimenticata?",
+    "forgotTitle": "Password dimenticata",
+    "forgotBody": "Inserisci il tuo indirizzo e-mail. Ti inviamo un link per scegliere una nuova password nell'app.",
+    "forgotSent": "Se esiste un account per {{email}}, un link è in arrivo. Aprilo su questo telefono.",
+    "sendLink": "Invia link"
   },
   "validation": {
     "emailRequired": "Inserisci il tuo indirizzo e-mail.",
@@ -265,7 +276,7 @@
   "legal": {
     "terms": "Condizioni d'uso",
     "privacy": "Informativa sulla privacy",
-    "draftPending": "Questo testo è in preparazione e seguirà prima della pubblicazione dell'app."
+    "updated": "Versione: {{version}}"
   },
   "customTheme": {
     "mode": "Chiaro o scuro",

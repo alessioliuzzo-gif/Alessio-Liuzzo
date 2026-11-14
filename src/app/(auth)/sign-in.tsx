@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -17,6 +17,7 @@ export default function SignInScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
   const { signIn } = useAuth();
+  const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -77,6 +78,11 @@ export default function SignInScreen() {
       />
 
       <Button label={t('auth.signIn')} onPress={submit} loading={busy} />
+      <Button
+        label={t('auth.forgotLink')}
+        variant="text"
+        onPress={() => router.push('/forgot-password')}
+      />
 
       <View style={styles.switch}>
         <AppText muted>{t('auth.noAccount')}</AppText>
