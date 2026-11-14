@@ -11,6 +11,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { AuthProvider, useAuth } from '@/features/auth/AuthProvider';
 import { PhotoLibraryProvider } from '@/features/photos/PhotoLibraryProvider';
 import { AppConfigProvider } from '@/features/config/AppConfigProvider';
+import { useNotificationRouting } from '@/features/notifications/useNotificationRouting';
 import { restoreLanguage } from '@/i18n';
 import { AppThemeProvider, useTheme, useThemeControls } from '@/theme/ThemeProvider';
 
@@ -35,6 +36,7 @@ function RootNavigator() {
   const { ready: themeReady } = useThemeControls();
   const { loading: authLoading, session, demoMode } = useAuth();
   const [languageReady, setLanguageReady] = useState(false);
+  useNotificationRouting(session !== null);
 
   useEffect(() => {
     restoreLanguage().finally(() => setLanguageReady(true));

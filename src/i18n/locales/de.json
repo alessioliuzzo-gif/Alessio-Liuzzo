@@ -320,5 +320,13 @@
     "creditsFound": "Du hast die geheimen Credits gefunden.",
     "createdBy": "Erstellt von",
     "madeIn": "Mit Liebe in der Schweiz gemacht"
+  },
+  "notifications": {
+    "title": "Tägliche Erinnerung",
+    "reminderHint": "Wir erinnern dich an dein Tagesfoto. Neue Nachrichten melden wir ebenfalls.",
+    "reminderTitle": "Zeit für dein Tagesfoto 📸",
+    "reminderBody": "Halte deine Serie am Leben. Ein Foto, ein Moment.",
+    "denied": "Benachrichtigungen sind ausgeschaltet. Erlaube sie in den Einstellungen deines Handys.",
+    "webHint": "Im Browser gibt es keine Erinnerungen. Sie funktionieren in der App auf dem Handy."
   }
 }

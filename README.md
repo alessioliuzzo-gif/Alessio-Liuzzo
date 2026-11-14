@@ -15,7 +15,7 @@ Gebaut mit Expo (React Native), TypeScript und Expo Router. "DayShot" ist ein Ar
 | 5 | Freunde und Feeds (inkl. Entdecken mit Fakten und eigenen Beiträgen) | fertig |
 | 6 | Chat | fertig |
 | 7 | Moderation | fertig |
-| 8 | Push-Benachrichtigungen | offen |
+| 8 | Push-Benachrichtigungen | fertig (Push vom Server erst im Dev-Build testbar) |
 | 9 | Abo (RevenueCat, hinter Feature Flag) | offen |
 | 10 | Kalenderdruck (Stripe, Gelato) | offen |
 | 11 | Release | offen |

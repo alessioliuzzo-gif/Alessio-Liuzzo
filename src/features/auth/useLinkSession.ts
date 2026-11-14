@@ -28,6 +28,7 @@ export function useLinkSession(): 'pending' | 'ok' | 'error' {
   }, [parsed]);
 
   if (parsed.kind === 'error') return 'error';
-  if (parsed.kind === 'tokens' && result?.token === parsed.accessToken) return result.ok ? 'ok' : 'error';
+  if (parsed.kind === 'tokens' && result?.token === parsed.accessToken)
+    return result.ok ? 'ok' : 'error';
   return 'pending';
 }

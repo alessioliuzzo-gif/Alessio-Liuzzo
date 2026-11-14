@@ -1,3 +1,4 @@
+import { parseAuthLink } from '@/features/auth/link-session';
 import { authErrorKey } from '@/features/auth/errors';
 import {
   normalizeUsername,
@@ -122,8 +123,6 @@ describe('parseAppConfig', () => {
     ).toEqual(DEFAULT_APP_CONFIG);
   });
 });
-
-import { parseAuthLink } from '@/features/auth/link-session';
 
 describe('parseAuthLink', () => {
   it('liest Tokens aus dem Teil nach #', () => {

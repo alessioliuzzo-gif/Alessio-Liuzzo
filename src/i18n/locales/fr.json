@@ -320,5 +320,13 @@
     "creditsFound": "Tu as trouvé les crédits secrets.",
     "createdBy": "Créé par",
     "madeIn": "Fait avec amour en Suisse"
+  },
+  "notifications": {
+    "title": "Rappel quotidien",
+    "reminderHint": "Nous te rappelons ta photo du jour et te signalons les nouveaux messages.",
+    "reminderTitle": "C’est l’heure de ta photo du jour 📸",
+    "reminderBody": "Garde ta série en vie. Une photo, un moment.",
+    "denied": "Les notifications sont désactivées. Autorise-les dans les réglages de ton téléphone.",
+    "webHint": "Les rappels ne sont pas disponibles dans le navigateur. Ils fonctionnent dans l’app mobile."
   }
 }

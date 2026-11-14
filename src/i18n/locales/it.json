@@ -320,5 +320,13 @@
     "creditsFound": "Hai trovato i crediti segreti.",
     "createdBy": "Creato da",
     "madeIn": "Fatto con amore in Svizzera"
+  },
+  "notifications": {
+    "title": "Promemoria quotidiano",
+    "reminderHint": "Ti ricordiamo la foto del giorno e ti avvisiamo dei nuovi messaggi.",
+    "reminderTitle": "È ora della tua foto del giorno 📸",
+    "reminderBody": "Mantieni viva la tua serie. Una foto, un momento.",
+    "denied": "Le notifiche sono disattivate. Consentile nelle impostazioni del telefono.",
+    "webHint": "I promemoria non sono disponibili nel browser. Funzionano nell'app sul telefono."
   }
 }

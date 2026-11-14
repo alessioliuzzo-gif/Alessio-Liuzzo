@@ -105,6 +105,12 @@ begin
   assert public.can_view_photo(i.anna || '/' || (now() at time zone 'utc')::date || '_thumb.jpg'),
     'Freund darf die Bilddatei lesen';
 
+  insert into public.push_tokens (token, platform) values ('ExponentPushToken[ben]', 'ios');
+  begin
+    insert into public.push_tokens (token, user_id, platform) values ('ExponentPushToken[fake]', i.anna, 'ios');
+    raise exception 'TEST FEHLGESCHLAGEN: Push-Token für andere speicherbar';
+  exception when insufficient_privilege then null;
+  end;
   insert into public.messages (recipient_id, body, photo_id) values (i.anna, 'Schönes Foto!', photo);
   insert into public.photo_comments (photo_id, body) values (photo, 'Toll!');
   assert (select count(*) from public.photo_comments where photo_id = photo) = 1, 'Freund kommentiert';
@@ -169,6 +175,7 @@ select set_config('request.jwt.claims', '{"sub":"00000000-0000-4000-8000-0000000
 do $$
 begin
   assert not exists (select 1 from public.messages), 'Dritte lesen keine fremden Nachrichten';
+  assert not exists (select 1 from public.push_tokens), 'Dritte sehen keine fremden Push-Token';
   assert not exists (select 1 from public.photo_comments), 'Dritte sehen keine Kommentare zu Freunde-Fotos';
   begin
     insert into public.photo_comments (photo_id, body)
@@ -264,7 +271,7 @@ select set_config('request.jwt.claims', '{}', true);
 do $$
 declare t text;
 begin
-  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports'] loop
+  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports','push_tokens'] loop
     begin
       execute format('select 1 from public.%I', t);
       raise exception 'TEST FEHLGESCHLAGEN: anon kann % lesen', t;

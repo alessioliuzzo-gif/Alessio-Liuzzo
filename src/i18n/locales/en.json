@@ -320,5 +320,13 @@
     "creditsFound": "You found the secret credits.",
     "createdBy": "Created by",
     "madeIn": "Made with love in Switzerland"
+  },
+  "notifications": {
+    "title": "Daily reminder",
+    "reminderHint": "We remind you of your daily photo and let you know about new messages.",
+    "reminderTitle": "Time for your daily photo 📸",
+    "reminderBody": "Keep your streak alive. One photo, one moment.",
+    "denied": "Notifications are turned off. Allow them in your phone settings.",
+    "webHint": "Reminders are not available in the browser. They work in the phone app."
   }
 }

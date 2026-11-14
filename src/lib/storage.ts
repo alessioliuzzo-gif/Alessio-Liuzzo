@@ -11,6 +11,7 @@ export const StorageKeys = {
   calendarDesign: 'dayshot.calendarDesign',
   customTheme: 'dayshot.customTheme',
   secretNeon: 'dayshot.secret.neon',
+  reminder: 'dayshot.reminder',
 } as const;
 
 type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];
