@@ -18,7 +18,19 @@ Gebaut mit Expo (React Native), TypeScript und Expo Router. "DayShot" ist ein Ar
 | 8 | Push-Benachrichtigungen | fertig (Push vom Server erst im Dev-Build testbar) |
 | 9 | Abo (RevenueCat, hinter Feature Flag) | eingebaut, wartet auf RevenueCat- und Store-Konten |
 | 10 | Kalenderdruck (Stripe, Gelato) | eingebaut, wartet auf Stripe- und Gelato-Keys |
-| 11 | Release | offen |
+| 11 | Release | vorbereitet: Rechtstexte, Icon, Screenshots, Store-Texte, eas.json. Konten und Einreichen: siehe docs/RELEASE.md |
+
+Zusätzlich gebaut: privates Album, Ideen-Box mit Abstimmung, Entdecken-Feed, eigenes Design, versteckte Funktionen.
+
+## Dokumente
+
+| Datei | Inhalt |
+|---|---|
+| `docs/EINRICHTUNG.md` | Was eingerichtet ist, Schalter, Moderation, offene Punkte |
+| `docs/RELEASE.md` | Konten, Builds, Store-Texte, Datenschutzangaben, Abo und Druck einschalten |
+| `docs/MARKETING.md` | Sprüche und Werbekampagnen |
+| `docs/PARTNER.md` | Quellen für den Feed und Anfrage-Vorlage |
+| `docs/INVESTOREN.md` | Plan und Anlaufstellen |
 
 ## Auf dem Handy testen (Expo Go)
 
