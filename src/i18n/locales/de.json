@@ -80,7 +80,25 @@
   },
   "feed": {
     "title": "Feed",
-    "placeholder": "Hier siehst du bald die Tagesfotos deiner Freunde."
+    "placeholder": "Hier siehst du bald die Tagesfotos deiner Freunde.",
+    "friends": "Freunde",
+    "public": "Öffentlich",
+    "discover": "Entdecken",
+    "loadFailed": "Das konnte nicht geladen werden. Prüfe deine Verbindung.",
+    "emptyFriends": "Noch keine Fotos von Freunden. Füge Freunde hinzu, um ihre Tagesfotos zu sehen.",
+    "emptyPublic": "Noch keine öffentlichen Fotos.",
+    "emptyDiscover": "Heute gibt es noch nichts Neues. Schau später wieder vorbei.",
+    "onThisDay": "An diesem Tag",
+    "news": "News",
+    "source": "Quelle: {{name}}",
+    "reply": "Antworten",
+    "comments_one": "{{count}} Kommentar",
+    "comments_other": "{{count}} Kommentare",
+    "commentsTitle": "Kommentare",
+    "noComments": "Noch keine Kommentare. Schreib den ersten.",
+    "commentPlaceholder": "Kommentar schreiben",
+    "send": "Senden",
+    "deleteComment": "Kommentar löschen"
   },
   "today": {
     "title": "Dein Tagesfoto",
@@ -141,7 +159,71 @@
   },
   "chat": {
     "title": "Chat",
-    "placeholder": "Hier chattest du bald mit deinen Freunden."
+    "placeholder": "Hier chattest du bald mit deinen Freunden.",
+    "empty": "Noch keine Unterhaltungen. Schreib einem Freund.",
+    "you": "Du",
+    "emptyConversation": "Schreib die erste Nachricht.",
+    "placeholderInput": "Nachricht schreiben",
+    "replyToPhoto": "Antwort auf ein Tagesfoto",
+    "sendFailed": "Die Nachricht konnte nicht gesendet werden. Ihr müsst befreundet sein, um euch zu schreiben."
+  },
+  "social": {
+    "friendsTitle": "Freunde",
+    "unknownUser": "Nutzer nicht verfügbar",
+    "moreActions": "Weitere Aktionen",
+    "report": "Melden",
+    "block": "Nutzer blockieren",
+    "reportTitle": "Warum meldest du das?",
+    "reportedTitle": "Danke für deine Meldung",
+    "reportedBody": "Wir prüfen den Inhalt innerhalb von 24 Stunden und entfernen ihn, wenn er gegen die Nutzungsbedingungen verstösst.",
+    "blockTitle": "Diesen Nutzer blockieren?",
+    "blockBody": "Ihr seht gegenseitig keine Fotos, Kommentare und Profile mehr und könnt euch nicht schreiben. Eine Freundschaft wird beendet.",
+    "reasons": {
+      "spam": "Spam oder Werbung",
+      "harassment": "Belästigung oder Mobbing",
+      "nudity": "Nacktheit oder sexuelle Inhalte",
+      "violence": "Gewalt",
+      "hate": "Hass oder Diskriminierung",
+      "other": "Etwas anderes"
+    },
+    "searchLabel": "Name oder Benutzername",
+    "search": "Suchen",
+    "noResults": "Niemand gefunden.",
+    "add": "Hinzufügen",
+    "accept": "Annehmen",
+    "decline": "Ablehnen",
+    "withdraw": "Zurückziehen",
+    "remove": "Entfernen",
+    "unblock": "Freigeben",
+    "isFriend": "Befreundet",
+    "requested": "Angefragt",
+    "incoming": "Anfragen an dich",
+    "outgoing": "Deine Anfragen",
+    "myFriends_one": "{{count}} Freund",
+    "myFriends_other": "{{count}} Freunde",
+    "noFriends": "Du hast noch keine Freunde hinzugefügt. Suche oben nach einem Namen.",
+    "blocked": "Blockiert"
+  },
+  "rewards": {
+    "title": "Belohnungen",
+    "rule": "Ein vollständiger Monat mit einem Foto an jedem Tag schaltet die nächste Belohnung frei.",
+    "thisMonth": "Dieser Monat: {{done}} von {{total}} Tagen",
+    "longest_one": "Längste Serie: {{count}} Tag",
+    "longest_other": "Längste Serie: {{count}} Tage",
+    "next": "Als Nächstes",
+    "unlocked": "Freigeschaltet",
+    "allUnlocked": "Du hast alle Belohnungen freigeschaltet.",
+    "kinds": {
+      "filter": "Filter",
+      "frame": "Rahmen",
+      "design": "Kalenderdesign"
+    },
+    "calendarDesign": "Kalenderdesign",
+    "designs": {
+      "classic": "Klassisch",
+      "polaroid": "Polaroid",
+      "round": "Rund"
+    }
   },
   "profile": {
     "title": "Profil",
@@ -169,26 +251,5 @@
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzerklärung",
     "draftPending": "Dieser Text ist noch in Arbeit und folgt vor der Veröffentlichung der App."
-  },
-  "rewards": {
-    "title": "Belohnungen",
-    "rule": "Ein vollständiger Monat mit einem Foto an jedem Tag schaltet die nächste Belohnung frei.",
-    "thisMonth": "Dieser Monat: {{done}} von {{total}} Tagen",
-    "longest_one": "Längste Serie: {{count}} Tag",
-    "longest_other": "Längste Serie: {{count}} Tage",
-    "next": "Als Nächstes",
-    "unlocked": "Freigeschaltet",
-    "allUnlocked": "Du hast alle Belohnungen freigeschaltet.",
-    "kinds": {
-      "filter": "Filter",
-      "frame": "Rahmen",
-      "design": "Kalenderdesign"
-    },
-    "calendarDesign": "Kalenderdesign",
-    "designs": {
-      "classic": "Klassisch",
-      "polaroid": "Polaroid",
-      "round": "Rund"
-    }
   }
 }

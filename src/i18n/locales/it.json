@@ -80,7 +80,25 @@
   },
   "feed": {
     "title": "Feed",
-    "placeholder": "Qui vedrai presto le foto del giorno dei tuoi amici."
+    "placeholder": "Qui vedrai presto le foto del giorno dei tuoi amici.",
+    "friends": "Amici",
+    "public": "Pubblico",
+    "discover": "Scopri",
+    "loadFailed": "Impossibile caricare. Controlla la connessione.",
+    "emptyFriends": "Ancora nessuna foto degli amici. Aggiungi amici per vedere le loro foto del giorno.",
+    "emptyPublic": "Ancora nessuna foto pubblica.",
+    "emptyDiscover": "Oggi non ci sono ancora novità. Torna più tardi.",
+    "onThisDay": "In questo giorno",
+    "news": "Notizie",
+    "source": "Fonte: {{name}}",
+    "reply": "Rispondi",
+    "comments_one": "{{count}} commento",
+    "comments_other": "{{count}} commenti",
+    "commentsTitle": "Commenti",
+    "noComments": "Ancora nessun commento. Scrivi il primo.",
+    "commentPlaceholder": "Scrivi un commento",
+    "send": "Invia",
+    "deleteComment": "Elimina commento"
   },
   "today": {
     "title": "La tua foto del giorno",
@@ -141,7 +159,71 @@
   },
   "chat": {
     "title": "Chat",
-    "placeholder": "Presto potrai chattare qui con i tuoi amici."
+    "placeholder": "Presto potrai chattare qui con i tuoi amici.",
+    "empty": "Ancora nessuna conversazione. Scrivi a un amico.",
+    "you": "Tu",
+    "emptyConversation": "Scrivi il primo messaggio.",
+    "placeholderInput": "Scrivi un messaggio",
+    "replyToPhoto": "Risposta a una foto del giorno",
+    "sendFailed": "Impossibile inviare il messaggio. Dovete essere amici per scrivervi."
+  },
+  "social": {
+    "friendsTitle": "Amici",
+    "unknownUser": "Utente non disponibile",
+    "moreActions": "Altre azioni",
+    "report": "Segnala",
+    "block": "Blocca utente",
+    "reportTitle": "Perché lo segnali?",
+    "reportedTitle": "Grazie per la segnalazione",
+    "reportedBody": "Esaminiamo il contenuto entro 24 ore e lo rimuoviamo se viola le condizioni d'uso.",
+    "blockTitle": "Bloccare questo utente?",
+    "blockBody": "Non vedrete più foto, commenti e profili l'uno dell'altro e non potrete scrivervi. L'amicizia termina.",
+    "reasons": {
+      "spam": "Spam o pubblicità",
+      "harassment": "Molestie o bullismo",
+      "nudity": "Nudità o contenuti sessuali",
+      "violence": "Violenza",
+      "hate": "Odio o discriminazione",
+      "other": "Altro"
+    },
+    "searchLabel": "Nome o nome utente",
+    "search": "Cerca",
+    "noResults": "Nessuno trovato.",
+    "add": "Aggiungi",
+    "accept": "Accetta",
+    "decline": "Rifiuta",
+    "withdraw": "Ritira",
+    "remove": "Rimuovi",
+    "unblock": "Sblocca",
+    "isFriend": "Amici",
+    "requested": "Richiesto",
+    "incoming": "Richieste ricevute",
+    "outgoing": "Le tue richieste",
+    "myFriends_one": "{{count}} amico",
+    "myFriends_other": "{{count}} amici",
+    "noFriends": "Non hai ancora aggiunto amici. Cerca un nome qui sopra.",
+    "blocked": "Bloccati"
+  },
+  "rewards": {
+    "title": "Premi",
+    "rule": "Un mese completo con una foto ogni giorno sblocca il premio successivo.",
+    "thisMonth": "Questo mese: {{done}} giorni su {{total}}",
+    "longest_one": "Serie più lunga: {{count}} giorno",
+    "longest_other": "Serie più lunga: {{count}} giorni",
+    "next": "Prossimo premio",
+    "unlocked": "Sbloccato",
+    "allUnlocked": "Hai sbloccato tutti i premi.",
+    "kinds": {
+      "filter": "Filtro",
+      "frame": "Cornice",
+      "design": "Stile del calendario"
+    },
+    "calendarDesign": "Stile del calendario",
+    "designs": {
+      "classic": "Classico",
+      "polaroid": "Polaroid",
+      "round": "Rotondo"
+    }
   },
   "profile": {
     "title": "Profilo",
@@ -169,26 +251,5 @@
     "terms": "Condizioni d'uso",
     "privacy": "Informativa sulla privacy",
     "draftPending": "Questo testo è in preparazione e seguirà prima della pubblicazione dell'app."
-  },
-  "rewards": {
-    "title": "Premi",
-    "rule": "Un mese completo con una foto ogni giorno sblocca il premio successivo.",
-    "thisMonth": "Questo mese: {{done}} giorni su {{total}}",
-    "longest_one": "Serie più lunga: {{count}} giorno",
-    "longest_other": "Serie più lunga: {{count}} giorni",
-    "next": "Prossimo premio",
-    "unlocked": "Sbloccato",
-    "allUnlocked": "Hai sbloccato tutti i premi.",
-    "kinds": {
-      "filter": "Filtro",
-      "frame": "Cornice",
-      "design": "Stile del calendario"
-    },
-    "calendarDesign": "Stile del calendario",
-    "designs": {
-      "classic": "Classico",
-      "polaroid": "Polaroid",
-      "round": "Rotondo"
-    }
   }
 }

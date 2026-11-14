@@ -15,6 +15,9 @@ values ('00000000-0000-4000-8000-0000000000a1', (now() at time zone 'utc')::date
 insert into public.feed_items (kind, lang, title, source_name, source_url, external_id)
 values ('fact', 'de', 'Testfakt', 'Test', 'https://example.invalid', 'test-1');
 
+select set_config('test.photo_id',
+  (select id::text from public.daily_photos where user_id = '00000000-0000-4000-8000-0000000000a1'), true);
+
 create temp table ids on commit drop as
 select '00000000-0000-4000-8000-0000000000a1'::uuid as anna,
        '00000000-0000-4000-8000-0000000000b2'::uuid as ben,
@@ -103,6 +106,8 @@ begin
     'Freund darf die Bilddatei lesen';
 
   insert into public.messages (recipient_id, body, photo_id) values (i.anna, 'Schönes Foto!', photo);
+  insert into public.photo_comments (photo_id, body) values (photo, 'Toll!');
+  assert (select count(*) from public.photo_comments where photo_id = photo) = 1, 'Freund kommentiert';
   begin
     insert into public.messages (recipient_id, body) values (i.cleo, 'Hi');
     raise exception 'TEST FEHLGESCHLAGEN: Nachricht an Nicht-Freund möglich';
@@ -147,6 +152,16 @@ select set_config('request.jwt.claims', '{"sub":"00000000-0000-4000-8000-0000000
 do $$
 begin
   assert not exists (select 1 from public.messages), 'Dritte lesen keine fremden Nachrichten';
+  assert not exists (select 1 from public.photo_comments), 'Dritte sehen keine Kommentare zu Freunde-Fotos';
+  begin
+    insert into public.photo_comments (photo_id, body)
+    select id, 'heimlich' from pg_catalog.unnest(array[]::uuid[]) as id;
+    -- Ohne Zugriff auf das Foto kennt Cleo dessen ID nicht; mit erratener ID greift die Regel:
+    insert into public.photo_comments (photo_id, body)
+    values ((select current_setting('test.photo_id'))::uuid, 'heimlich');
+    raise exception 'TEST FEHLGESCHLAGEN: Kommentar zu unsichtbarem Foto möglich';
+  exception when insufficient_privilege then null;
+  end;
   assert (select count(*) from public.feed_comments) = 1, 'Kommentare sind für alle Angemeldeten sichtbar';
   assert not exists (select 1 from public.daily_photos
     where user_id = '00000000-0000-4000-8000-0000000000a1'), 'Dritte sehen das Freunde-Foto nicht';
@@ -175,6 +190,8 @@ begin
   assert not exists (select 1 from public.profiles where id = i.ben), 'Blockierte Profile sind ausgeblendet';
   assert not exists (select 1 from public.feed_comments where user_id = i.ben),
     'Kommentare Blockierter sind ausgeblendet';
+  assert not exists (select 1 from public.photo_comments where user_id = i.ben),
+    'Foto-Kommentare Blockierter sind ausgeblendet';
 end $$;
 reset role;
 
@@ -224,7 +241,7 @@ select set_config('request.jwt.claims', '{}', true);
 do $$
 declare t text;
 begin
-  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','reports'] loop
+  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports'] loop
     begin
       execute format('select 1 from public.%I', t);
       raise exception 'TEST FEHLGESCHLAGEN: anon kann % lesen', t;

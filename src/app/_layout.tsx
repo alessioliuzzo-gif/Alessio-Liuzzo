@@ -82,6 +82,9 @@ function RootNavigator() {
           />
           <Stack.Screen name="photo/[day]" options={{ presentation: 'modal' }} />
           <Stack.Screen name="year/[year]" />
+          <Stack.Screen name="friends" />
+          <Stack.Screen name="chat/[id]" />
+          <Stack.Screen name="comments/[type]/[id]" />
         </Stack.Protected>
         <Stack.Protected guard={!signedIn}>
           <Stack.Screen name="(auth)" />

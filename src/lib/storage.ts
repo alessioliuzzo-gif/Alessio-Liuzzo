@@ -9,6 +9,7 @@ export const StorageKeys = {
   theme: 'dayshot.theme',
   language: 'dayshot.language',
   calendarDesign: 'dayshot.calendarDesign',
+  customTheme: 'dayshot.customTheme',
 } as const;
 
 type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];

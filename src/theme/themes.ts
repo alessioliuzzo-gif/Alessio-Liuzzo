@@ -5,7 +5,10 @@
  */
 import { Platform } from 'react-native';
 
-export type ThemeId = 'warm' | 'bold' | 'minimal' | 'pastel';
+/** Die vier fertigen Themes. */
+export type PresetThemeId = 'warm' | 'bold' | 'minimal' | 'pastel';
+/** 'custom' ist das selbst zusammengestellte Design (siehe custom.ts). */
+export type ThemeId = PresetThemeId | 'custom';
 
 export type ThemeColors = {
   /** Hintergrund des ganzen Screens */
@@ -48,7 +51,7 @@ const systemFont = (kind: 'sans' | 'serif' | 'rounded'): string | undefined =>
     }[kind],
   });
 
-export const themes: Record<ThemeId, Theme> = {
+export const themes: Record<PresetThemeId, Theme> = {
   warm: {
     id: 'warm',
     isDark: false,
@@ -127,11 +130,11 @@ export const themes: Record<ThemeId, Theme> = {
   },
 };
 
-export const THEME_IDS = Object.keys(themes) as ThemeId[];
+export const THEME_IDS = Object.keys(themes) as PresetThemeId[];
 export const DEFAULT_THEME_ID: ThemeId = 'warm';
 
 export function isThemeId(value: unknown): value is ThemeId {
-  return typeof value === 'string' && value in themes;
+  return typeof value === 'string' && (value === 'custom' || value in themes);
 }
 
 /** Abstände in einem festen Raster, damit Screens einheitlich wirken. */

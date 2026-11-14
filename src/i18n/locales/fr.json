@@ -80,7 +80,25 @@
   },
   "feed": {
     "title": "Fil",
-    "placeholder": "Les photos du jour de tes amis apparaîtront bientôt ici."
+    "placeholder": "Les photos du jour de tes amis apparaîtront bientôt ici.",
+    "friends": "Amis",
+    "public": "Public",
+    "discover": "Découvrir",
+    "loadFailed": "Chargement impossible. Vérifie ta connexion.",
+    "emptyFriends": "Pas encore de photos d'amis. Ajoute des amis pour voir leurs photos du jour.",
+    "emptyPublic": "Pas encore de photos publiques.",
+    "emptyDiscover": "Rien de nouveau aujourd'hui pour l'instant. Reviens plus tard.",
+    "onThisDay": "Ce jour-là",
+    "news": "Actualités",
+    "source": "Source : {{name}}",
+    "reply": "Répondre",
+    "comments_one": "{{count}} commentaire",
+    "comments_other": "{{count}} commentaires",
+    "commentsTitle": "Commentaires",
+    "noComments": "Pas encore de commentaires. Écris le premier.",
+    "commentPlaceholder": "Écrire un commentaire",
+    "send": "Envoyer",
+    "deleteComment": "Supprimer le commentaire"
   },
   "today": {
     "title": "Ta photo du jour",
@@ -141,7 +159,71 @@
   },
   "chat": {
     "title": "Chat",
-    "placeholder": "Bientôt, tu pourras discuter avec tes amis ici."
+    "placeholder": "Bientôt, tu pourras discuter avec tes amis ici.",
+    "empty": "Pas encore de conversations. Écris à un ami.",
+    "you": "Toi",
+    "emptyConversation": "Écris le premier message.",
+    "placeholderInput": "Écrire un message",
+    "replyToPhoto": "Réponse à une photo du jour",
+    "sendFailed": "Le message n'a pas pu être envoyé. Vous devez être amis pour vous écrire."
+  },
+  "social": {
+    "friendsTitle": "Amis",
+    "unknownUser": "Utilisateur indisponible",
+    "moreActions": "Plus d'actions",
+    "report": "Signaler",
+    "block": "Bloquer l'utilisateur",
+    "reportTitle": "Pourquoi signales-tu ceci ?",
+    "reportedTitle": "Merci pour ton signalement",
+    "reportedBody": "Nous examinons le contenu dans les 24 heures et le supprimons s'il enfreint les conditions d'utilisation.",
+    "blockTitle": "Bloquer cet utilisateur ?",
+    "blockBody": "Vous ne verrez plus vos photos, commentaires et profils respectifs et ne pourrez plus vous écrire. L'amitié prend fin.",
+    "reasons": {
+      "spam": "Spam ou publicité",
+      "harassment": "Harcèlement",
+      "nudity": "Nudité ou contenu sexuel",
+      "violence": "Violence",
+      "hate": "Haine ou discrimination",
+      "other": "Autre chose"
+    },
+    "searchLabel": "Nom ou nom d'utilisateur",
+    "search": "Rechercher",
+    "noResults": "Personne trouvé.",
+    "add": "Ajouter",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "withdraw": "Retirer",
+    "remove": "Retirer",
+    "unblock": "Débloquer",
+    "isFriend": "Amis",
+    "requested": "Demandé",
+    "incoming": "Demandes reçues",
+    "outgoing": "Tes demandes",
+    "myFriends_one": "{{count}} ami",
+    "myFriends_other": "{{count}} amis",
+    "noFriends": "Tu n'as pas encore ajouté d'amis. Cherche un nom ci-dessus.",
+    "blocked": "Bloqués"
+  },
+  "rewards": {
+    "title": "Récompenses",
+    "rule": "Un mois complet avec une photo chaque jour débloque la récompense suivante.",
+    "thisMonth": "Ce mois : {{done}} jours sur {{total}}",
+    "longest_one": "Plus longue série : {{count}} jour",
+    "longest_other": "Plus longue série : {{count}} jours",
+    "next": "Prochaine récompense",
+    "unlocked": "Débloqué",
+    "allUnlocked": "Tu as débloqué toutes les récompenses.",
+    "kinds": {
+      "filter": "Filtre",
+      "frame": "Cadre",
+      "design": "Style de calendrier"
+    },
+    "calendarDesign": "Style de calendrier",
+    "designs": {
+      "classic": "Classique",
+      "polaroid": "Polaroid",
+      "round": "Rond"
+    }
   },
   "profile": {
     "title": "Profil",
@@ -169,26 +251,5 @@
     "terms": "Conditions d'utilisation",
     "privacy": "Politique de confidentialité",
     "draftPending": "Ce texte est en cours de rédaction et suivra avant la publication de l'app."
-  },
-  "rewards": {
-    "title": "Récompenses",
-    "rule": "Un mois complet avec une photo chaque jour débloque la récompense suivante.",
-    "thisMonth": "Ce mois : {{done}} jours sur {{total}}",
-    "longest_one": "Plus longue série : {{count}} jour",
-    "longest_other": "Plus longue série : {{count}} jours",
-    "next": "Prochaine récompense",
-    "unlocked": "Débloqué",
-    "allUnlocked": "Tu as débloqué toutes les récompenses.",
-    "kinds": {
-      "filter": "Filtre",
-      "frame": "Cadre",
-      "design": "Style de calendrier"
-    },
-    "calendarDesign": "Style de calendrier",
-    "designs": {
-      "classic": "Classique",
-      "polaroid": "Polaroid",
-      "round": "Rond"
-    }
   }
 }

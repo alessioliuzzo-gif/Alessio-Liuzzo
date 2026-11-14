@@ -80,7 +80,25 @@
   },
   "feed": {
     "title": "Feed",
-    "placeholder": "Your friends' daily photos will appear here soon."
+    "placeholder": "Your friends' daily photos will appear here soon.",
+    "friends": "Friends",
+    "public": "Public",
+    "discover": "Discover",
+    "loadFailed": "This could not be loaded. Check your connection.",
+    "emptyFriends": "No photos from friends yet. Add friends to see their daily photos.",
+    "emptyPublic": "No public photos yet.",
+    "emptyDiscover": "Nothing new today yet. Check back later.",
+    "onThisDay": "On this day",
+    "news": "News",
+    "source": "Source: {{name}}",
+    "reply": "Reply",
+    "comments_one": "{{count}} comment",
+    "comments_other": "{{count}} comments",
+    "commentsTitle": "Comments",
+    "noComments": "No comments yet. Write the first one.",
+    "commentPlaceholder": "Write a comment",
+    "send": "Send",
+    "deleteComment": "Delete comment"
   },
   "today": {
     "title": "Your daily photo",
@@ -141,7 +159,71 @@
   },
   "chat": {
     "title": "Chat",
-    "placeholder": "Soon you can chat with your friends here."
+    "placeholder": "Soon you can chat with your friends here.",
+    "empty": "No conversations yet. Message a friend.",
+    "you": "You",
+    "emptyConversation": "Write the first message.",
+    "placeholderInput": "Write a message",
+    "replyToPhoto": "Reply to a daily photo",
+    "sendFailed": "The message could not be sent. You need to be friends to message each other."
+  },
+  "social": {
+    "friendsTitle": "Friends",
+    "unknownUser": "User not available",
+    "moreActions": "More actions",
+    "report": "Report",
+    "block": "Block user",
+    "reportTitle": "Why are you reporting this?",
+    "reportedTitle": "Thanks for your report",
+    "reportedBody": "We review the content within 24 hours and remove it if it violates the Terms of Use.",
+    "blockTitle": "Block this user?",
+    "blockBody": "You will no longer see each other's photos, comments and profiles and cannot message each other. A friendship ends.",
+    "reasons": {
+      "spam": "Spam or advertising",
+      "harassment": "Harassment or bullying",
+      "nudity": "Nudity or sexual content",
+      "violence": "Violence",
+      "hate": "Hate or discrimination",
+      "other": "Something else"
+    },
+    "searchLabel": "Name or username",
+    "search": "Search",
+    "noResults": "Nobody found.",
+    "add": "Add",
+    "accept": "Accept",
+    "decline": "Decline",
+    "withdraw": "Withdraw",
+    "remove": "Remove",
+    "unblock": "Unblock",
+    "isFriend": "Friends",
+    "requested": "Requested",
+    "incoming": "Requests to you",
+    "outgoing": "Your requests",
+    "myFriends_one": "{{count}} friend",
+    "myFriends_other": "{{count}} friends",
+    "noFriends": "You have not added any friends yet. Search for a name above.",
+    "blocked": "Blocked"
+  },
+  "rewards": {
+    "title": "Rewards",
+    "rule": "A complete month with a photo on every day unlocks the next reward.",
+    "thisMonth": "This month: {{done}} of {{total}} days",
+    "longest_one": "Longest streak: {{count}} day",
+    "longest_other": "Longest streak: {{count}} days",
+    "next": "Up next",
+    "unlocked": "Unlocked",
+    "allUnlocked": "You have unlocked all rewards.",
+    "kinds": {
+      "filter": "Filter",
+      "frame": "Frame",
+      "design": "Calendar design"
+    },
+    "calendarDesign": "Calendar design",
+    "designs": {
+      "classic": "Classic",
+      "polaroid": "Polaroid",
+      "round": "Round"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -169,26 +251,5 @@
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "draftPending": "This text is still being written and will follow before the app is released."
-  },
-  "rewards": {
-    "title": "Rewards",
-    "rule": "A complete month with a photo on every day unlocks the next reward.",
-    "thisMonth": "This month: {{done}} of {{total}} days",
-    "longest_one": "Longest streak: {{count}} day",
-    "longest_other": "Longest streak: {{count}} days",
-    "next": "Up next",
-    "unlocked": "Unlocked",
-    "allUnlocked": "You have unlocked all rewards.",
-    "kinds": {
-      "filter": "Filter",
-      "frame": "Frame",
-      "design": "Calendar design"
-    },
-    "calendarDesign": "Calendar design",
-    "designs": {
-      "classic": "Classic",
-      "polaroid": "Polaroid",
-      "round": "Round"
-    }
   }
 }

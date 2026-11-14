@@ -107,6 +107,22 @@ export async function signedPhotoUrl(storagePath: string): Promise<string> {
   return data.signedUrl;
 }
 
+/** Links zu den grossen Bildern mehrerer Fotos (für die Feeds). Ergebnis: Pfad -> Link. */
+export async function signedPhotoUrls(
+  storagePaths: readonly string[],
+): Promise<Map<string, string>> {
+  const result = new Map<string, string>();
+  if (storagePaths.length === 0) return result;
+  const { data, error } = await requireSupabase()
+    .storage.from(BUCKET)
+    .createSignedUrls([...storagePaths], SIGNED_URL_SECONDS);
+  if (error) throw error;
+  data.forEach((entry, index) => {
+    if (entry.signedUrl) result.set(storagePaths[index], entry.signedUrl);
+  });
+  return result;
+}
+
 // Signierte Links gelten eine Stunde. Wir merken sie uns etwas kürzer, damit
 // der Kalender beim Blättern nicht jedes Mal neu anfragen muss.
 const urlCache = new Map<string, { url: string; expires: number }>();
