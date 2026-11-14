@@ -35,7 +35,7 @@ export default function CalendarScreen() {
   const { t, i18n } = useTranslation();
   const locale = i18n.language;
   const { calendarDesign } = useCalendarDesign();
-  const { byDay, days, streak, reload } = usePhotoLibrary();
+  const { byDay, days, streak, reload, loaded: libraryLoaded } = usePhotoLibrary();
 
   // Beim Öffnen des Tabs frisch laden (z. B. nach einem neuen Foto).
   useFocusEffect(
@@ -58,10 +58,12 @@ export default function CalendarScreen() {
     setConfetti(true);
   }
 
-  // Meilensteine der Serie feiern, jeweils nur einmal pro Wert.
-  const [celebrated, setCelebrated] = useState(streak.current);
-  if (streak.current !== celebrated) {
-    const milestone = reachedMilestone(celebrated, streak.current);
+  // Meilensteine der Serie feiern, jeweils nur einmal pro Wert. Der erste
+  // geladene Stand zählt nicht: Gefeiert wird nur, wenn die Serie während der
+  // Nutzung wächst (z. B. nach dem Speichern des Tagesfotos).
+  const [celebrated, setCelebrated] = useState<number | null>(null);
+  if (libraryLoaded && streak.current !== celebrated) {
+    const milestone = celebrated === null ? null : reachedMilestone(celebrated, streak.current);
     setCelebrated(streak.current);
     if (milestone) {
       setSecretMessage(t('secrets.milestone', { count: milestone }));

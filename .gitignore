@@ -46,3 +46,4 @@ example
 
 # Skia für die Web-Vorschau: wird mit "npm run web:setup" aus node_modules kopiert
 public/canvaskit.wasm
+web-legal/
