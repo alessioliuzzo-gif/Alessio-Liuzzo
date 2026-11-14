@@ -33,7 +33,15 @@
           "imageWidth": 76
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "DayShot braucht Zugriff auf deine Fotos, damit du ein Bild als Tagesfoto oder Profilbild auswählen kannst.",
+          "cameraPermission": "DayShot braucht Zugriff auf die Kamera, damit du dein Tagesfoto aufnehmen kannst.",
+          "microphonePermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

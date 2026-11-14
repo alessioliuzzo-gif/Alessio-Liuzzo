@@ -78,7 +78,60 @@
   },
   "today": {
     "title": "Dein Tagesfoto",
-    "placeholder": "Hier nimmst du bald dein Foto des Tages auf und gestaltest es."
+    "placeholder": "Hier nimmst du bald dein Foto des Tages auf und gestaltest es.",
+    "promptTitle": "Dein Foto von heute fehlt noch",
+    "promptBody": "Ein Foto pro Tag. Nimm eines auf oder wähle eines aus deiner Galerie.",
+    "camera": "Foto aufnehmen",
+    "gallery": "Aus Galerie wählen",
+    "replace": "Foto ersetzen",
+    "delete": "Foto löschen",
+    "deleteConfirm": "Wirklich löschen",
+    "doneTitle": "Dein Foto von heute",
+    "cameraDenied": "Ohne Zugriff auf die Kamera geht das nicht. Du kannst ihn in den Einstellungen deines Handys erlauben.",
+    "loadFailed": "Dein Foto konnte nicht geladen werden. Prüfe deine Verbindung.",
+    "actionFailed": "Das hat nicht geklappt. Bitte versuche es erneut.",
+    "retry": "Erneut versuchen",
+    "visibility": "Sichtbarkeit",
+    "visFriends": "Nur Freunde",
+    "visPublic": "Öffentlich",
+    "visFriendsHint": "Nur deine Freunde sehen dieses Foto.",
+    "visPublicHint": "Alle Nutzer können dieses Foto im öffentlichen Feed sehen."
+  },
+  "editor": {
+    "title": "Foto gestalten",
+    "save": "Speichern",
+    "add": "Hinzufügen",
+    "textPlaceholder": "Dein Text",
+    "bigger": "Grösser",
+    "smaller": "Kleiner",
+    "remove": "Entfernen",
+    "done": "Fertig",
+    "locked": "noch gesperrt",
+    "saveFailed": "Das Foto konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "tools": {
+      "filter": "Filter",
+      "frame": "Rahmen",
+      "text": "Text",
+      "sticker": "Sticker"
+    },
+    "filters": {
+      "original": "Original",
+      "vivid": "Kräftig",
+      "warm": "Warm",
+      "cool": "Kühl",
+      "mono": "Schwarzweiss",
+      "sepia": "Sepia",
+      "fade": "Verblasst",
+      "noir": "Noir"
+    },
+    "frames": {
+      "none": "Ohne",
+      "white": "Weiss",
+      "polaroid": "Polaroid",
+      "black": "Schwarz",
+      "film": "Film",
+      "gold": "Gold"
+    }
   },
   "chat": {
     "title": "Chat",

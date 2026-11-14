@@ -78,7 +78,60 @@
   },
   "today": {
     "title": "Ta photo du jour",
-    "placeholder": "Bientôt, tu pourras prendre et décorer ta photo du jour ici."
+    "placeholder": "Bientôt, tu pourras prendre et décorer ta photo du jour ici.",
+    "promptTitle": "Ta photo d'aujourd'hui manque encore",
+    "promptBody": "Une photo par jour. Prends-en une ou choisis-en une dans ta galerie.",
+    "camera": "Prendre une photo",
+    "gallery": "Choisir dans la galerie",
+    "replace": "Remplacer la photo",
+    "delete": "Supprimer la photo",
+    "deleteConfirm": "Vraiment supprimer",
+    "doneTitle": "Ta photo d'aujourd'hui",
+    "cameraDenied": "Impossible sans accès à l'appareil photo. Tu peux l'autoriser dans les réglages de ton téléphone.",
+    "loadFailed": "Ta photo n'a pas pu être chargée. Vérifie ta connexion.",
+    "actionFailed": "Cela n'a pas fonctionné. Réessaie.",
+    "retry": "Réessayer",
+    "visibility": "Visibilité",
+    "visFriends": "Amis seulement",
+    "visPublic": "Public",
+    "visFriendsHint": "Seuls tes amis voient cette photo.",
+    "visPublicHint": "Tous les utilisateurs peuvent voir cette photo dans le fil public."
+  },
+  "editor": {
+    "title": "Décore ta photo",
+    "save": "Enregistrer",
+    "add": "Ajouter",
+    "textPlaceholder": "Ton texte",
+    "bigger": "Plus grand",
+    "smaller": "Plus petit",
+    "remove": "Supprimer",
+    "done": "Terminé",
+    "locked": "encore verrouillé",
+    "saveFailed": "La photo n'a pas pu être enregistrée. Réessaie.",
+    "tools": {
+      "filter": "Filtre",
+      "frame": "Cadre",
+      "text": "Texte",
+      "sticker": "Sticker"
+    },
+    "filters": {
+      "original": "Original",
+      "vivid": "Vif",
+      "warm": "Chaud",
+      "cool": "Froid",
+      "mono": "Noir et blanc",
+      "sepia": "Sépia",
+      "fade": "Délavé",
+      "noir": "Noir"
+    },
+    "frames": {
+      "none": "Aucun",
+      "white": "Blanc",
+      "polaroid": "Polaroid",
+      "black": "Noir",
+      "film": "Pellicule",
+      "gold": "Or"
+    }
   },
   "chat": {
     "title": "Chat",

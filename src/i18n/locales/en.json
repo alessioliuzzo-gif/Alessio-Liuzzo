@@ -78,7 +78,60 @@
   },
   "today": {
     "title": "Your daily photo",
-    "placeholder": "Soon you can take and style your photo of the day here."
+    "placeholder": "Soon you can take and style your photo of the day here.",
+    "promptTitle": "Today's photo is still missing",
+    "promptBody": "One photo a day. Take one or choose one from your gallery.",
+    "camera": "Take photo",
+    "gallery": "Choose from gallery",
+    "replace": "Replace photo",
+    "delete": "Delete photo",
+    "deleteConfirm": "Really delete",
+    "doneTitle": "Your photo of today",
+    "cameraDenied": "This does not work without camera access. You can allow it in your phone settings.",
+    "loadFailed": "Your photo could not be loaded. Check your connection.",
+    "actionFailed": "That did not work. Please try again.",
+    "retry": "Try again",
+    "visibility": "Visibility",
+    "visFriends": "Friends only",
+    "visPublic": "Public",
+    "visFriendsHint": "Only your friends see this photo.",
+    "visPublicHint": "All users can see this photo in the public feed."
+  },
+  "editor": {
+    "title": "Style your photo",
+    "save": "Save",
+    "add": "Add",
+    "textPlaceholder": "Your text",
+    "bigger": "Bigger",
+    "smaller": "Smaller",
+    "remove": "Remove",
+    "done": "Done",
+    "locked": "still locked",
+    "saveFailed": "The photo could not be saved. Please try again.",
+    "tools": {
+      "filter": "Filter",
+      "frame": "Frame",
+      "text": "Text",
+      "sticker": "Sticker"
+    },
+    "filters": {
+      "original": "Original",
+      "vivid": "Vivid",
+      "warm": "Warm",
+      "cool": "Cool",
+      "mono": "Black & white",
+      "sepia": "Sepia",
+      "fade": "Faded",
+      "noir": "Noir"
+    },
+    "frames": {
+      "none": "None",
+      "white": "White",
+      "polaroid": "Polaroid",
+      "black": "Black",
+      "film": "Film",
+      "gold": "Gold"
+    }
   },
   "chat": {
     "title": "Chat",

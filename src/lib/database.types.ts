@@ -5,6 +5,8 @@
  */
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
+export type PhotoVisibility = 'friends' | 'public';
+
 export type Database = {
   public: {
     Tables: {
@@ -39,14 +41,29 @@ export type Database = {
         Update: never;
         Relationships: [];
       };
+      daily_photos: {
+        Row: {
+          id: string;
+          user_id: string;
+          day: string;
+          storage_path: string;
+          visibility: PhotoVisibility;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: { day: string; storage_path: string; visibility?: PhotoVisibility };
+        Update: { visibility?: PhotoVisibility };
+        Relationships: [];
+      };
     };
     Views: Record<never, never>;
     Functions: {
       username_available: { Args: { candidate: string }; Returns: boolean };
     };
-    Enums: Record<never, never>;
+    Enums: { photo_visibility: PhotoVisibility };
     CompositeTypes: Record<never, never>;
   };
 };
 
 export type Profile = Database['public']['Tables']['profiles']['Row'];
+export type DailyPhoto = Database['public']['Tables']['daily_photos']['Row'];

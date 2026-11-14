@@ -195,7 +195,72 @@ export function Notice({ kind = 'info', children }: { kind?: 'info' | 'error'; c
   );
 }
 
+/** Umschalter zwischen wenigen Optionen, z. B. "Nur Freunde" und "Öffentlich". */
+export function Segmented<T extends string>({
+  label,
+  value,
+  onChange,
+  options,
+  disabled = false,
+}: {
+  label: string;
+  value: T;
+  onChange: (next: T) => void;
+  options: { value: T; label: string; icon?: React.ComponentProps<typeof Ionicons>['name'] }[];
+  disabled?: boolean;
+}) {
+  const theme = useTheme();
+  return (
+    <View
+      accessibilityRole="radiogroup"
+      accessibilityLabel={label}
+      style={[
+        styles.segmented,
+        {
+          borderColor: theme.colors.border,
+          borderRadius: theme.radius.md,
+          backgroundColor: theme.colors.surface,
+          opacity: disabled ? 0.5 : 1,
+        },
+      ]}>
+      {options.map((option) => {
+        const active = option.value === value;
+        const color = active ? theme.colors.onPrimary : theme.colors.text;
+        return (
+          <Pressable
+            key={option.value}
+            accessibilityRole="radio"
+            accessibilityState={{ selected: active, disabled }}
+            disabled={disabled}
+            onPress={() => onChange(option.value)}
+            style={[
+              styles.segment,
+              {
+                borderRadius: Math.max(0, theme.radius.md - 3),
+                backgroundColor: active ? theme.colors.primary : 'transparent',
+              },
+            ]}>
+            {option.icon && <Ionicons name={option.icon} size={16} color={color} />}
+            <AppText variant="caption" style={{ color, fontWeight: '600' }}>
+              {option.label}
+            </AppText>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  segmented: { flexDirection: 'row', padding: 3, borderWidth: 1 },
+  segment: {
+    flex: 1,
+    minHeight: 38,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.xs,
+  },
   button: {
     minHeight: 48,
     flexDirection: 'row',

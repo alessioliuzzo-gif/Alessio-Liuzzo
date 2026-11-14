@@ -78,7 +78,60 @@
   },
   "today": {
     "title": "La tua foto del giorno",
-    "placeholder": "Presto potrai scattare e decorare qui la tua foto del giorno."
+    "placeholder": "Presto potrai scattare e decorare qui la tua foto del giorno.",
+    "promptTitle": "Manca ancora la foto di oggi",
+    "promptBody": "Una foto al giorno. Scattane una o scegline una dalla galleria.",
+    "camera": "Scatta una foto",
+    "gallery": "Scegli dalla galleria",
+    "replace": "Sostituisci foto",
+    "delete": "Elimina foto",
+    "deleteConfirm": "Elimina davvero",
+    "doneTitle": "La tua foto di oggi",
+    "cameraDenied": "Senza accesso alla fotocamera non funziona. Puoi consentirlo nelle impostazioni del telefono.",
+    "loadFailed": "Non è stato possibile caricare la foto. Controlla la connessione.",
+    "actionFailed": "Non ha funzionato. Riprova.",
+    "retry": "Riprova",
+    "visibility": "Visibilità",
+    "visFriends": "Solo amici",
+    "visPublic": "Pubblica",
+    "visFriendsHint": "Solo i tuoi amici vedono questa foto.",
+    "visPublicHint": "Tutti gli utenti possono vedere questa foto nel feed pubblico."
+  },
+  "editor": {
+    "title": "Decora la foto",
+    "save": "Salva",
+    "add": "Aggiungi",
+    "textPlaceholder": "Il tuo testo",
+    "bigger": "Più grande",
+    "smaller": "Più piccolo",
+    "remove": "Rimuovi",
+    "done": "Fatto",
+    "locked": "ancora bloccato",
+    "saveFailed": "Non è stato possibile salvare la foto. Riprova.",
+    "tools": {
+      "filter": "Filtro",
+      "frame": "Cornice",
+      "text": "Testo",
+      "sticker": "Sticker"
+    },
+    "filters": {
+      "original": "Originale",
+      "vivid": "Vivace",
+      "warm": "Caldo",
+      "cool": "Freddo",
+      "mono": "Bianco e nero",
+      "sepia": "Seppia",
+      "fade": "Sbiadito",
+      "noir": "Noir"
+    },
+    "frames": {
+      "none": "Nessuna",
+      "white": "Bianca",
+      "polaroid": "Polaroid",
+      "black": "Nera",
+      "film": "Pellicola",
+      "gold": "Oro"
+    }
   },
   "chat": {
     "title": "Chat",
