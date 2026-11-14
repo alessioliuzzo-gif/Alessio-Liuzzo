@@ -1,10 +1,68 @@
 {
+  "common": {
+    "back": "Retour",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe"
+  },
   "tabs": {
     "calendar": "Calendrier",
     "feed": "Fil",
     "today": "Aujourd'hui",
     "chat": "Chat",
     "profile": "Profil"
+  },
+  "auth": {
+    "tagline": "Une photo par jour. Ton année en calendrier.",
+    "signInTitle": "Connexion",
+    "signUpTitle": "Créer un compte",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "displayName": "Nom",
+    "username": "Nom d'utilisateur",
+    "usernameHint": "3 à 20 caractères : minuscules, chiffres et tiret bas. C'est ainsi que tes amis te trouvent.",
+    "passwordHint": "Au moins {{min}} caractères",
+    "birthYear": "Année de naissance",
+    "birthYearHint": "Uniquement pour vérifier l'âge (dès {{minAge}} ans). Invisible pour les autres.",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "createAccount": "Créer un compte",
+    "noAccount": "Pas encore de compte ?",
+    "haveAccount": "Déjà un compte ?",
+    "acceptLabel": "Confirmer l'âge et accepter les conditions d'utilisation",
+    "acceptPrefix": "J'ai au moins {{minAge}} ans, j'accepte les",
+    "acceptMiddle": "et j'ai lu la",
+    "acceptSuffix": ".",
+    "checkEmailTitle": "Confirme ton e-mail",
+    "checkEmailBody": "Nous avons envoyé un lien à {{email}}. Ouvre-le, puis connecte-toi ici.",
+    "toSignIn": "Aller à la connexion"
+  },
+  "validation": {
+    "emailRequired": "Saisis ton adresse e-mail.",
+    "emailInvalid": "Cette adresse e-mail n'est pas valide.",
+    "passwordRequired": "Saisis ton mot de passe.",
+    "passwordTooShort": "Le mot de passe doit contenir au moins {{min}} caractères.",
+    "usernameRequired": "Choisis un nom d'utilisateur.",
+    "usernameInvalid": "3 à 20 caractères, uniquement minuscules, chiffres et tiret bas.",
+    "usernameTaken": "Ce nom d'utilisateur est déjà pris.",
+    "displayNameRequired": "Saisis un nom.",
+    "displayNameTooLong": "Le nom peut contenir 40 caractères au maximum.",
+    "birthYearRequired": "Saisis ton année de naissance.",
+    "birthYearInvalid": "Saisis une année valide à quatre chiffres.",
+    "tooYoung": "Tu dois avoir au moins {{minAge}} ans.",
+    "acceptRequired": "Confirme ce point pour continuer."
+  },
+  "authErrors": {
+    "invalidCredentials": "E-mail ou mot de passe incorrect.",
+    "emailNotConfirmed": "Confirme d'abord ton adresse e-mail avec le lien que nous t'avons envoyé.",
+    "emailTaken": "Un compte existe déjà avec cette adresse e-mail.",
+    "weakPassword": "Ce mot de passe est trop faible. Choisis-en un plus long ou moins courant.",
+    "emailInvalid": "Cette adresse e-mail n'est pas acceptée.",
+    "rateLimited": "Trop de tentatives. Patiente un instant et réessaie.",
+    "signupDisabled": "L'inscription n'est pas possible pour le moment.",
+    "network": "Pas de connexion. Vérifie ton accès à Internet et réessaie.",
+    "unknown": "Cela n'a pas fonctionné. Réessaie."
   },
   "calendar": {
     "streak_one": "{{count}} jour de suite",
@@ -30,12 +88,27 @@
     "title": "Profil",
     "theme": "Thème",
     "language": "Langue",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "demoMode": "Mode démo : le backend n'est pas encore connecté. Le compte et la connexion apparaissent dès que le fichier .env est rempli.",
+    "changePhoto": "Changer la photo de profil",
+    "editName": "Changer le nom",
+    "signOut": "Se déconnecter",
+    "actionFailed": "Cela n'a pas fonctionné. Réessaie.",
+    "deleteTitle": "Supprimer le compte",
+    "deleteBody": "Supprime définitivement ton compte avec ton profil, tes photos et tous tes contenus. Cette action est irréversible.",
+    "deleteAccount": "Supprimer le compte",
+    "deleteConfirm": "Supprimer définitivement",
+    "deleteFailed": "Le compte n'a pas pu être supprimé. Réessaie plus tard."
   },
   "themes": {
     "warm": "Chaleureux & rétro",
     "bold": "Sombre & intense",
     "minimal": "Clair & minimaliste",
     "pastel": "Pastel & ludique"
+  },
+  "legal": {
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "draftPending": "Ce texte est en cours de rédaction et suivra avant la publication de l'app."
   }
 }

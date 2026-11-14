@@ -1,10 +1,68 @@
 {
+  "common": {
+    "back": "Indietro",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password"
+  },
   "tabs": {
     "calendar": "Calendario",
     "feed": "Feed",
     "today": "Oggi",
     "chat": "Chat",
     "profile": "Profilo"
+  },
+  "auth": {
+    "tagline": "Una foto al giorno. Il tuo anno in un calendario.",
+    "signInTitle": "Accedi",
+    "signUpTitle": "Crea account",
+    "email": "E-mail",
+    "password": "Password",
+    "displayName": "Nome",
+    "username": "Nome utente",
+    "usernameHint": "Da 3 a 20 caratteri: lettere minuscole, numeri e trattino basso. Gli amici ti trovano così.",
+    "passwordHint": "Almeno {{min}} caratteri",
+    "birthYear": "Anno di nascita",
+    "birthYearHint": "Solo per verificare l'età (da {{minAge}} anni). Non visibile agli altri.",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "createAccount": "Crea account",
+    "noAccount": "Non hai ancora un account?",
+    "haveAccount": "Hai già un account?",
+    "acceptLabel": "Conferma l'età e accetta le condizioni d'uso",
+    "acceptPrefix": "Ho almeno {{minAge}} anni, accetto le",
+    "acceptMiddle": "e ho letto la nostra",
+    "acceptSuffix": ".",
+    "checkEmailTitle": "Conferma la tua e-mail",
+    "checkEmailBody": "Abbiamo inviato un link a {{email}}. Aprilo e poi accedi qui.",
+    "toSignIn": "Vai all'accesso"
+  },
+  "validation": {
+    "emailRequired": "Inserisci il tuo indirizzo e-mail.",
+    "emailInvalid": "Questo indirizzo e-mail non è valido.",
+    "passwordRequired": "Inserisci la tua password.",
+    "passwordTooShort": "La password deve avere almeno {{min}} caratteri.",
+    "usernameRequired": "Scegli un nome utente.",
+    "usernameInvalid": "Da 3 a 20 caratteri, solo lettere minuscole, numeri e trattino basso.",
+    "usernameTaken": "Questo nome utente è già in uso.",
+    "displayNameRequired": "Inserisci un nome.",
+    "displayNameTooLong": "Il nome può avere al massimo 40 caratteri.",
+    "birthYearRequired": "Inserisci il tuo anno di nascita.",
+    "birthYearInvalid": "Inserisci un anno valido di quattro cifre.",
+    "tooYoung": "Devi avere almeno {{minAge}} anni.",
+    "acceptRequired": "Conferma questo punto per continuare."
+  },
+  "authErrors": {
+    "invalidCredentials": "E-mail o password non corretti.",
+    "emailNotConfirmed": "Conferma prima il tuo indirizzo e-mail con il link che ti abbiamo inviato.",
+    "emailTaken": "Esiste già un account con questo indirizzo e-mail.",
+    "weakPassword": "Questa password è troppo debole. Scegline una più lunga o meno comune.",
+    "emailInvalid": "Questo indirizzo e-mail non è accettato.",
+    "rateLimited": "Troppi tentativi. Attendi un momento e riprova.",
+    "signupDisabled": "La registrazione non è disponibile al momento.",
+    "network": "Nessuna connessione. Controlla Internet e riprova.",
+    "unknown": "Non ha funzionato. Riprova."
   },
   "calendar": {
     "streak_one": "{{count}} giorno di fila",
@@ -30,12 +88,27 @@
     "title": "Profilo",
     "theme": "Tema",
     "language": "Lingua",
-    "version": "Versione {{version}}"
+    "version": "Versione {{version}}",
+    "demoMode": "Modalità demo: il backend non è ancora collegato. Account e accesso compaiono quando il file .env è compilato.",
+    "changePhoto": "Cambia foto del profilo",
+    "editName": "Cambia nome",
+    "signOut": "Esci",
+    "actionFailed": "Non ha funzionato. Riprova.",
+    "deleteTitle": "Elimina account",
+    "deleteBody": "Elimina definitivamente il tuo account con profilo, foto e tutti i contenuti. Non si può annullare.",
+    "deleteAccount": "Elimina account",
+    "deleteConfirm": "Elimina definitivamente",
+    "deleteFailed": "Non è stato possibile eliminare l'account. Riprova più tardi."
   },
   "themes": {
     "warm": "Caldo & analogico",
     "bold": "Scuro & deciso",
     "minimal": "Chiaro & minimalista",
     "pastel": "Pastello & giocoso"
+  },
+  "legal": {
+    "terms": "Condizioni d'uso",
+    "privacy": "Informativa sulla privacy",
+    "draftPending": "Questo testo è in preparazione e seguirà prima della pubblicazione dell'app."
   }
 }

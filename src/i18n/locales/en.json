@@ -1,10 +1,68 @@
 {
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
   "tabs": {
     "calendar": "Calendar",
     "feed": "Feed",
     "today": "Today",
     "chat": "Chat",
     "profile": "Profile"
+  },
+  "auth": {
+    "tagline": "One photo a day. Your year as a calendar.",
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Name",
+    "username": "Username",
+    "usernameHint": "3 to 20 characters: lowercase letters, numbers and underscore. Friends find you by it.",
+    "passwordHint": "At least {{min}} characters",
+    "birthYear": "Year of birth",
+    "birthYearHint": "Only for the age check ({{minAge}} and over). Not visible to others.",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "createAccount": "Create account",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "acceptLabel": "Confirm age and accept the Terms of Use",
+    "acceptPrefix": "I am at least {{minAge}} years old, accept the",
+    "acceptMiddle": "and have read the",
+    "acceptSuffix": ".",
+    "checkEmailTitle": "Confirm your email",
+    "checkEmailBody": "We sent a link to {{email}}. Open it, then sign in here.",
+    "toSignIn": "Go to sign in"
+  },
+  "validation": {
+    "emailRequired": "Please enter your email address.",
+    "emailInvalid": "This is not a valid email address.",
+    "passwordRequired": "Please enter your password.",
+    "passwordTooShort": "The password needs at least {{min}} characters.",
+    "usernameRequired": "Please choose a username.",
+    "usernameInvalid": "3 to 20 characters, only lowercase letters, numbers and underscore.",
+    "usernameTaken": "This username is already taken.",
+    "displayNameRequired": "Please enter a name.",
+    "displayNameTooLong": "The name can have at most 40 characters.",
+    "birthYearRequired": "Please enter your year of birth.",
+    "birthYearInvalid": "Please enter a valid four-digit year.",
+    "tooYoung": "You must be at least {{minAge}} years old.",
+    "acceptRequired": "Please confirm this to continue."
+  },
+  "authErrors": {
+    "invalidCredentials": "Email or password is incorrect.",
+    "emailNotConfirmed": "Please confirm your email address first using the link we sent you.",
+    "emailTaken": "An account with this email address already exists.",
+    "weakPassword": "This password is too weak. Choose a longer or less common one.",
+    "emailInvalid": "This email address is not accepted.",
+    "rateLimited": "Too many attempts. Please wait a moment and try again.",
+    "signupDisabled": "Sign-up is not available right now.",
+    "network": "No connection. Check your internet and try again.",
+    "unknown": "That did not work. Please try again."
   },
   "calendar": {
     "streak_one": "{{count}} day in a row",
@@ -30,12 +88,27 @@
     "title": "Profile",
     "theme": "Theme",
     "language": "Language",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "demoMode": "Demo mode: the backend is not connected yet. Account and sign-in appear once the .env file is filled in.",
+    "changePhoto": "Change profile photo",
+    "editName": "Change name",
+    "signOut": "Sign out",
+    "actionFailed": "That did not work. Please try again.",
+    "deleteTitle": "Delete account",
+    "deleteBody": "Permanently deletes your account with profile, photos and all content. This cannot be undone.",
+    "deleteAccount": "Delete account",
+    "deleteConfirm": "Delete permanently",
+    "deleteFailed": "The account could not be deleted. Please try again later."
   },
   "themes": {
     "warm": "Warm & analog",
     "bold": "Dark & bold",
     "minimal": "Light & minimal",
     "pastel": "Pastel & playful"
+  },
+  "legal": {
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "draftPending": "This text is still being written and will follow before the app is released."
   }
 }
