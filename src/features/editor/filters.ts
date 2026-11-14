@@ -67,7 +67,17 @@ export function applyMatrix(
   return [row(0), row(5), row(10), row(15)];
 }
 
-export type FilterId = 'original' | 'mono' | 'sepia' | 'warm' | 'cool' | 'vivid' | 'fade' | 'noir';
+export type FilterId =
+  | 'original'
+  | 'mono'
+  | 'sepia'
+  | 'warm'
+  | 'cool'
+  | 'vivid'
+  | 'fade'
+  | 'noir'
+  | 'golden'
+  | 'dream';
 
 export type PhotoFilter = { id: FilterId; matrix: ColorMatrix; unlock: Unlock };
 
@@ -80,6 +90,17 @@ export const FILTERS: readonly PhotoFilter[] = [
   { id: 'sepia', matrix: SEPIA, unlock: 'free' },
   { id: 'fade', matrix: compose(saturation(0.8), fade(0.12)), unlock: 'reward' },
   { id: 'noir', matrix: compose(saturation(0), contrast(1.45)), unlock: 'reward' },
+  // Abo-Extras (nur sichtbar freigeschaltet, wenn das Abo aktiv ist)
+  {
+    id: 'golden',
+    matrix: compose(tint(1.12, 1.02, 0.78), compose(saturation(1.2), contrast(1.05))),
+    unlock: 'premium',
+  },
+  {
+    id: 'dream',
+    matrix: compose(fade(0.08), compose(tint(1.04, 0.96, 1.12), saturation(1.25))),
+    unlock: 'premium',
+  },
 ];
 
 export function getFilter(id: FilterId): PhotoFilter {

@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { AuthProvider, useAuth } from '@/features/auth/AuthProvider';
 import { PhotoLibraryProvider } from '@/features/photos/PhotoLibraryProvider';
+import { SubscriptionProvider } from '@/features/subscription/SubscriptionProvider';
 import { AppConfigProvider } from '@/features/config/AppConfigProvider';
 import { useNotificationRouting } from '@/features/notifications/useNotificationRouting';
 import { restoreLanguage } from '@/i18n';
@@ -22,9 +23,11 @@ export default function RootLayout() {
     <AppThemeProvider>
       <AppConfigProvider>
         <AuthProvider>
-          <PhotoLibraryProvider>
-            <RootNavigator />
-          </PhotoLibraryProvider>
+          <SubscriptionProvider>
+            <PhotoLibraryProvider>
+              <RootNavigator />
+            </PhotoLibraryProvider>
+          </SubscriptionProvider>
         </AuthProvider>
       </AppConfigProvider>
     </AppThemeProvider>
@@ -85,6 +88,8 @@ function RootNavigator() {
           <Stack.Screen name="photo/[day]" options={{ presentation: 'modal' }} />
           <Stack.Screen name="year/[year]" />
           <Stack.Screen name="friends" />
+          <Stack.Screen name="premium" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="print" />
           <Stack.Screen name="secret" options={{ presentation: 'modal' }} />
           <Stack.Screen name="post/new" options={{ presentation: 'modal' }} />
           <Stack.Screen name="chat/[id]" />

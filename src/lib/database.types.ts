@@ -123,7 +123,12 @@ export type Database = {
         Relationships: [];
       };
       push_tokens: {
-        Row: { token: string; user_id: string; platform: 'ios' | 'android' | 'web'; updated_at: string };
+        Row: {
+          token: string;
+          user_id: string;
+          platform: 'ios' | 'android' | 'web';
+          updated_at: string;
+        };
         Insert: { token: string; platform: 'ios' | 'android' | 'web' };
         Update: { platform?: 'ios' | 'android' | 'web'; updated_at?: string };
         Relationships: [];

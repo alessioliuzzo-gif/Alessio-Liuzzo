@@ -170,7 +170,9 @@
       "mono": "Noir et blanc",
       "sepia": "Sépia",
       "fade": "Délavé",
-      "noir": "Noir"
+      "noir": "Noir",
+      "golden": "Heure dorée",
+      "dream": "Rêve"
     },
     "frames": {
       "none": "Aucun",
@@ -178,7 +180,9 @@
       "polaroid": "Polaroid",
       "black": "Noir",
       "film": "Pellicule",
-      "gold": "Or"
+      "gold": "Or",
+      "cinema": "Cinéma",
+      "stamp": "Timbre"
     }
   },
   "chat": {
@@ -328,5 +332,57 @@
     "reminderBody": "Garde ta série en vie. Une photo, un moment.",
     "denied": "Les notifications sont désactivées. Autorise-les dans les réglages de ton téléphone.",
     "webHint": "Les rappels ne sont pas disponibles dans le navigateur. Ils fonctionnent dans l’app mobile."
+  },
+  "premium": {
+    "title": "DayShot Premium",
+    "subtitle": "Plus de possibilités pour ton journal photo. Les fonctions de base restent gratuites.",
+    "perks": {
+      "effects": "Filtres et cadres exclusifs",
+      "designs": "Tous les styles de calendrier tout de suite",
+      "quality": "Stockage illimité en pleine qualité",
+      "video": "Rétrospective vidéo sans filigrane (bientôt)",
+      "discount": "{{percent}} % de réduction sur les calendriers imprimés"
+    },
+    "period": {
+      "monthly": "Mensuel",
+      "annual": "Annuel",
+      "other": "Abonnement"
+    },
+    "bestValue": "Meilleure offre",
+    "subscribe": "S'abonner",
+    "restore": "Restaurer les achats",
+    "thanks": "Merci ! Premium est maintenant actif.",
+    "restored": "Ton abonnement a été restauré.",
+    "nothingToRestore": "Aucun abonnement actif trouvé.",
+    "failed": "Cela n'a pas fonctionné. Réessaie.",
+    "unavailable": "Premium n'est pas disponible pour le moment.",
+    "active": "Tu as Premium. Merci pour ton soutien !",
+    "legal": "L'abonnement se renouvelle automatiquement au prix indiqué sauf résiliation au moins 24 heures avant la fin de la période dans les réglages de ton compte store. Le paiement est débité de ton compte store.",
+    "entry": "Découvrir Premium",
+    "entryActive": "Premium actif"
+  },
+  "print": {
+    "title": "Imprimer le calendrier",
+    "intro": "Ton année en calendrier mural A4 : chaque jour avec ta photo. Nous l’imprimons et l’envoyons chez toi.",
+    "year": "Année {{year}}",
+    "last12": "12 derniers mois",
+    "coverage": "{{photos}} jours sur {{total}} ont une photo.",
+    "product": "Calendrier mural A4",
+    "discount": "{{percent}} % de réduction Premium (au lieu de {{before}})",
+    "priceNote": "TVA et livraison incluses. Tu saisis l’adresse de livraison lors du paiement.",
+    "order": "Commander",
+    "notAvailable": "L'impression de calendriers n'est pas encore disponible.",
+    "failed": "La commande n'a pas pu être lancée. Réessaie.",
+    "orders": "Tes commandes",
+    "orderLine": "Calendrier dès {{month}}",
+    "status": {
+      "pending": "Paiement en attente",
+      "paid": "Payé",
+      "submitted": "En production",
+      "failed": "Problème, nous te contactons",
+      "shipped": "Expédié",
+      "cancelled": "Annulé"
+    },
+    "entry": "Imprimer le calendrier"
   }
 }

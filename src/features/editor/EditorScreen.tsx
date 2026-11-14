@@ -38,6 +38,7 @@ import { useAuth } from '@/features/auth/AuthProvider';
 import { toDateKey } from '@/features/calendar/month-grid';
 import { saveDailyPhoto } from '@/features/photos/api';
 import { usePhotoLibrary } from '@/features/photos/PhotoLibraryProvider';
+import { useSubscription } from '@/features/subscription/SubscriptionProvider';
 import type { PhotoVisibility } from '@/lib/database.types';
 import { useTheme } from '@/theme/ThemeProvider';
 import { spacing } from '@/theme/themes';
@@ -137,6 +138,7 @@ export default function EditorScreen() {
   const router = useRouter();
   const { session } = useAuth();
   const { unlocked, reload: reloadPhotos } = usePhotoLibrary();
+  const { available: subscriptionAvailable, isPremium } = useSubscription();
   const { uri } = useLocalSearchParams<{ uri?: string }>();
 
   const image = useImage(uri ?? null);
@@ -162,7 +164,7 @@ export default function EditorScreen() {
 
   /** Belohnungen sind gesperrt, bis ein voller Monat sie freischaltet. Abo-Effekte kommen in Phase 9. */
   const isLocked = (unlock: Unlock, key: string) =>
-    unlock === 'premium' || (unlock === 'reward' && !unlocked.has(key));
+    (unlock === 'premium' && !isPremium) || (unlock === 'reward' && !unlocked.has(key));
 
   const paragraphs = useMemo(
     () =>
@@ -232,7 +234,7 @@ export default function EditorScreen() {
       await new Promise((resolve) => setTimeout(resolve, 80));
       const snapshot = await canvasRef.current?.makeImageSnapshotAsync();
       if (!snapshot) throw new Error('snapshot failed');
-      const jpeg = snapshot.encodeToBytes(ImageFormat.JPEG, 88);
+      const jpeg = snapshot.encodeToBytes(ImageFormat.JPEG, isPremium ? 96 : 85);
       const thumbnail = makeThumbnail(jpeg) ?? jpeg;
       await saveDailyPhoto({ userId, day: toDateKey(new Date()), jpeg, thumbnail, visibility });
       await reloadPhotos();
@@ -366,22 +368,26 @@ export default function EditorScreen() {
         <View style={styles.panel}>
           {tool === 'filter' && (
             <ChipRow
-              options={FILTERS.map((f) => ({
-                id: f.id,
-                label: t(`editor.filters.${f.id}`),
-                locked: isLocked(f.unlock, `filter:${f.id}`),
-              }))}
+              options={FILTERS.filter((f) => f.unlock !== 'premium' || subscriptionAvailable).map(
+                (f) => ({
+                  id: f.id,
+                  label: t(`editor.filters.${f.id}`),
+                  locked: isLocked(f.unlock, `filter:${f.id}`),
+                }),
+              )}
               selected={filterId}
               onSelect={setFilterId}
             />
           )}
           {tool === 'frame' && (
             <ChipRow
-              options={FRAMES.map((f) => ({
-                id: f.id,
-                label: t(`editor.frames.${f.id}`),
-                locked: isLocked(f.unlock, `frame:${f.id}`),
-              }))}
+              options={FRAMES.filter((f) => f.unlock !== 'premium' || subscriptionAvailable).map(
+                (f) => ({
+                  id: f.id,
+                  label: t(`editor.frames.${f.id}`),
+                  locked: isLocked(f.unlock, `frame:${f.id}`),
+                }),
+              )}
               selected={frameId}
               onSelect={setFrameId}
             />

@@ -15,6 +15,7 @@ import { AppText, Card, OptionRow, Screen } from '@/components/ui';
 import { APP_NAME, APP_VERSION } from '@/config/brand';
 import { useAuth } from '@/features/auth/AuthProvider';
 import { validateDisplayName } from '@/features/auth/validation';
+import { ExtrasCard } from '@/features/subscription/ExtrasCard';
 import { NotificationsCard } from '@/features/notifications/NotificationsCard';
 import { CalendarDesignCard, RewardsCard } from '@/features/rewards/RewardsCard';
 import { avatarUrl, updateDisplayName, uploadAvatar } from '@/features/profile/api';
@@ -43,6 +44,7 @@ export default function ProfileScreen() {
         <AppText variant="title">{t('profile.title')}</AppText>
 
         {demoMode ? <Notice>{t('profile.demoMode')}</Notice> : <AccountCard />}
+        {!demoMode && <ExtrasCard />}
         {!demoMode && <RewardsCard />}
         {!demoMode && <NotificationsCard />}
 

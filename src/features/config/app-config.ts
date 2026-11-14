@@ -8,6 +8,10 @@ export type AppConfig = {
   subscriptionsEnabled: boolean;
   minAge: number;
   termsVersion: string;
+  /** Feature Flag für den Kalenderdruck (Phase 10). */
+  printEnabled: boolean;
+  printPriceChf: number;
+  printPremiumDiscountPercent: number;
 };
 
 /**
@@ -18,6 +22,9 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
   subscriptionsEnabled: false,
   minAge: 16,
   termsVersion: '2026-11-entwurf',
+  printEnabled: false,
+  printPriceChf: 29.9,
+  printPremiumDiscountPercent: 0,
 };
 
 /** Wandelt die Zeilen der Tabelle in ein typisiertes Objekt um und ignoriert Unsinn. */
@@ -31,6 +38,12 @@ export function parseAppConfig(rows: readonly { key: string; value: unknown }[])
       config.minAge = Math.max(value, DEFAULT_APP_CONFIG.minAge);
     } else if (key === 'terms_version' && typeof value === 'string' && value !== '') {
       config.termsVersion = value;
+    } else if (key === 'print_enabled' && typeof value === 'boolean') {
+      config.printEnabled = value;
+    } else if (key === 'print_price_chf' && typeof value === 'number' && value > 0) {
+      config.printPriceChf = value;
+    } else if (key === 'print_premium_discount_percent' && typeof value === 'number') {
+      config.printPremiumDiscountPercent = Math.min(100, Math.max(0, Math.round(value)));
     }
   }
   return config;

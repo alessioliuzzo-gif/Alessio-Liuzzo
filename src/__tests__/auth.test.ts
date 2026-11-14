@@ -110,7 +110,23 @@ describe('parseAppConfig', () => {
         { key: 'terms_version', value: '2027-01' },
         { key: 'unbekannt', value: 1 },
       ]),
-    ).toEqual({ subscriptionsEnabled: true, minAge: 18, termsVersion: '2027-01' });
+    ).toEqual({
+      ...DEFAULT_APP_CONFIG,
+      subscriptionsEnabled: true,
+      minAge: 18,
+      termsVersion: '2027-01',
+    });
+  });
+
+  it('liest die Druckeinstellungen und begrenzt den Rabatt', () => {
+    expect(
+      parseAppConfig([
+        { key: 'print_enabled', value: true },
+        { key: 'print_price_chf', value: 34.9 },
+        { key: 'print_premium_discount_percent', value: 150 },
+      ]),
+    ).toMatchObject({ printEnabled: true, printPriceChf: 34.9, printPremiumDiscountPercent: 100 });
+    expect(parseAppConfig([{ key: 'print_price_chf', value: -1 }]).printPriceChf).toBe(29.9);
   });
 
   it('ignoriert Werte mit falschem Typ und senkt das Mindestalter nie unter 16', () => {

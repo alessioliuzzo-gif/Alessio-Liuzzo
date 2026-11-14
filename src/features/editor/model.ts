@@ -5,7 +5,15 @@
 import { clamp } from './layout';
 import type { Unlock } from './filters';
 
-export type FrameId = 'none' | 'white' | 'polaroid' | 'black' | 'film' | 'gold';
+export type FrameId =
+  | 'none'
+  | 'white'
+  | 'polaroid'
+  | 'black'
+  | 'film'
+  | 'gold'
+  | 'cinema'
+  | 'stamp';
 
 export type PhotoFrame = {
   id: FrameId;
@@ -22,6 +30,8 @@ export const FRAMES: readonly PhotoFrame[] = [
   { id: 'black', color: '#111111', insets: [0.035, 0.035, 0.035, 0.035], unlock: 'free' },
   { id: 'film', color: '#111111', insets: [0.1, 0, 0.1, 0], unlock: 'reward' },
   { id: 'gold', color: '#C9A227', insets: [0.025, 0.025, 0.025, 0.025], unlock: 'reward' },
+  { id: 'cinema', color: '#000000', insets: [0.16, 0, 0.16, 0], unlock: 'premium' },
+  { id: 'stamp', color: '#F7F1E3', insets: [0.06, 0.06, 0.06, 0.06], unlock: 'premium' },
 ];
 
 export function getFrame(id: FrameId): PhotoFrame {

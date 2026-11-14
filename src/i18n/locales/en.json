@@ -170,7 +170,9 @@
       "mono": "Black & white",
       "sepia": "Sepia",
       "fade": "Faded",
-      "noir": "Noir"
+      "noir": "Noir",
+      "golden": "Golden hour",
+      "dream": "Dream"
     },
     "frames": {
       "none": "None",
@@ -178,7 +180,9 @@
       "polaroid": "Polaroid",
       "black": "Black",
       "film": "Film",
-      "gold": "Gold"
+      "gold": "Gold",
+      "cinema": "Cinema",
+      "stamp": "Stamp"
     }
   },
   "chat": {
@@ -328,5 +332,57 @@
     "reminderBody": "Keep your streak alive. One photo, one moment.",
     "denied": "Notifications are turned off. Allow them in your phone settings.",
     "webHint": "Reminders are not available in the browser. They work in the phone app."
+  },
+  "premium": {
+    "title": "DayShot Premium",
+    "subtitle": "More for your photo diary. The basics stay free.",
+    "perks": {
+      "effects": "Exclusive filters and frames",
+      "designs": "All calendar designs right away",
+      "quality": "Unlimited storage in full quality",
+      "video": "Year-in-review video without watermark (coming soon)",
+      "discount": "{{percent}}% off printed calendars"
+    },
+    "period": {
+      "monthly": "Monthly",
+      "annual": "Yearly",
+      "other": "Subscription"
+    },
+    "bestValue": "Best value",
+    "subscribe": "Subscribe now",
+    "restore": "Restore purchases",
+    "thanks": "Thank you! Premium is now active.",
+    "restored": "Your subscription has been restored.",
+    "nothingToRestore": "No active subscription found.",
+    "failed": "That did not work. Please try again.",
+    "unavailable": "Premium is not available right now.",
+    "active": "You have Premium. Thanks for your support!",
+    "legal": "The subscription renews automatically at the price shown unless cancelled at least 24 hours before the end of the period in your store account settings. Payment is charged to your store account.",
+    "entry": "Discover Premium",
+    "entryActive": "Premium active"
+  },
+  "print": {
+    "title": "Print calendar",
+    "intro": "Your year as an A4 wall calendar: every day with your photo. We print it and ship it to your home.",
+    "year": "Year {{year}}",
+    "last12": "Last 12 months",
+    "coverage": "{{photos}} of {{total}} days have a photo.",
+    "product": "Wall calendar A4",
+    "discount": "{{percent}}% Premium discount (instead of {{before}})",
+    "priceNote": "Including VAT and shipping. You enter the shipping address at checkout.",
+    "order": "Order now",
+    "notAvailable": "Calendar printing is not available yet.",
+    "failed": "The order could not be started. Please try again.",
+    "orders": "Your orders",
+    "orderLine": "Calendar from {{month}}",
+    "status": {
+      "pending": "Payment pending",
+      "paid": "Paid",
+      "submitted": "In production",
+      "failed": "Problem, we will contact you",
+      "shipped": "Shipped",
+      "cancelled": "Cancelled"
+    },
+    "entry": "Print calendar"
   }
 }

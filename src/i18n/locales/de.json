@@ -170,7 +170,9 @@
       "mono": "Schwarzweiss",
       "sepia": "Sepia",
       "fade": "Verblasst",
-      "noir": "Noir"
+      "noir": "Noir",
+      "golden": "Golden Hour",
+      "dream": "Traum"
     },
     "frames": {
       "none": "Ohne",
@@ -178,7 +180,9 @@
       "polaroid": "Polaroid",
       "black": "Schwarz",
       "film": "Film",
-      "gold": "Gold"
+      "gold": "Gold",
+      "cinema": "Kino",
+      "stamp": "Briefmarke"
     }
   },
   "chat": {
@@ -328,5 +332,57 @@
     "reminderBody": "Halte deine Serie am Leben. Ein Foto, ein Moment.",
     "denied": "Benachrichtigungen sind ausgeschaltet. Erlaube sie in den Einstellungen deines Handys.",
     "webHint": "Im Browser gibt es keine Erinnerungen. Sie funktionieren in der App auf dem Handy."
+  },
+  "premium": {
+    "title": "DayShot Premium",
+    "subtitle": "Mehr Möglichkeiten für dein Foto-Tagebuch. Die Grundfunktionen bleiben gratis.",
+    "perks": {
+      "effects": "Exklusive Filter und Rahmen",
+      "designs": "Alle Kalenderdesigns sofort",
+      "quality": "Unbegrenzter Speicher in voller Qualität",
+      "video": "Jahresrückblick als Video ohne Wasserzeichen (kommt bald)",
+      "discount": "{{percent}} % Rabatt auf gedruckte Kalender"
+    },
+    "period": {
+      "monthly": "Monatlich",
+      "annual": "Jährlich",
+      "other": "Abo"
+    },
+    "bestValue": "Bestes Angebot",
+    "subscribe": "Jetzt abonnieren",
+    "restore": "Käufe wiederherstellen",
+    "thanks": "Danke! Premium ist jetzt aktiv.",
+    "restored": "Dein Abo wurde wiederhergestellt.",
+    "nothingToRestore": "Kein aktives Abo gefunden.",
+    "failed": "Das hat nicht geklappt. Bitte versuche es erneut.",
+    "unavailable": "Premium ist im Moment nicht verfügbar.",
+    "active": "Du hast Premium. Danke für deine Unterstützung!",
+    "legal": "Das Abo verlängert sich automatisch zum angezeigten Preis, wenn du es nicht mindestens 24 Stunden vor Ablauf in den Einstellungen deines Store-Kontos kündigst. Die Zahlung erfolgt über dein Store-Konto.",
+    "entry": "Premium entdecken",
+    "entryActive": "Premium aktiv"
+  },
+  "print": {
+    "title": "Kalender drucken",
+    "intro": "Dein Jahr als Wandkalender A4: jeder Tag mit deinem Foto. Wir drucken und schicken ihn dir nach Hause.",
+    "year": "Jahr {{year}}",
+    "last12": "Letzte 12 Monate",
+    "coverage": "{{photos}} von {{total}} Tagen haben ein Foto.",
+    "product": "Wandkalender A4",
+    "discount": "{{percent}} % Premium-Rabatt (statt {{before}})",
+    "priceNote": "Inklusive MwSt. und Versand. Die Lieferadresse gibst du bei der Bezahlung an.",
+    "order": "Jetzt bestellen",
+    "notAvailable": "Der Kalenderdruck ist noch nicht verfügbar.",
+    "failed": "Die Bestellung konnte nicht gestartet werden. Bitte versuche es erneut.",
+    "orders": "Deine Bestellungen",
+    "orderLine": "Kalender ab {{month}}",
+    "status": {
+      "pending": "Zahlung offen",
+      "paid": "Bezahlt",
+      "submitted": "In Produktion",
+      "failed": "Problem, wir melden uns",
+      "shipped": "Versendet",
+      "cancelled": "Abgebrochen"
+    },
+    "entry": "Kalender drucken"
   }
 }

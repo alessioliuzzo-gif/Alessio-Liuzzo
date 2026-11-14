@@ -176,6 +176,19 @@ do $$
 begin
   assert not exists (select 1 from public.messages), 'Dritte lesen keine fremden Nachrichten';
   assert not exists (select 1 from public.push_tokens), 'Dritte sehen keine fremden Push-Token';
+  begin
+    insert into public.print_orders (user_id, start_month, amount_chf) values ((select auth.uid()), '2027-01', 0);
+    raise exception 'TEST FEHLGESCHLAGEN: Nutzer können Druckaufträge selbst anlegen';
+  exception when insufficient_privilege then null;
+  end;
+  begin
+    insert into public.subscriptions (user_id, active) values ((select auth.uid()), true);
+    raise exception 'TEST FEHLGESCHLAGEN: Nutzer können sich selbst ein Abo geben';
+  exception when insufficient_privilege then null;
+  end;
+  assert not exists (select 1 from public.app_config where key = 'print_margin_chf'),
+    'die Marge ist für die App unsichtbar';
+  assert exists (select 1 from public.app_config where key = 'print_price_chf'), 'der Preis ist sichtbar';
   assert not exists (select 1 from public.photo_comments), 'Dritte sehen keine Kommentare zu Freunde-Fotos';
   begin
     insert into public.photo_comments (photo_id, body)
@@ -271,7 +284,7 @@ select set_config('request.jwt.claims', '{}', true);
 do $$
 declare t text;
 begin
-  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports','push_tokens'] loop
+  foreach t in array array['friendships','blocks','messages','feed_items','feed_comments','photo_comments','reports','push_tokens','subscriptions','print_orders'] loop
     begin
       execute format('select 1 from public.%I', t);
       raise exception 'TEST FEHLGESCHLAGEN: anon kann % lesen', t;

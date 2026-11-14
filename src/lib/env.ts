@@ -9,6 +9,9 @@
 export const env = {
   supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL ?? '',
   supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? '',
+  // Öffentliche SDK-Keys von RevenueCat (keine Geheimnisse).
+  revenueCatIosKey: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY ?? '',
+  revenueCatAndroidKey: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY ?? '',
 };
 
 /** true, sobald die .env-Datei ausgefüllt ist (ab Phase 1 nötig). */

@@ -170,7 +170,9 @@
       "mono": "Bianco e nero",
       "sepia": "Seppia",
       "fade": "Sbiadito",
-      "noir": "Noir"
+      "noir": "Noir",
+      "golden": "Ora dorata",
+      "dream": "Sogno"
     },
     "frames": {
       "none": "Nessuna",
@@ -178,7 +180,9 @@
       "polaroid": "Polaroid",
       "black": "Nera",
       "film": "Pellicola",
-      "gold": "Oro"
+      "gold": "Oro",
+      "cinema": "Cinema",
+      "stamp": "Francobollo"
     }
   },
   "chat": {
@@ -328,5 +332,57 @@
     "reminderBody": "Mantieni viva la tua serie. Una foto, un momento.",
     "denied": "Le notifiche sono disattivate. Consentile nelle impostazioni del telefono.",
     "webHint": "I promemoria non sono disponibili nel browser. Funzionano nell'app sul telefono."
+  },
+  "premium": {
+    "title": "DayShot Premium",
+    "subtitle": "Più possibilità per il tuo diario fotografico. Le funzioni di base restano gratuite.",
+    "perks": {
+      "effects": "Filtri e cornici esclusivi",
+      "designs": "Tutti gli stili di calendario subito",
+      "quality": "Spazio illimitato in piena qualità",
+      "video": "Video riepilogo annuale senza filigrana (in arrivo)",
+      "discount": "{{percent}}% di sconto sui calendari stampati"
+    },
+    "period": {
+      "monthly": "Mensile",
+      "annual": "Annuale",
+      "other": "Abbonamento"
+    },
+    "bestValue": "Miglior offerta",
+    "subscribe": "Abbonati ora",
+    "restore": "Ripristina acquisti",
+    "thanks": "Grazie! Premium è ora attivo.",
+    "restored": "Il tuo abbonamento è stato ripristinato.",
+    "nothingToRestore": "Nessun abbonamento attivo trovato.",
+    "failed": "Non ha funzionato. Riprova.",
+    "unavailable": "Premium non è disponibile al momento.",
+    "active": "Hai Premium. Grazie per il tuo supporto!",
+    "legal": "L'abbonamento si rinnova automaticamente al prezzo indicato, salvo disdetta almeno 24 ore prima della scadenza nelle impostazioni del tuo account store. Il pagamento avviene tramite il tuo account store.",
+    "entry": "Scopri Premium",
+    "entryActive": "Premium attivo"
+  },
+  "print": {
+    "title": "Stampa calendario",
+    "intro": "Il tuo anno come calendario da parete A4: ogni giorno con la tua foto. Lo stampiamo e te lo spediamo a casa.",
+    "year": "Anno {{year}}",
+    "last12": "Ultimi 12 mesi",
+    "coverage": "{{photos}} giorni su {{total}} hanno una foto.",
+    "product": "Calendario da parete A4",
+    "discount": "{{percent}}% di sconto Premium (invece di {{before}})",
+    "priceNote": "IVA e spedizione incluse. Inserisci l'indirizzo di consegna al pagamento.",
+    "order": "Ordina ora",
+    "notAvailable": "La stampa dei calendari non è ancora disponibile.",
+    "failed": "Non è stato possibile avviare l'ordine. Riprova.",
+    "orders": "I tuoi ordini",
+    "orderLine": "Calendario da {{month}}",
+    "status": {
+      "pending": "Pagamento in sospeso",
+      "paid": "Pagato",
+      "submitted": "In produzione",
+      "failed": "Problema, ti contatteremo",
+      "shipped": "Spedito",
+      "cancelled": "Annullato"
+    },
+    "entry": "Stampa calendario"
   }
 }
