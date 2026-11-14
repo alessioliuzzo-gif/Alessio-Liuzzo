@@ -176,10 +176,15 @@ declare
 begin
   assert (select display_name from public.profiles where username = 'anna_1') = 'Anna Neu',
     'Ben sieht Annas geänderten Namen';
-  delete from storage.objects where bucket_id = 'avatars'
-    and name = '00000000-0000-4000-8000-0000000000a1/avatar.jpg';
+  -- Supabase verbietet direktes Löschen in Storage-Tabellen; darum prüfen wir
+  -- über Lesen und Ändern, dass Ben nicht an Annas Datei kommt.
+  assert not exists (select 1 from storage.objects
+    where name = '00000000-0000-4000-8000-0000000000a1/avatar.jpg'),
+    'Ben sieht Annas Datei nicht über die Storage-Tabelle';
+  update storage.objects set name = '00000000-0000-4000-8000-0000000000b2/geklaut.jpg'
+    where name = '00000000-0000-4000-8000-0000000000a1/avatar.jpg';
   get diagnostics n = row_count;
-  assert n = 0, 'Ben kann Annas Profilbild nicht löschen';
+  assert n = 0, 'Ben kann Annas Profilbild nicht verschieben';
 end $$;
 
 reset role;
@@ -187,7 +192,6 @@ reset role;
 -- ---------------------------------------------------------------------------
 -- Konto löschen entfernt alle Profildaten (Kaskade)
 -- ---------------------------------------------------------------------------
-delete from storage.objects where name like '00000000-0000-4000-8000-0000000000a1/%';
 delete from auth.users where id = '00000000-0000-4000-8000-0000000000a1';
 
 do $$

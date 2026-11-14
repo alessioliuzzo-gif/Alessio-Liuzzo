@@ -8,7 +8,7 @@ Gebaut mit Expo (React Native), TypeScript und Expo Router. "DayShot" ist ein Ar
 | Phase | Inhalt | Status |
 |---|---|---|
 | 0 | Fundament: Projekt, Themes, Sprachen, Tests | fertig |
-| 1 | Konto (Supabase Auth, Profil, Row Level Security) | offen |
+| 1 | Konto (Supabase Auth, Profil, Row Level Security) | fertig, offen: Passwort vergessen, Rechtstexte |
 | 2 | Tagesfoto und Editor | offen |
 | 3 | Kalender mit Fotos, Jahres-Collage, Streak | offen |
 | 4 | Belohnungen | offen |
@@ -34,6 +34,29 @@ Dann den QR-Code scannen: auf iOS mit der Kamera-App, auf Android in Expo Go.
 Falls das Handy den Computer nicht findet (z. B. im Schul-WLAN): `npx expo start --tunnel`.
 
 Im Browser geht es auch, ohne Handy: `npx expo start --web`.
+
+## Auf dem Handy testen ohne Computer
+
+Der aktuelle Stand wird mit EAS Update auf die Expo-Server geladen. In Expo Go mit dem
+Expo-Konto anmelden, Projekt `dayshot` wählen, Branch `preview` öffnen.
+
+```bash
+npx eas-cli update --branch preview --environment preview --message "..."
+```
+
+## Backend (Supabase)
+
+- Tabellen und Zugriffsregeln liegen als SQL in `supabase/migrations`.
+- Edge Functions liegen in `supabase/functions` (bisher `delete-account`).
+- Tests der Zugriffsregeln: `supabase/tests/run-local.sh` (braucht eine lokale
+  PostgreSQL-Installation). Dieselbe Datei `supabase/tests/phase1_rls.test.sql` läuft auch im
+  SQL Editor von Supabase; sie rollt alles zurück.
+- Die App braucht `EXPO_PUBLIC_SUPABASE_URL` und `EXPO_PUBLIC_SUPABASE_ANON_KEY` (der
+  Publishable Key). Lokal in `.env`, für EAS als Umgebungsvariablen des Projekts.
+- Ohne diese Werte startet die App im Demo-Modus ohne Konto.
+
+Vor dem Release noch nötig: eigener E-Mail-Versand (SMTP), weil der eingebaute Versand von
+Supabase nur wenige Mails pro Stunde erlaubt, und ein Ziel für den Bestätigungslink.
 
 ## Prüfen
 
