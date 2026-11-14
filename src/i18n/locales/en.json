@@ -128,7 +128,11 @@
     "visFriends": "Friends only",
     "visPublic": "Public",
     "visFriendsHint": "Only your friends see this photo.",
-    "visPublicHint": "All users can see this photo in the public feed."
+    "visPublicHint": "All users can see this photo in the public feed.",
+    "cameraShort": "Go!",
+    "keepStreak_one": "{{count}} day in a row. Keep your streak alive!",
+    "keepStreak_other": "{{count}} days in a row. Keep your streak alive!",
+    "startStreak": "Start your streak today!"
   },
   "editor": {
     "title": "Style your photo",
@@ -254,11 +258,56 @@
     "warm": "Warm & analog",
     "bold": "Dark & bold",
     "minimal": "Light & minimal",
-    "pastel": "Pastel & playful"
+    "pastel": "Pastel & playful",
+    "custom": "Your own design",
+    "neon": "Neon"
   },
   "legal": {
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "draftPending": "This text is still being written and will follow before the app is released."
+  },
+  "customTheme": {
+    "mode": "Light or dark",
+    "light": "Light",
+    "dark": "Dark",
+    "accent": "Accent colour",
+    "shape": "Corners",
+    "font": "Font",
+    "shapes": {
+      "sharp": "Sharp",
+      "soft": "Soft",
+      "round": "Round"
+    },
+    "fonts": {
+      "sans": "Modern",
+      "serif": "Classic",
+      "rounded": "Playful"
+    },
+    "accents": {
+      "blue": "Blue",
+      "violet": "Violet",
+      "pink": "Pink",
+      "red": "Red",
+      "orange": "Orange",
+      "green": "Green",
+      "teal": "Teal",
+      "lime": "Lime",
+      "gold": "Gold",
+      "ink": "Ink"
+    }
+  },
+  "secrets": {
+    "neonUnlocked": "Secret found: the Neon theme is yours now!",
+    "milestone": "{{count}} days in a row! Incredible!",
+    "flameHint": "Long press for your streak stats",
+    "statsTitle": "Your streak",
+    "current": "Current streak",
+    "longest": "Longest streak",
+    "total": "Photos in total",
+    "fullMonths": "Full months",
+    "creditsFound": "You found the secret credits.",
+    "createdBy": "Created by",
+    "madeIn": "Made with love in Switzerland"
   }
 }

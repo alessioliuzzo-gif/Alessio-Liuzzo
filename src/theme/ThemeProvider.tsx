@@ -21,6 +21,9 @@ type ThemeContextValue = {
   /** Einstellungen des eigenen Designs */
   custom: CustomThemeSettings;
   setCustom: (settings: CustomThemeSettings) => void;
+  /** Wurde das versteckte Neon-Theme entdeckt? */
+  neonUnlocked: boolean;
+  unlockNeon: () => void;
   /** Form der Kalenderfelder (teils als Belohnung freigeschaltet) */
   calendarDesign: CalendarDesign;
   setCalendarDesign: (design: CalendarDesign) => void;
@@ -34,6 +37,7 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
   const [themeId, setThemeIdState] = useState<ThemeId>(DEFAULT_THEME_ID);
   const [calendarDesign, setDesignState] = useState<CalendarDesign>('classic');
   const [custom, setCustomState] = useState<CustomThemeSettings>(DEFAULT_CUSTOM);
+  const [neonUnlocked, setNeonUnlocked] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -42,11 +46,13 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
       readSetting(StorageKeys.theme),
       readSetting(StorageKeys.calendarDesign),
       readSetting(StorageKeys.customTheme),
-    ]).then(([storedTheme, storedDesign, storedCustom]) => {
+      readSetting(StorageKeys.secretNeon),
+    ]).then(([storedTheme, storedDesign, storedCustom, storedNeon]) => {
       if (cancelled) return;
       if (isThemeId(storedTheme)) setThemeIdState(storedTheme);
       if (isCalendarDesign(storedDesign)) setDesignState(storedDesign);
       setCustomState(parseCustomSettings(storedCustom));
+      setNeonUnlocked(storedNeon === '1');
       setReady(true);
     });
     return () => {
@@ -69,8 +75,15 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
     void writeSetting(StorageKeys.customTheme, JSON.stringify(settings));
   }, []);
 
+  const unlockNeon = useCallback(() => {
+    setNeonUnlocked(true);
+    void writeSetting(StorageKeys.secretNeon, '1');
+  }, []);
+
   const value = useMemo(
     () => ({
+      neonUnlocked,
+      unlockNeon,
       theme: themeId === 'custom' ? buildCustomTheme(custom) : themes[themeId],
       setThemeId,
       custom,
@@ -79,7 +92,17 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
       setCalendarDesign,
       ready,
     }),
-    [themeId, setThemeId, custom, setCustom, calendarDesign, setCalendarDesign, ready],
+    [
+      themeId,
+      setThemeId,
+      custom,
+      setCustom,
+      neonUnlocked,
+      unlockNeon,
+      calendarDesign,
+      setCalendarDesign,
+      ready,
+    ],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
@@ -96,8 +119,9 @@ export function useTheme(): Theme {
 }
 
 export function useThemeControls() {
-  const { theme, setThemeId, custom, setCustom, ready } = useThemeContext();
-  return { themeId: theme.id, setThemeId, custom, setCustom, ready };
+  const { theme, setThemeId, custom, setCustom, neonUnlocked, unlockNeon, ready } =
+    useThemeContext();
+  return { themeId: theme.id, setThemeId, custom, setCustom, neonUnlocked, unlockNeon, ready };
 }
 
 export function useCalendarDesign() {

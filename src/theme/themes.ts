@@ -5,8 +5,8 @@
  */
 import { Platform } from 'react-native';
 
-/** Die vier fertigen Themes. */
-export type PresetThemeId = 'warm' | 'bold' | 'minimal' | 'pastel';
+/** Die fertigen Themes. 'neon' ist versteckt und muss erst entdeckt werden. */
+export type PresetThemeId = 'warm' | 'bold' | 'minimal' | 'pastel' | 'neon';
 /** 'custom' ist das selbst zusammengestellte Design (siehe custom.ts). */
 export type ThemeId = PresetThemeId | 'custom';
 
@@ -128,9 +128,34 @@ export const themes: Record<PresetThemeId, Theme> = {
     radius: { sm: 10, md: 18, lg: 28, pill: 999 },
     fonts: { heading: systemFont('rounded'), body: systemFont('rounded') },
   },
+  // Verstecktes Theme: wird durch 7 schnelle Taps auf den Titel im Kalender freigeschaltet.
+  neon: {
+    id: 'neon',
+    isDark: true,
+    colors: {
+      background: '#07040F',
+      surface: '#120B24',
+      surfaceAlt: '#1D1236',
+      text: '#F2EEFF',
+      textMuted: '#B4A8D9',
+      primary: '#FF3DCB',
+      onPrimary: '#14001A',
+      accent: '#22E3FF',
+      border: '#33245C',
+      danger: '#FF6B8B',
+      success: '#4DFFB8',
+    },
+    radius: { sm: 6, md: 12, lg: 20, pill: 999 },
+    fonts: { heading: systemFont('sans'), body: systemFont('sans') },
+  },
 };
 
-export const THEME_IDS = Object.keys(themes) as PresetThemeId[];
+/** Themes, die ohne Freischaltung in der Auswahl stehen. */
+export const HIDDEN_THEME_IDS: readonly PresetThemeId[] = ['neon'];
+
+export const THEME_IDS = (Object.keys(themes) as PresetThemeId[]).filter(
+  (id) => !HIDDEN_THEME_IDS.includes(id),
+);
 export const DEFAULT_THEME_ID: ThemeId = 'warm';
 
 export function isThemeId(value: unknown): value is ThemeId {

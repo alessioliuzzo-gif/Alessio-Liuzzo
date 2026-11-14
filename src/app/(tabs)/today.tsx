@@ -2,7 +2,6 @@
  * "Heute"-Tab: das Tagesfoto aufnehmen oder auswählen, ansehen, Sichtbarkeit
  * ändern, ersetzen oder löschen.
  */
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { useFocusEffect, useRouter } from 'expo-router';
@@ -10,7 +9,9 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 
+import { CaptureHero } from '@/components/capture-hero';
 import { Button, Notice, Segmented } from '@/components/form';
+import { FadeIn } from '@/components/motion';
 import { PlaceholderScreen } from '@/components/placeholder-screen';
 import { AppText, Screen } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthProvider';
@@ -53,7 +54,7 @@ function Today({ userId }: { userId: string | null }) {
   const { t } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
-  const { reload: reloadLibrary } = usePhotoLibrary();
+  const { reload: reloadLibrary, streak } = usePhotoLibrary();
 
   const [state, setState] = useState<State>({ status: 'loading' });
   const [notice, setNotice] = useState<string | null>(null);
@@ -171,36 +172,37 @@ function Today({ userId }: { userId: string | null }) {
         )}
 
         {state.status === 'empty' && (
-          <>
-            <View
-              style={[
-                styles.empty,
-                { backgroundColor: theme.colors.surfaceAlt, borderRadius: theme.radius.lg },
-              ]}>
-              <Ionicons name="camera-outline" size={48} color={theme.colors.primary} />
-              <AppText variant="heading" style={styles.centerText}>
-                {t('today.promptTitle')}
-              </AppText>
-              <AppText muted style={styles.centerText}>
-                {t('today.promptBody')}
-              </AppText>
-            </View>
-            {sourceButtons(t('today.camera'))}
-          </>
+          <FadeIn>
+            <AppText variant="heading" style={styles.centerText}>
+              {t('today.promptTitle')}
+            </AppText>
+            <AppText muted style={styles.centerText}>
+              {t('today.promptBody')}
+            </AppText>
+            <CaptureHero streak={streak.current} onCamera={() => pick('camera')} disabled={busy} />
+            <Button
+              label={t('today.gallery')}
+              variant="secondary"
+              onPress={() => pick('gallery')}
+              disabled={busy}
+            />
+          </FadeIn>
         )}
 
         {state.status === 'ready' && (
           <>
-            <Image
-              source={{ uri: state.url }}
-              accessibilityLabel={t('today.doneTitle')}
-              contentFit="cover"
-              transition={150}
-              style={[
-                styles.photo,
-                { borderRadius: theme.radius.lg, backgroundColor: theme.colors.surfaceAlt },
-              ]}
-            />
+            <FadeIn>
+              <Image
+                source={{ uri: state.url }}
+                accessibilityLabel={t('today.doneTitle')}
+                contentFit="cover"
+                transition={150}
+                style={[
+                  styles.photo,
+                  { borderRadius: theme.radius.lg, backgroundColor: theme.colors.surfaceAlt },
+                ]}
+              />
+            </FadeIn>
             <Segmented
               label={t('today.visibility')}
               value={state.photo.visibility}
@@ -259,7 +261,6 @@ const styles = StyleSheet.create({
   content: { gap: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.xl },
   center: { paddingVertical: spacing.xxl, alignItems: 'center' },
   centerText: { textAlign: 'center' },
-  empty: { alignItems: 'center', gap: spacing.sm, padding: spacing.xl },
   photo: { width: '100%', aspectRatio: PHOTO_ASPECT },
   row: { flexDirection: 'row', gap: spacing.sm },
   flex: { flex: 1 },

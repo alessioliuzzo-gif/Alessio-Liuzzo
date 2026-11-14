@@ -4,6 +4,7 @@ import { DEFAULT_THEME_ID, isThemeId, THEME_IDS, themes } from '@/theme/themes';
 describe('themes', () => {
   it('bietet vier Themes mit Warm als Standard', () => {
     expect(THEME_IDS).toEqual(['warm', 'bold', 'minimal', 'pastel']);
+    expect(Object.keys(themes)).toContain('neon');
     expect(DEFAULT_THEME_ID).toBe('warm');
   });
 
@@ -33,7 +34,7 @@ describe('themes', () => {
 
   it('erkennt gültige Theme-IDs', () => {
     expect(isThemeId('pastel')).toBe(true);
-    expect(isThemeId('neon')).toBe(false);
+    expect(isThemeId('disco')).toBe(false);
     expect(isThemeId(null)).toBe(false);
   });
 });

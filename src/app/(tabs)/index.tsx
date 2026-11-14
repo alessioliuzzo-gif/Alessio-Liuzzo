@@ -9,6 +9,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
+import { FadeIn } from '@/components/motion';
 import { AppText, Card, Screen } from '@/components/ui';
 import { APP_NAME } from '@/config/brand';
 import { DayCell } from '@/features/calendar/DayCell';
@@ -22,7 +23,10 @@ import {
 import { monthProgress, oneYearAgo } from '@/features/calendar/streak';
 import { usePhotoLibrary } from '@/features/photos/PhotoLibraryProvider';
 import { useThumbUrls } from '@/features/photos/useThumbUrls';
-import { useCalendarDesign, useTheme } from '@/theme/ThemeProvider';
+import { Confetti } from '@/components/confetti';
+import { StreakStats } from '@/features/secrets/StreakStats';
+import { createTapCounter, reachedMilestone } from '@/features/secrets/secrets';
+import { useCalendarDesign, useTheme, useThemeControls } from '@/theme/ThemeProvider';
 import { spacing } from '@/theme/themes';
 
 export default function CalendarScreen() {
@@ -39,6 +43,31 @@ export default function CalendarScreen() {
       void reload();
     }, [reload]),
   );
+
+  const { neonUnlocked, unlockNeon, setThemeId } = useThemeControls();
+  const [confetti, setConfetti] = useState(false);
+  const [statsOpen, setStatsOpen] = useState(false);
+  const [secretMessage, setSecretMessage] = useState<string | null>(null);
+  const [titleTaps] = useState(() => createTapCounter(7, 2500));
+
+  function onTitleTap() {
+    if (!titleTaps()) return;
+    if (!neonUnlocked) unlockNeon();
+    setThemeId('neon');
+    setSecretMessage(t('secrets.neonUnlocked'));
+    setConfetti(true);
+  }
+
+  // Meilensteine der Serie feiern, jeweils nur einmal pro Wert.
+  const [celebrated, setCelebrated] = useState(streak.current);
+  if (streak.current !== celebrated) {
+    const milestone = reachedMilestone(celebrated, streak.current);
+    setCelebrated(streak.current);
+    if (milestone) {
+      setSecretMessage(t('secrets.milestone', { count: milestone }));
+      setConfetti(true);
+    }
+  }
 
   const today = useMemo(() => new Date(), []);
   const todayKey = toDateKey(today);
@@ -69,15 +98,22 @@ export default function CalendarScreen() {
     <Screen>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <AppText variant="title">{APP_NAME}</AppText>
-          <View
+          {/* Versteckt: 7 schnelle Taps auf den Titel schalten das Neon-Theme frei. */}
+          <Pressable onPress={onTitleTap} accessibilityRole="header">
+            <AppText variant="title">{APP_NAME}</AppText>
+          </Pressable>
+          {/* Versteckt: langer Druck auf die Flamme zeigt die Serien-Statistik. */}
+          <Pressable
+            onLongPress={() => setStatsOpen(true)}
+            delayLongPress={450}
+            accessibilityHint={t('secrets.flameHint')}
             style={[
               styles.streak,
               { backgroundColor: theme.colors.surfaceAlt, borderRadius: theme.radius.pill },
             ]}>
             <Ionicons name="flame" size={16} color={theme.colors.primary} />
             <AppText variant="caption">{t('calendar.streak', { count: streak.current })}</AppText>
-          </View>
+          </Pressable>
         </View>
 
         <View style={styles.monthBar}>
@@ -114,7 +150,7 @@ export default function CalendarScreen() {
           ))}
         </View>
 
-        <View style={styles.grid}>
+        <FadeIn key={`${visible.year}-${visible.month}`} style={styles.grid}>
           {weeks.map((week) => (
             <View key={week[0].key} style={styles.week}>
               {week.map((cell) => {
@@ -137,7 +173,7 @@ export default function CalendarScreen() {
               })}
             </View>
           ))}
-        </View>
+        </FadeIn>
 
         <View style={styles.footerRow}>
           <AppText variant="caption" muted>
@@ -164,27 +200,52 @@ export default function CalendarScreen() {
         )}
 
         {memory && (
-          <Pressable
-            accessibilityRole="button"
-            onPress={() => router.push({ pathname: '/photo/[day]', params: { day: memory.day } })}>
-            <Card style={styles.memory}>
-              <Image
-                source={{ uri: thumbs.get(memory.storage_path) }}
-                contentFit="cover"
-                style={[
-                  styles.memoryImage,
-                  { borderRadius: theme.radius.sm, backgroundColor: theme.colors.surfaceAlt },
-                ]}
-              />
-              <View style={styles.memoryText}>
-                <AppText variant="heading">{t('calendar.yearAgo')}</AppText>
-                <AppText muted>{dateLabel(memory.day)}</AppText>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color={theme.colors.textMuted} />
-            </Card>
-          </Pressable>
+          <FadeIn delay={200}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() =>
+                router.push({ pathname: '/photo/[day]', params: { day: memory.day } })
+              }>
+              <Card style={styles.memory}>
+                <Image
+                  source={{ uri: thumbs.get(memory.storage_path) }}
+                  contentFit="cover"
+                  style={[
+                    styles.memoryImage,
+                    { borderRadius: theme.radius.sm, backgroundColor: theme.colors.surfaceAlt },
+                  ]}
+                />
+                <View style={styles.memoryText}>
+                  <AppText variant="heading">{t('calendar.yearAgo')}</AppText>
+                  <AppText muted>{dateLabel(memory.day)}</AppText>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color={theme.colors.textMuted} />
+              </Card>
+            </Pressable>
+          </FadeIn>
         )}
       </ScrollView>
+      {secretMessage && (
+        <FadeIn
+          style={[
+            styles.toast,
+            { backgroundColor: theme.colors.primary, borderRadius: theme.radius.lg },
+          ]}>
+          <AppText
+            style={{ color: theme.colors.onPrimary, fontWeight: '700', textAlign: 'center' }}>
+            {secretMessage}
+          </AppText>
+        </FadeIn>
+      )}
+      {confetti && (
+        <Confetti
+          onDone={() => {
+            setConfetti(false);
+            setSecretMessage(null);
+          }}
+        />
+      )}
+      <StreakStats visible={statsOpen} onClose={() => setStatsOpen(false)} />
     </Screen>
   );
 }
@@ -223,4 +284,11 @@ const styles = StyleSheet.create({
   memory: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginTop: spacing.lg },
   memoryImage: { width: 54, height: 72 },
   memoryText: { flex: 1 },
+  toast: {
+    position: 'absolute',
+    left: spacing.md,
+    right: spacing.md,
+    bottom: spacing.lg,
+    padding: spacing.md,
+  },
 });

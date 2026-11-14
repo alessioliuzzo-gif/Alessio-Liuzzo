@@ -128,7 +128,11 @@
     "visFriends": "Amis seulement",
     "visPublic": "Public",
     "visFriendsHint": "Seuls tes amis voient cette photo.",
-    "visPublicHint": "Tous les utilisateurs peuvent voir cette photo dans le fil public."
+    "visPublicHint": "Tous les utilisateurs peuvent voir cette photo dans le fil public.",
+    "cameraShort": "Go !",
+    "keepStreak_one": "{{count}} jour de suite. Garde ta série en vie !",
+    "keepStreak_other": "{{count}} jours de suite. Garde ta série en vie !",
+    "startStreak": "Commence ta série aujourd'hui !"
   },
   "editor": {
     "title": "Décore ta photo",
@@ -254,11 +258,56 @@
     "warm": "Chaleureux & rétro",
     "bold": "Sombre & intense",
     "minimal": "Clair & minimaliste",
-    "pastel": "Pastel & ludique"
+    "pastel": "Pastel & ludique",
+    "custom": "Ton propre design",
+    "neon": "Néon"
   },
   "legal": {
     "terms": "Conditions d'utilisation",
     "privacy": "Politique de confidentialité",
     "draftPending": "Ce texte est en cours de rédaction et suivra avant la publication de l'app."
+  },
+  "customTheme": {
+    "mode": "Clair ou sombre",
+    "light": "Clair",
+    "dark": "Sombre",
+    "accent": "Couleur d'accent",
+    "shape": "Coins",
+    "font": "Police",
+    "shapes": {
+      "sharp": "Anguleux",
+      "soft": "Doux",
+      "round": "Rond"
+    },
+    "fonts": {
+      "sans": "Moderne",
+      "serif": "Classique",
+      "rounded": "Ludique"
+    },
+    "accents": {
+      "blue": "Bleu",
+      "violet": "Violet",
+      "pink": "Rose",
+      "red": "Rouge",
+      "orange": "Orange",
+      "green": "Vert",
+      "teal": "Pétrole",
+      "lime": "Citron vert",
+      "gold": "Or",
+      "ink": "Encre"
+    }
+  },
+  "secrets": {
+    "neonUnlocked": "Secret découvert : le thème Néon est à toi !",
+    "milestone": "{{count}} jours de suite ! Incroyable !",
+    "flameHint": "Appui long pour les statistiques de ta série",
+    "statsTitle": "Ta série",
+    "current": "Série actuelle",
+    "longest": "Plus longue série",
+    "total": "Photos au total",
+    "fullMonths": "Mois complets",
+    "creditsFound": "Tu as trouvé les crédits secrets.",
+    "createdBy": "Créé par",
+    "madeIn": "Fait avec amour en Suisse"
   }
 }

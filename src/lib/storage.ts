@@ -10,6 +10,7 @@ export const StorageKeys = {
   language: 'dayshot.language',
   calendarDesign: 'dayshot.calendarDesign',
   customTheme: 'dayshot.customTheme',
+  secretNeon: 'dayshot.secret.neon',
 } as const;
 
 type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];

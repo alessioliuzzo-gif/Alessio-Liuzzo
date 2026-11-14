@@ -2,9 +2,10 @@
  * Profil-Tab: Konto (Name, Bild, Abmelden, Löschen) und Einstellungen für
  * Design und Sprache.
  */
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
@@ -16,15 +17,19 @@ import { useAuth } from '@/features/auth/AuthProvider';
 import { validateDisplayName } from '@/features/auth/validation';
 import { CalendarDesignCard, RewardsCard } from '@/features/rewards/RewardsCard';
 import { avatarUrl, updateDisplayName, uploadAvatar } from '@/features/profile/api';
+import { createTapCounter } from '@/features/secrets/secrets';
 import { setLanguage } from '@/i18n';
 import { LANGUAGE_NAMES, LANGUAGES } from '@/i18n/languages';
+import { CustomThemeEditor } from '@/theme/CustomThemeCard';
 import { useTheme, useThemeControls } from '@/theme/ThemeProvider';
 import { spacing, THEME_IDS, themes } from '@/theme/themes';
 
 export default function ProfileScreen() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const { themeId, setThemeId } = useThemeControls();
+  const { themeId, setThemeId, neonUnlocked } = useThemeControls();
+  const router = useRouter();
+  const [versionTaps] = useState(() => createTapCounter(5, 2500));
   const { demoMode } = useAuth();
   const link = { color: theme.colors.primary };
 
@@ -51,7 +56,22 @@ export default function ProfileScreen() {
                 leading={<Swatch id={id} />}
               />
             ))}
+            {neonUnlocked && (
+              <OptionRow
+                label={`${t('themes.neon')} ✨`}
+                selected={themeId === 'neon'}
+                onPress={() => setThemeId('neon')}
+                leading={<Swatch id="neon" />}
+              />
+            )}
+            <OptionRow
+              label={t('themes.custom')}
+              selected={themeId === 'custom'}
+              onPress={() => setThemeId('custom')}
+              leading={<Ionicons name="color-palette" size={24} color={theme.colors.primary} />}
+            />
           </View>
+          {themeId === 'custom' && <CustomThemeEditor />}
         </Card>
 
         {!demoMode && <CalendarDesignCard />}
@@ -84,9 +104,12 @@ export default function ProfileScreen() {
             </AppText>
           </Link>
         </View>
-        <AppText variant="caption" muted style={styles.center}>
-          {APP_NAME} · {t('profile.version', { version: APP_VERSION })}
-        </AppText>
+        {/* Versteckt: 5 schnelle Taps auf die Version öffnen die Credits. */}
+        <Pressable onPress={() => versionTaps() && router.push('/secret')}>
+          <AppText variant="caption" muted style={styles.center}>
+            {APP_NAME} · {t('profile.version', { version: APP_VERSION })}
+          </AppText>
+        </Pressable>
       </ScrollView>
     </Screen>
   );

@@ -83,6 +83,7 @@ function RootNavigator() {
           <Stack.Screen name="photo/[day]" options={{ presentation: 'modal' }} />
           <Stack.Screen name="year/[year]" />
           <Stack.Screen name="friends" />
+          <Stack.Screen name="secret" options={{ presentation: 'modal' }} />
           <Stack.Screen name="post/new" options={{ presentation: 'modal' }} />
           <Stack.Screen name="chat/[id]" />
           <Stack.Screen name="comments/[type]/[id]" />
