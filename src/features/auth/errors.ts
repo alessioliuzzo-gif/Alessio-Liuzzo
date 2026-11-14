@@ -21,7 +21,10 @@ export function authErrorKey(error: unknown): string {
   if (e?.code && BY_CODE[e.code]) return BY_CODE[e.code];
   if (e?.status === 429) return 'authErrors.rateLimited';
   const message = e?.message ?? '';
-  if (e?.name === 'AuthRetryableFetchError' || /network request failed|failed to fetch/i.test(message)) {
+  if (
+    e?.name === 'AuthRetryableFetchError' ||
+    /network request failed|failed to fetch/i.test(message)
+  ) {
     return 'authErrors.network';
   }
   return 'authErrors.unknown';

@@ -9,6 +9,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo, useState } from 'react';
 
 import { AuthProvider, useAuth } from '@/features/auth/AuthProvider';
+import { PhotoLibraryProvider } from '@/features/photos/PhotoLibraryProvider';
 import { AppConfigProvider } from '@/features/config/AppConfigProvider';
 import { restoreLanguage } from '@/i18n';
 import { AppThemeProvider, useTheme, useThemeControls } from '@/theme/ThemeProvider';
@@ -20,7 +21,9 @@ export default function RootLayout() {
     <AppThemeProvider>
       <AppConfigProvider>
         <AuthProvider>
-          <RootNavigator />
+          <PhotoLibraryProvider>
+            <RootNavigator />
+          </PhotoLibraryProvider>
         </AuthProvider>
       </AppConfigProvider>
     </AppThemeProvider>
@@ -73,7 +76,12 @@ function RootNavigator() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Protected guard={signedIn}>
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="editor" options={{ presentation: 'fullScreenModal', gestureEnabled: false }} />
+          <Stack.Screen
+            name="editor"
+            options={{ presentation: 'fullScreenModal', gestureEnabled: false }}
+          />
+          <Stack.Screen name="photo/[day]" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="year/[year]" />
         </Stack.Protected>
         <Stack.Protected guard={!signedIn}>
           <Stack.Screen name="(auth)" />

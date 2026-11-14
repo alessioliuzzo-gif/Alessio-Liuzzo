@@ -22,6 +22,7 @@ import {
   setPhotoVisibility,
   signedPhotoUrl,
 } from '@/features/photos/api';
+import { usePhotoLibrary } from '@/features/photos/PhotoLibraryProvider';
 import type { DailyPhoto, PhotoVisibility } from '@/lib/database.types';
 import { useTheme } from '@/theme/ThemeProvider';
 import { spacing } from '@/theme/themes';
@@ -38,7 +39,11 @@ export default function TodayScreen() {
 
   if (demoMode) {
     return (
-      <PlaceholderScreen title={t('today.title')} message={t('today.placeholder')} icon="camera-outline" />
+      <PlaceholderScreen
+        title={t('today.title')}
+        message={t('today.placeholder')}
+        icon="camera-outline"
+      />
     );
   }
   return <Today userId={session?.user.id ?? null} />;
@@ -48,6 +53,7 @@ function Today({ userId }: { userId: string | null }) {
   const { t } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
+  const { reload: reloadLibrary } = usePhotoLibrary();
 
   const [state, setState] = useState<State>({ status: 'loading' });
   const [notice, setNotice] = useState<string | null>(null);
@@ -101,6 +107,7 @@ function Today({ userId }: { userId: string | null }) {
     setState({ status: 'ready', photo: { ...photo, visibility }, url });
     try {
       await setPhotoVisibility(photo.id, visibility);
+      void reloadLibrary();
     } catch {
       setState({ status: 'ready', photo, url });
       setNotice('today.actionFailed');
@@ -114,6 +121,7 @@ function Today({ userId }: { userId: string | null }) {
     setBusy(true);
     try {
       await deleteDailyPhoto(photo);
+      await reloadLibrary();
       setConfirmDelete(false);
       setState({ status: 'empty' });
     } catch {
@@ -127,7 +135,12 @@ function Today({ userId }: { userId: string | null }) {
   const sourceButtons = (labelCamera: string) => (
     <>
       <Button label={labelCamera} onPress={() => pick('camera')} disabled={busy} />
-      <Button label={t('today.gallery')} variant="secondary" onPress={() => pick('gallery')} disabled={busy} />
+      <Button
+        label={t('today.gallery')}
+        variant="secondary"
+        onPress={() => pick('gallery')}
+        disabled={busy}
+      />
     </>
   );
 
@@ -199,7 +212,11 @@ function Today({ userId }: { userId: string | null }) {
               ]}
             />
             <AppText variant="caption" muted style={styles.centerText}>
-              {t(state.photo.visibility === 'public' ? 'today.visPublicHint' : 'today.visFriendsHint')}
+              {t(
+                state.photo.visibility === 'public'
+                  ? 'today.visPublicHint'
+                  : 'today.visFriendsHint',
+              )}
             </AppText>
 
             {confirmDelete ? (
@@ -224,7 +241,11 @@ function Today({ userId }: { userId: string | null }) {
             ) : (
               <>
                 {sourceButtons(t('today.replace'))}
-                <Button label={t('today.delete')} variant="danger" onPress={() => setConfirmDelete(true)} />
+                <Button
+                  label={t('today.delete')}
+                  variant="danger"
+                  onPress={() => setConfirmDelete(true)}
+                />
               </>
             )}
           </>

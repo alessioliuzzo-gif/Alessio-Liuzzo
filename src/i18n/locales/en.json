@@ -4,7 +4,8 @@
     "cancel": "Cancel",
     "save": "Save",
     "showPassword": "Show password",
-    "hidePassword": "Hide password"
+    "hidePassword": "Hide password",
+    "close": "Close"
   },
   "tabs": {
     "calendar": "Calendar",
@@ -70,7 +71,12 @@
     "emptyHint": "No photos yet. Your first daily photo will appear here.",
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
-    "backToToday": "Back to today"
+    "backToToday": "Back to today",
+    "progress": "{{done}} of {{total}} days",
+    "yearOverview": "Year {{year}}",
+    "yearAgo": "One year ago today",
+    "photosInYear_one": "{{count}} photo this year",
+    "photosInYear_other": "{{count}} photos this year"
   },
   "feed": {
     "title": "Feed",
@@ -163,5 +169,26 @@
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "draftPending": "This text is still being written and will follow before the app is released."
+  },
+  "rewards": {
+    "title": "Rewards",
+    "rule": "A complete month with a photo on every day unlocks the next reward.",
+    "thisMonth": "This month: {{done}} of {{total}} days",
+    "longest_one": "Longest streak: {{count}} day",
+    "longest_other": "Longest streak: {{count}} days",
+    "next": "Up next",
+    "unlocked": "Unlocked",
+    "allUnlocked": "You have unlocked all rewards.",
+    "kinds": {
+      "filter": "Filter",
+      "frame": "Frame",
+      "design": "Calendar design"
+    },
+    "calendarDesign": "Calendar design",
+    "designs": {
+      "classic": "Classic",
+      "polaroid": "Polaroid",
+      "round": "Round"
+    }
   }
 }

@@ -61,7 +61,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const loadProfile = useCallback(async (id: string) => {
-    const { data } = await requireSupabase().from('profiles').select('*').eq('id', id).maybeSingle();
+    const { data } = await requireSupabase()
+      .from('profiles')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle();
     return data;
   }, []);
 

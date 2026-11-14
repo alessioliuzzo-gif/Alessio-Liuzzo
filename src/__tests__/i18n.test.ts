@@ -24,19 +24,20 @@ describe('Übersetzungen', () => {
   });
 
   it.each(Object.keys(locales))('%s hat dieselben Schlüssel wie Deutsch', (language) => {
-    expect(Object.keys(flatten(locales[language])).sort()).toEqual(
-      Object.keys(flatten(de)).sort(),
-    );
+    expect(Object.keys(flatten(locales[language])).sort()).toEqual(Object.keys(flatten(de)).sort());
   });
 
-  it.each(Object.keys(locales))('%s hat keine leeren Texte und dieselben Platzhalter', (language) => {
-    const reference = flatten(de);
-    const placeholders = (text: string) => (text.match(/{{\w+}}/g) ?? []).sort();
-    for (const [key, text] of Object.entries(flatten(locales[language]))) {
-      expect(text.trim()).not.toBe('');
-      expect(placeholders(text)).toEqual(placeholders(reference[key]));
-    }
-  });
+  it.each(Object.keys(locales))(
+    '%s hat keine leeren Texte und dieselben Platzhalter',
+    (language) => {
+      const reference = flatten(de);
+      const placeholders = (text: string) => (text.match(/{{\w+}}/g) ?? []).sort();
+      for (const [key, text] of Object.entries(flatten(locales[language]))) {
+        expect(text.trim()).not.toBe('');
+        expect(placeholders(text)).toEqual(placeholders(reference[key]));
+      }
+    },
+  );
 });
 
 describe('resolveLanguage', () => {

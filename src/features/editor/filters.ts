@@ -9,12 +9,7 @@ export type ColorMatrix = readonly number[]; // 20 Werte
 /** Woher ein Effekt kommt: gratis, durch einen vollen Monat freigeschaltet oder im Abo. */
 export type Unlock = 'free' | 'reward' | 'premium';
 
-export const IDENTITY: ColorMatrix = [
-  1, 0, 0, 0, 0,
-  0, 1, 0, 0, 0,
-  0, 0, 1, 0, 0,
-  0, 0, 0, 1, 0,
-];
+export const IDENTITY: ColorMatrix = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];
 
 // Gewichte, mit denen das Auge Helligkeit wahrnimmt (Grün wirkt am hellsten).
 const LUMA = [0.2126, 0.7152, 0.0722] as const;
@@ -22,51 +17,28 @@ const LUMA = [0.2126, 0.7152, 0.0722] as const;
 /** 0 = Schwarzweiss, 1 = unverändert, über 1 = kräftiger. */
 export function saturation(s: number): ColorMatrix {
   const [r, g, b] = LUMA.map((w) => w * (1 - s));
-  return [
-    r + s, g, b, 0, 0,
-    r, g + s, b, 0, 0,
-    r, g, b + s, 0, 0,
-    0, 0, 0, 1, 0,
-  ];
+  return [r + s, g, b, 0, 0, r, g + s, b, 0, 0, r, g, b + s, 0, 0, 0, 0, 0, 1, 0];
 }
 
 /** 1 = unverändert. Dreht um das mittlere Grau, damit das Bild nicht heller oder dunkler wird. */
 export function contrast(c: number): ColorMatrix {
   const offset = (1 - c) / 2;
-  return [
-    c, 0, 0, 0, offset,
-    0, c, 0, 0, offset,
-    0, 0, c, 0, offset,
-    0, 0, 0, 1, 0,
-  ];
+  return [c, 0, 0, 0, offset, 0, c, 0, 0, offset, 0, 0, c, 0, offset, 0, 0, 0, 1, 0];
 }
 
 /** Verstärkt oder dämpft einzelne Farbkanäle, z. B. für warme oder kühle Töne. */
 export function tint(r: number, g: number, b: number): ColorMatrix {
-  return [
-    r, 0, 0, 0, 0,
-    0, g, 0, 0, 0,
-    0, 0, b, 0, 0,
-    0, 0, 0, 1, 0,
-  ];
+  return [r, 0, 0, 0, 0, 0, g, 0, 0, 0, 0, 0, b, 0, 0, 0, 0, 0, 1, 0];
 }
 
 /** Hebt die dunklen Stellen an: der ausgewaschene Look alter Abzüge. */
 export function fade(amount: number): ColorMatrix {
   const scale = 1 - amount;
-  return [
-    scale, 0, 0, 0, amount,
-    0, scale, 0, 0, amount,
-    0, 0, scale, 0, amount,
-    0, 0, 0, 1, 0,
-  ];
+  return [scale, 0, 0, 0, amount, 0, scale, 0, 0, amount, 0, 0, scale, 0, amount, 0, 0, 0, 1, 0];
 }
 
 const SEPIA: ColorMatrix = [
-  0.393, 0.769, 0.189, 0, 0,
-  0.349, 0.686, 0.168, 0, 0,
-  0.272, 0.534, 0.131, 0, 0,
-  0, 0, 0, 1, 0,
+  0.393, 0.769, 0.189, 0, 0, 0.349, 0.686, 0.168, 0, 0, 0.272, 0.534, 0.131, 0, 0, 0, 0, 0, 1, 0,
 ];
 
 /**

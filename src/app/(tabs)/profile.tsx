@@ -14,6 +14,7 @@ import { AppText, Card, OptionRow, Screen } from '@/components/ui';
 import { APP_NAME, APP_VERSION } from '@/config/brand';
 import { useAuth } from '@/features/auth/AuthProvider';
 import { validateDisplayName } from '@/features/auth/validation';
+import { CalendarDesignCard, RewardsCard } from '@/features/rewards/RewardsCard';
 import { avatarUrl, updateDisplayName, uploadAvatar } from '@/features/profile/api';
 import { setLanguage } from '@/i18n';
 import { LANGUAGE_NAMES, LANGUAGES } from '@/i18n/languages';
@@ -36,6 +37,7 @@ export default function ProfileScreen() {
         <AppText variant="title">{t('profile.title')}</AppText>
 
         {demoMode ? <Notice>{t('profile.demoMode')}</Notice> : <AccountCard />}
+        {!demoMode && <RewardsCard />}
 
         <Card>
           <AppText variant="heading">{t('profile.theme')}</AppText>
@@ -51,6 +53,8 @@ export default function ProfileScreen() {
             ))}
           </View>
         </Card>
+
+        {!demoMode && <CalendarDesignCard />}
 
         <Card>
           <AppText variant="heading">{t('profile.language')}</AppText>
@@ -296,7 +300,8 @@ function DangerZone() {
 function Swatch({ id }: { id: keyof typeof themes }) {
   const { colors } = themes[id];
   return (
-    <View style={[styles.swatch, { backgroundColor: colors.background, borderColor: colors.border }]}>
+    <View
+      style={[styles.swatch, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.swatchDot, { backgroundColor: colors.primary }]} />
     </View>
   );

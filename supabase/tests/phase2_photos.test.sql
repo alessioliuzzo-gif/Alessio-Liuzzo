@@ -83,16 +83,17 @@ do $$
 declare
   n int;
 begin
-  assert not exists (select 1 from public.daily_photos), 'Ben sieht Annas privaten Eintrag nicht';
-  assert not exists (select 1 from storage.objects where bucket_id = 'photos'),
+  assert not exists (select 1 from public.daily_photos where user_id = '00000000-0000-4000-8000-0000000000a1'),
+    'Ben sieht Annas privaten Eintrag nicht';
+  assert not exists (select 1 from storage.objects where bucket_id = 'photos' and name like '00000000-0000-4000-8000-0000000000a1/%'),
     'Ben sieht Annas private Bilddatei nicht';
   assert not public.can_view_photo('00000000-0000-4000-8000-0000000000a1/'
     || (now() at time zone 'utc')::date || '.jpg'), 'can_view_photo verneint für Ben';
 
-  update public.daily_photos set visibility = 'public';
+  update public.daily_photos set visibility = 'public' where user_id = '00000000-0000-4000-8000-0000000000a1';
   get diagnostics n = row_count;
   assert n = 0, 'Ben kann Annas Foto nicht öffentlich machen';
-  delete from public.daily_photos;
+  delete from public.daily_photos where user_id = '00000000-0000-4000-8000-0000000000a1';
   get diagnostics n = row_count;
   assert n = 0, 'Ben kann Annas Foto nicht löschen';
 end $$;
@@ -108,7 +109,7 @@ declare
 begin
   update public.daily_photos set visibility = 'public';
   get diagnostics n = row_count;
-  assert n = 1, 'Anna ändert die Sichtbarkeit';
+  assert n = 1, 'Anna ändert die Sichtbarkeit (und nur ihr eigenes Foto)';
 end $$;
 reset role;
 
@@ -119,13 +120,19 @@ do $$
 declare
   n int;
 begin
-  assert (select count(*) from public.daily_photos) = 1, 'Ben sieht das öffentliche Foto';
-  assert (select count(*) from storage.objects where bucket_id = 'photos') = 1,
+  assert (select count(*) from public.daily_photos where user_id = '00000000-0000-4000-8000-0000000000a1') = 1,
+    'Ben sieht das öffentliche Foto';
+  assert (select count(*) from storage.objects where bucket_id = 'photos' and name like '00000000-0000-4000-8000-0000000000a1/%') = 1,
     'Ben darf die öffentliche Bilddatei lesen';
-  update public.daily_photos set visibility = 'friends';
+  assert public.can_view_photo('00000000-0000-4000-8000-0000000000a1/'
+    || (now() at time zone 'utc')::date || '_thumb.jpg'), 'das Vorschaubild folgt denselben Regeln';
+  assert not public.can_view_photo('00000000-0000-4000-8000-0000000000a1/2000-01-01_thumb.jpg'),
+    'kein Zugriff auf Vorschaubilder ohne Eintrag';
+  update public.daily_photos set visibility = 'friends' where user_id = '00000000-0000-4000-8000-0000000000a1';
   get diagnostics n = row_count;
   assert n = 0, 'Ben kann die Sichtbarkeit nicht ändern';
-  update storage.objects set name = '00000000-0000-4000-8000-0000000000b2/x.jpg' where bucket_id = 'photos';
+  update storage.objects set name = '00000000-0000-4000-8000-0000000000b2/x.jpg'
+    where bucket_id = 'photos' and name like '00000000-0000-4000-8000-0000000000a1/%';
   get diagnostics n = row_count;
   assert n = 0, 'Ben kann die Datei nicht verschieben';
 end $$;
@@ -150,7 +157,8 @@ reset role;
 delete from auth.users where id = '00000000-0000-4000-8000-0000000000a1';
 do $$
 begin
-  assert not exists (select 1 from public.daily_photos), 'Fotos werden mit dem Konto gelöscht';
+  assert not exists (select 1 from public.daily_photos where user_id = '00000000-0000-4000-8000-0000000000a1'),
+    'Fotos werden mit dem Konto gelöscht';
 end $$;
 
 select 'ALLE TESTS BESTANDEN' as ergebnis;

@@ -28,7 +28,24 @@ export function getFrame(id: FrameId): PhotoFrame {
   return FRAMES.find((frame) => frame.id === id) ?? FRAMES[0];
 }
 
-export const STICKERS = ['❤️', '😊', '😂', '🔥', '⭐', '☀️', '🌙', '🌈', '🎉', '🍕', '☕', '🏔️', '🌊', '🐶', '🐱', '✨'] as const;
+export const STICKERS = [
+  '❤️',
+  '😊',
+  '😂',
+  '🔥',
+  '⭐',
+  '☀️',
+  '🌙',
+  '🌈',
+  '🎉',
+  '🍕',
+  '☕',
+  '🏔️',
+  '🌊',
+  '🐶',
+  '🐱',
+  '✨',
+] as const;
 
 export const TEXT_COLORS = ['#FFFFFF', '#111111', '#F4C542', '#E4572E', '#2E86DE'] as const;
 
@@ -56,11 +73,27 @@ function nextId(): string {
 }
 
 export function createText(text: string, color: string): OverlayItem {
-  return { id: nextId(), kind: 'text', text: text.trim().slice(0, MAX_TEXT_LENGTH), x: 0.5, y: 0.5, size: 0.075, color };
+  return {
+    id: nextId(),
+    kind: 'text',
+    text: text.trim().slice(0, MAX_TEXT_LENGTH),
+    x: 0.5,
+    y: 0.5,
+    size: 0.075,
+    color,
+  };
 }
 
 export function createSticker(emoji: string): OverlayItem {
-  return { id: nextId(), kind: 'sticker', text: emoji, x: 0.5, y: 0.4, size: 0.18, color: '#FFFFFF' };
+  return {
+    id: nextId(),
+    kind: 'sticker',
+    text: emoji,
+    x: 0.5,
+    y: 0.4,
+    size: 0.18,
+    color: '#FFFFFF',
+  };
 }
 
 /** Verschiebt ein Element um einen relativen Betrag und hält den Mittelpunkt im Bild. */

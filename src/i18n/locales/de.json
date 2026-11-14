@@ -4,7 +4,8 @@
     "cancel": "Abbrechen",
     "save": "Speichern",
     "showPassword": "Passwort anzeigen",
-    "hidePassword": "Passwort verbergen"
+    "hidePassword": "Passwort verbergen",
+    "close": "Schliessen"
   },
   "tabs": {
     "calendar": "Kalender",
@@ -70,7 +71,12 @@
     "emptyHint": "Noch keine Fotos. Dein erstes Tagesfoto erscheint hier.",
     "previousMonth": "Vorheriger Monat",
     "nextMonth": "Nächster Monat",
-    "backToToday": "Zurück zu heute"
+    "backToToday": "Zurück zu heute",
+    "progress": "{{done}} von {{total}} Tagen",
+    "yearOverview": "Jahr {{year}}",
+    "yearAgo": "Heute vor einem Jahr",
+    "photosInYear_one": "{{count}} Foto in diesem Jahr",
+    "photosInYear_other": "{{count}} Fotos in diesem Jahr"
   },
   "feed": {
     "title": "Feed",
@@ -163,5 +169,26 @@
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzerklärung",
     "draftPending": "Dieser Text ist noch in Arbeit und folgt vor der Veröffentlichung der App."
+  },
+  "rewards": {
+    "title": "Belohnungen",
+    "rule": "Ein vollständiger Monat mit einem Foto an jedem Tag schaltet die nächste Belohnung frei.",
+    "thisMonth": "Dieser Monat: {{done}} von {{total}} Tagen",
+    "longest_one": "Längste Serie: {{count}} Tag",
+    "longest_other": "Längste Serie: {{count}} Tage",
+    "next": "Als Nächstes",
+    "unlocked": "Freigeschaltet",
+    "allUnlocked": "Du hast alle Belohnungen freigeschaltet.",
+    "kinds": {
+      "filter": "Filter",
+      "frame": "Rahmen",
+      "design": "Kalenderdesign"
+    },
+    "calendarDesign": "Kalenderdesign",
+    "designs": {
+      "classic": "Klassisch",
+      "polaroid": "Polaroid",
+      "round": "Rund"
+    }
   }
 }

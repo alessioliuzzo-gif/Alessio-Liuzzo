@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const StorageKeys = {
   theme: 'dayshot.theme',
   language: 'dayshot.language',
+  calendarDesign: 'dayshot.calendarDesign',
 } as const;
 
 type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];

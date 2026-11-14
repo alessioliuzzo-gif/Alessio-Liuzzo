@@ -4,7 +4,8 @@
     "cancel": "Annulla",
     "save": "Salva",
     "showPassword": "Mostra password",
-    "hidePassword": "Nascondi password"
+    "hidePassword": "Nascondi password",
+    "close": "Chiudi"
   },
   "tabs": {
     "calendar": "Calendario",
@@ -70,7 +71,12 @@
     "emptyHint": "Ancora nessuna foto. La tua prima foto del giorno apparirà qui.",
     "previousMonth": "Mese precedente",
     "nextMonth": "Mese successivo",
-    "backToToday": "Torna a oggi"
+    "backToToday": "Torna a oggi",
+    "progress": "{{done}} giorni su {{total}}",
+    "yearOverview": "Anno {{year}}",
+    "yearAgo": "Un anno fa oggi",
+    "photosInYear_one": "{{count}} foto quest'anno",
+    "photosInYear_other": "{{count}} foto quest'anno"
   },
   "feed": {
     "title": "Feed",
@@ -163,5 +169,26 @@
     "terms": "Condizioni d'uso",
     "privacy": "Informativa sulla privacy",
     "draftPending": "Questo testo è in preparazione e seguirà prima della pubblicazione dell'app."
+  },
+  "rewards": {
+    "title": "Premi",
+    "rule": "Un mese completo con una foto ogni giorno sblocca il premio successivo.",
+    "thisMonth": "Questo mese: {{done}} giorni su {{total}}",
+    "longest_one": "Serie più lunga: {{count}} giorno",
+    "longest_other": "Serie più lunga: {{count}} giorni",
+    "next": "Prossimo premio",
+    "unlocked": "Sbloccato",
+    "allUnlocked": "Hai sbloccato tutti i premi.",
+    "kinds": {
+      "filter": "Filtro",
+      "frame": "Cornice",
+      "design": "Stile del calendario"
+    },
+    "calendarDesign": "Stile del calendario",
+    "designs": {
+      "classic": "Classico",
+      "polaroid": "Polaroid",
+      "round": "Rotondo"
+    }
   }
 }

@@ -3,7 +3,7 @@
  * wird mit Skia auf eine Zeichenfläche gemalt. Beim Speichern wird genau diese
  * Fläche als JPEG exportiert: Was man sieht, wird gespeichert.
  */
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   Canvas,
   ColorMatrix,
@@ -16,10 +16,10 @@ import {
   TextAlign,
   useCanvasRef,
   useImage,
-} from "@shopify/react-native-skia";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+} from '@shopify/react-native-skia';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
   type GestureResponderEvent,
@@ -29,20 +29,21 @@ import {
   StyleSheet,
   TextInput,
   View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Button, Notice, Segmented } from "@/components/form";
-import { AppText } from "@/components/ui";
-import { useAuth } from "@/features/auth/AuthProvider";
-import { toDateKey } from "@/features/calendar/month-grid";
-import { saveDailyPhoto } from "@/features/photos/api";
-import type { PhotoVisibility } from "@/lib/database.types";
-import { useTheme } from "@/theme/ThemeProvider";
-import { spacing } from "@/theme/themes";
+import { Button, Notice, Segmented } from '@/components/form';
+import { AppText } from '@/components/ui';
+import { useAuth } from '@/features/auth/AuthProvider';
+import { toDateKey } from '@/features/calendar/month-grid';
+import { saveDailyPhoto } from '@/features/photos/api';
+import { usePhotoLibrary } from '@/features/photos/PhotoLibraryProvider';
+import type { PhotoVisibility } from '@/lib/database.types';
+import { useTheme } from '@/theme/ThemeProvider';
+import { spacing } from '@/theme/themes';
 
-import { FILTERS, type FilterId, getFilter, type Unlock } from "./filters";
-import { fitCanvas, PHOTO_ASPECT, type Size } from "./layout";
+import { FILTERS, type FilterId, getFilter, type Unlock } from './filters';
+import { fitCanvas, PHOTO_ASPECT, type Size } from './layout';
 import {
   createSticker,
   createText,
@@ -57,24 +58,50 @@ import {
   resizeItem,
   STICKERS,
   TEXT_COLORS,
-} from "./model";
+} from './model';
 
-type Tool = "filter" | "frame" | "text" | "sticker";
+type Tool = 'filter' | 'frame' | 'text' | 'sticker';
 const TOOLS: {
   id: Tool;
-  icon: React.ComponentProps<typeof Ionicons>["name"];
+  icon: React.ComponentProps<typeof Ionicons>['name'];
 }[] = [
-  { id: "filter", icon: "color-filter-outline" },
-  { id: "frame", icon: "square-outline" },
-  { id: "text", icon: "text-outline" },
-  { id: "sticker", icon: "happy-outline" },
+  { id: 'filter', icon: 'color-filter-outline' },
+  { id: 'frame', icon: 'square-outline' },
+  { id: 'text', icon: 'text-outline' },
+  { id: 'sticker', icon: 'happy-outline' },
 ];
 
+const THUMB_WIDTH = 240;
+
+/**
+ * Verkleinert das fertige JPEG für den Kalender. Das Bild wird dafür neu aus
+ * den JPEG-Daten gelesen und auf eine Fläche im Arbeitsspeicher gezeichnet.
+ * (Direkt vom Bildschirm-Abbild zu zeichnen ergab ein schwarzes Bild, weil
+ * dieses in der Grafikkarte liegt.) Gibt null zurück, wenn es nicht geht.
+ */
+function makeThumbnail(jpeg: Uint8Array): Uint8Array | null {
+  try {
+    const image = Skia.Image.MakeImageFromEncoded(Skia.Data.fromBytes(jpeg));
+    const height = Math.round(THUMB_WIDTH / PHOTO_ASPECT);
+    const surface = Skia.Surface.Make(THUMB_WIDTH, height);
+    if (!image || !surface) return null;
+    surface
+      .getCanvas()
+      .drawImageRect(
+        image,
+        Skia.XYWHRect(0, 0, image.width(), image.height()),
+        Skia.XYWHRect(0, 0, THUMB_WIDTH, height),
+        Skia.Paint(),
+      );
+    surface.flush();
+    return surface.makeImageSnapshot().encodeToBytes(ImageFormat.JPEG, 72);
+  } catch {
+    return null;
+  }
+}
+
 /** Baut den Textblock für ein Element. Gibt null zurück, falls Schriften fehlen (Web). */
-function buildParagraph(
-  item: OverlayItem,
-  canvasWidth: number,
-): SkParagraph | null {
+function buildParagraph(item: OverlayItem, canvasWidth: number): SkParagraph | null {
   try {
     const paragraph = Skia.ParagraphBuilder.Make({
       textAlign: TextAlign.Center,
@@ -85,10 +112,10 @@ function buildParagraph(
         fontStyle: { weight: 700 },
         // Leichter Schatten, damit Text auf hellen und dunklen Fotos lesbar bleibt.
         shadows:
-          item.kind === "text"
+          item.kind === 'text'
             ? [
                 {
-                  color: Skia.Color("#00000099"),
+                  color: Skia.Color('#00000099'),
                   blurRadius: 4,
                   offset: { x: 0, y: 1 },
                 },
@@ -109,6 +136,7 @@ export default function EditorScreen() {
   const theme = useTheme();
   const router = useRouter();
   const { session } = useAuth();
+  const { unlocked, reload: reloadPhotos } = usePhotoLibrary();
   const { uri } = useLocalSearchParams<{ uri?: string }>();
 
   const image = useImage(uri ?? null);
@@ -117,13 +145,13 @@ export default function EditorScreen() {
   const [area, setArea] = useState<Size>({ width: 0, height: 0 });
   const canvas = useMemo(() => fitCanvas(area), [area]);
 
-  const [tool, setTool] = useState<Tool>("filter");
-  const [filterId, setFilterId] = useState<FilterId>("original");
-  const [frameId, setFrameId] = useState<FrameId>("none");
+  const [tool, setTool] = useState<Tool>('filter');
+  const [filterId, setFilterId] = useState<FilterId>('original');
+  const [frameId, setFrameId] = useState<FrameId>('none');
   const [items, setItems] = useState<OverlayItem[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [visibility, setVisibility] = useState<PhotoVisibility>("friends");
-  const [draft, setDraft] = useState("");
+  const [visibility, setVisibility] = useState<PhotoVisibility>('friends');
+  const [draft, setDraft] = useState('');
   const [textColor, setTextColor] = useState<string>(TEXT_COLORS[0]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -131,6 +159,10 @@ export default function EditorScreen() {
   const selected = items.find((item) => item.id === selectedId) ?? null;
   const frame = getFrame(frameId);
   const canAdd = items.length < MAX_ITEMS;
+
+  /** Belohnungen sind gesperrt, bis ein voller Monat sie freischaltet. Abo-Effekte kommen in Phase 9. */
+  const isLocked = (unlock: Unlock, key: string) =>
+    unlock === 'premium' || (unlock === 'reward' && !unlocked.has(key));
 
   const paragraphs = useMemo(
     () =>
@@ -157,9 +189,7 @@ export default function EditorScreen() {
     const { locationX, locationY, pageX, pageY } = event.nativeEvent;
     const point = { x: locationX / canvas.width, y: locationY / canvas.height };
     const hit = hitTest(items, point, PHOTO_ASPECT);
-    drag.current = hit
-      ? { id: hit.id, x: hit.x, y: hit.y, pageX, pageY }
-      : null;
+    drag.current = hit ? { id: hit.id, x: hit.x, y: hit.y, pageX, pageY } : null;
     setSelectedId(hit ? hit.id : null);
   }
 
@@ -170,9 +200,7 @@ export default function EditorScreen() {
     const dy = (event.nativeEvent.pageY - start.pageY) / canvas.height;
     setItems((list) =>
       list.map((item) =>
-        item.id === start.id
-          ? moveItem({ ...item, x: start.x, y: start.y }, dx, dy)
-          : item,
+        item.id === start.id ? moveItem({ ...item, x: start.x, y: start.y }, dx, dy) : item,
       ),
     );
   }
@@ -184,9 +212,7 @@ export default function EditorScreen() {
 
   function updateSelected(change: (item: OverlayItem) => OverlayItem) {
     if (!selectedId) return;
-    setItems((list) =>
-      list.map((item) => (item.id === selectedId ? change(item) : item)),
-    );
+    setItems((list) => list.map((item) => (item.id === selectedId ? change(item) : item)));
   }
 
   /** Zurück zum "Heute"-Tab. Der Editor kann auch direkt geöffnet worden sein (kein Zurück möglich). */
@@ -205,17 +231,14 @@ export default function EditorScreen() {
       setSelectedId(null);
       await new Promise((resolve) => setTimeout(resolve, 80));
       const snapshot = await canvasRef.current?.makeImageSnapshotAsync();
-      if (!snapshot) throw new Error("snapshot failed");
+      if (!snapshot) throw new Error('snapshot failed');
       const jpeg = snapshot.encodeToBytes(ImageFormat.JPEG, 88);
-      await saveDailyPhoto({
-        userId,
-        day: toDateKey(new Date()),
-        jpeg,
-        visibility,
-      });
+      const thumbnail = makeThumbnail(jpeg) ?? jpeg;
+      await saveDailyPhoto({ userId, day: toDateKey(new Date()), jpeg, thumbnail, visibility });
+      await reloadPhotos();
       close();
     } catch {
-      setError("editor.saveFailed");
+      setError('editor.saveFailed');
       setSaving(false);
     }
   }
@@ -224,20 +247,17 @@ export default function EditorScreen() {
   const [top, right, bottom, left] = frame.insets.map((inset) => inset * W);
 
   return (
-    <SafeAreaView
-      style={[styles.screen, { backgroundColor: theme.colors.background }]}
-    >
+    <SafeAreaView style={[styles.screen, { backgroundColor: theme.colors.background }]}>
       <View style={styles.header}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={t("common.cancel")}
+          accessibilityLabel={t('common.cancel')}
           hitSlop={12}
           disabled={saving}
-          onPress={close}
-        >
+          onPress={close}>
           <Ionicons name="close" size={28} color={theme.colors.text} />
         </Pressable>
-        <AppText variant="heading">{t("editor.title")}</AppText>
+        <AppText variant="heading">{t('editor.title')}</AppText>
         <View style={styles.headerSpacer} />
       </View>
 
@@ -246,8 +266,7 @@ export default function EditorScreen() {
         onLayout={(event: LayoutChangeEvent) => {
           const { width, height } = event.nativeEvent.layout;
           setArea({ width, height });
-        }}
-      >
+        }}>
         {W > 0 && (
           <View
             style={[
@@ -259,48 +278,20 @@ export default function EditorScreen() {
             onResponderMove={onTouchMove}
             onResponderRelease={() => {
               drag.current = null;
-            }}
-          >
-            <Canvas
-              ref={canvasRef}
-              style={{ width: W, height: H }}
-              pointerEvents="none"
-            >
+            }}>
+            <Canvas ref={canvasRef} style={{ width: W, height: H }} pointerEvents="none">
               {image && (
-                <SkiaImage
-                  image={image}
-                  x={0}
-                  y={0}
-                  width={W}
-                  height={H}
-                  fit="cover"
-                >
+                <SkiaImage image={image} x={0} y={0} width={W} height={H} fit="cover">
                   <ColorMatrix matrix={[...getFilter(filterId).matrix]} />
                 </SkiaImage>
               )}
-              {top > 0 && (
-                <Rect x={0} y={0} width={W} height={top} color={frame.color} />
-              )}
+              {top > 0 && <Rect x={0} y={0} width={W} height={top} color={frame.color} />}
               {bottom > 0 && (
-                <Rect
-                  x={0}
-                  y={H - bottom}
-                  width={W}
-                  height={bottom}
-                  color={frame.color}
-                />
+                <Rect x={0} y={H - bottom} width={W} height={bottom} color={frame.color} />
               )}
-              {left > 0 && (
-                <Rect x={0} y={0} width={left} height={H} color={frame.color} />
-              )}
+              {left > 0 && <Rect x={0} y={0} width={left} height={H} color={frame.color} />}
               {right > 0 && (
-                <Rect
-                  x={W - right}
-                  y={0}
-                  width={right}
-                  height={H}
-                  color={frame.color}
-                />
+                <Rect x={W - right} y={0} width={right} height={H} color={frame.color} />
               )}
               {paragraphs.map(({ item, paragraph }) =>
                 paragraph ? (
@@ -317,9 +308,7 @@ export default function EditorScreen() {
 
             {!image && (
               <View style={styles.loading}>
-                {uri ? (
-                  <ActivityIndicator color={theme.colors.primary} />
-                ) : null}
+                {uri ? <ActivityIndicator color={theme.colors.primary} /> : null}
               </View>
             )}
 
@@ -351,17 +340,17 @@ export default function EditorScreen() {
         <View style={styles.itemBar}>
           <IconButton
             icon="remove"
-            label={t("editor.smaller")}
+            label={t('editor.smaller')}
             onPress={() => updateSelected((i) => resizeItem(i, -1))}
           />
           <IconButton
             icon="add"
-            label={t("editor.bigger")}
+            label={t('editor.bigger')}
             onPress={() => updateSelected((i) => resizeItem(i, 1))}
           />
           <IconButton
             icon="trash-outline"
-            label={t("editor.remove")}
+            label={t('editor.remove')}
             onPress={() => {
               setItems((list) => list.filter((item) => item.id !== selectedId));
               setSelectedId(null);
@@ -369,40 +358,40 @@ export default function EditorScreen() {
           />
           <IconButton
             icon="checkmark"
-            label={t("editor.done")}
+            label={t('editor.done')}
             onPress={() => setSelectedId(null)}
           />
         </View>
       ) : (
         <View style={styles.panel}>
-          {tool === "filter" && (
+          {tool === 'filter' && (
             <ChipRow
               options={FILTERS.map((f) => ({
                 id: f.id,
                 label: t(`editor.filters.${f.id}`),
-                unlock: f.unlock,
+                locked: isLocked(f.unlock, `filter:${f.id}`),
               }))}
               selected={filterId}
               onSelect={setFilterId}
             />
           )}
-          {tool === "frame" && (
+          {tool === 'frame' && (
             <ChipRow
               options={FRAMES.map((f) => ({
                 id: f.id,
                 label: t(`editor.frames.${f.id}`),
-                unlock: f.unlock,
+                locked: isLocked(f.unlock, `frame:${f.id}`),
               }))}
               selected={frameId}
               onSelect={setFrameId}
             />
           )}
-          {tool === "text" && (
+          {tool === 'text' && (
             <View style={styles.textTool}>
               <View style={styles.textRow}>
                 <TextInput
-                  accessibilityLabel={t("editor.textPlaceholder")}
-                  placeholder={t("editor.textPlaceholder")}
+                  accessibilityLabel={t('editor.textPlaceholder')}
+                  placeholder={t('editor.textPlaceholder')}
                   placeholderTextColor={theme.colors.textMuted}
                   value={draft}
                   onChangeText={setDraft}
@@ -419,11 +408,11 @@ export default function EditorScreen() {
                   ]}
                 />
                 <Button
-                  label={t("editor.add")}
-                  disabled={draft.trim() === "" || !canAdd}
+                  label={t('editor.add')}
+                  disabled={draft.trim() === '' || !canAdd}
                   onPress={() => {
                     addItem(createText(draft, textColor));
-                    setDraft("");
+                    setDraft('');
                   }}
                 />
               </View>
@@ -440,9 +429,7 @@ export default function EditorScreen() {
                       {
                         backgroundColor: color,
                         borderColor:
-                          color === textColor
-                            ? theme.colors.primary
-                            : theme.colors.border,
+                          color === textColor ? theme.colors.primary : theme.colors.border,
                         borderWidth: color === textColor ? 3 : 1,
                       },
                     ]}
@@ -451,12 +438,11 @@ export default function EditorScreen() {
               </View>
             </View>
           )}
-          {tool === "sticker" && (
+          {tool === 'sticker' && (
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.chips}
-            >
+              contentContainerStyle={styles.chips}>
               {STICKERS.map((emoji) => (
                 <Pressable
                   key={emoji}
@@ -470,8 +456,7 @@ export default function EditorScreen() {
                       backgroundColor: theme.colors.surfaceAlt,
                       borderRadius: theme.radius.md,
                     },
-                  ]}
-                >
+                  ]}>
                   <AppText style={styles.stickerText}>{emoji}</AppText>
                 </Pressable>
               ))}
@@ -493,8 +478,7 @@ export default function EditorScreen() {
                 setSelectedId(null);
                 setTool(id);
               }}
-              style={styles.tool}
-            >
+              style={styles.tool}>
               <Ionicons name={icon} size={22} color={color} />
               <AppText variant="caption" style={{ color }}>
                 {t(`editor.tools.${id}`)}
@@ -506,28 +490,23 @@ export default function EditorScreen() {
 
       <View style={styles.footer}>
         <Segmented
-          label={t("today.visibility")}
+          label={t('today.visibility')}
           value={visibility}
           onChange={setVisibility}
           options={[
             {
-              value: "friends",
-              label: t("today.visFriends"),
-              icon: "people-outline",
+              value: 'friends',
+              label: t('today.visFriends'),
+              icon: 'people-outline',
             },
             {
-              value: "public",
-              label: t("today.visPublic"),
-              icon: "earth-outline",
+              value: 'public',
+              label: t('today.visPublic'),
+              icon: 'earth-outline',
             },
           ]}
         />
-        <Button
-          label={t("editor.save")}
-          onPress={save}
-          loading={saving}
-          disabled={!image}
-        />
+        <Button label={t('editor.save')} onPress={save} loading={saving} disabled={!image} />
       </View>
     </SafeAreaView>
   );
@@ -538,7 +517,7 @@ function IconButton({
   label,
   onPress,
 }: {
-  icon: React.ComponentProps<typeof Ionicons>["name"];
+  icon: React.ComponentProps<typeof Ionicons>['name'];
   label: string;
   onPress: () => void;
 }) {
@@ -554,8 +533,7 @@ function IconButton({
           backgroundColor: theme.colors.surfaceAlt,
           borderRadius: theme.radius.md,
         },
-      ]}
-    >
+      ]}>
       <Ionicons name={icon} size={24} color={theme.colors.text} />
     </Pressable>
   );
@@ -567,7 +545,7 @@ function ChipRow<T extends string>({
   selected,
   onSelect,
 }: {
-  options: { id: T; label: string; unlock: Unlock }[];
+  options: { id: T; label: string; locked: boolean }[];
   selected: T;
   onSelect: (id: T) => void;
 }) {
@@ -577,19 +555,14 @@ function ChipRow<T extends string>({
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.chips}
-    >
-      {options.map(({ id, label, unlock }) => {
+      contentContainerStyle={styles.chips}>
+      {options.map(({ id, label, locked }) => {
         const active = id === selected;
-        // Phase 4 (Belohnungen) und Phase 9 (Abo) schalten diese Effekte frei.
-        const locked = unlock !== "free";
         return (
           <Pressable
             key={id}
             accessibilityRole="radio"
-            accessibilityLabel={
-              locked ? `${label}, ${t("editor.locked")}` : label
-            }
+            accessibilityLabel={locked ? `${label}, ${t('editor.locked')}` : label}
             accessibilityState={{ selected: active, disabled: locked }}
             disabled={locked}
             onPress={() => onSelect(id)}
@@ -597,30 +570,18 @@ function ChipRow<T extends string>({
               styles.chip,
               {
                 borderRadius: theme.radius.pill,
-                borderColor: active
-                  ? theme.colors.primary
-                  : theme.colors.border,
-                backgroundColor: active
-                  ? theme.colors.primary
-                  : theme.colors.surface,
+                borderColor: active ? theme.colors.primary : theme.colors.border,
+                backgroundColor: active ? theme.colors.primary : theme.colors.surface,
                 opacity: locked ? 0.55 : 1,
               },
-            ]}
-          >
-            {locked && (
-              <Ionicons
-                name="lock-closed"
-                size={14}
-                color={theme.colors.textMuted}
-              />
-            )}
+            ]}>
+            {locked && <Ionicons name="lock-closed" size={14} color={theme.colors.textMuted} />}
             <AppText
               variant="caption"
               style={{
                 color: active ? theme.colors.onPrimary : theme.colors.text,
-                fontWeight: "600",
-              }}
-            >
+                fontWeight: '600',
+              }}>
               {label}
             </AppText>
           </Pressable>
@@ -633,66 +594,66 @@ function ChipRow<T extends string>({
 const styles = StyleSheet.create({
   screen: { flex: 1 },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: spacing.md,
     height: 48,
   },
   headerSpacer: { width: 28 },
   stage: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginHorizontal: spacing.md,
   },
-  canvasBox: { overflow: "hidden" },
+  canvasBox: { overflow: 'hidden' },
   loading: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   selection: {
-    position: "absolute",
+    position: 'absolute',
     width: 28,
     height: 6,
     borderRadius: 3,
     borderWidth: 3,
   },
   padded: { paddingHorizontal: spacing.md, paddingTop: spacing.sm },
-  panel: { height: 96, justifyContent: "center" },
+  panel: { height: 96, justifyContent: 'center' },
   itemBar: {
     height: 96,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: spacing.md,
   },
   iconButton: {
     width: 52,
     height: 52,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   chips: {
     gap: spacing.sm,
     paddingHorizontal: spacing.md,
-    alignItems: "center",
+    alignItems: 'center',
   },
   chip: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: spacing.xs,
     minHeight: 40,
     paddingHorizontal: spacing.md,
     borderWidth: 1,
   },
   textTool: { paddingHorizontal: spacing.md, gap: spacing.sm },
-  textRow: { flexDirection: "row", gap: spacing.sm, alignItems: "center" },
+  textRow: { flexDirection: 'row', gap: spacing.sm, alignItems: 'center' },
   textInput: {
     flex: 1,
     minHeight: 48,
@@ -700,17 +661,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 16,
   },
-  colors: { flexDirection: "row", gap: spacing.sm + spacing.xs },
+  colors: { flexDirection: 'row', gap: spacing.sm + spacing.xs },
   colorDot: { width: 30, height: 30, borderRadius: 15 },
   sticker: {
     width: 52,
     height: 52,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   stickerText: { fontSize: 28, lineHeight: 36 },
-  tools: { flexDirection: "row", borderTopWidth: StyleSheet.hairlineWidth },
-  tool: { flex: 1, alignItems: "center", gap: 2, paddingVertical: spacing.sm },
+  tools: { flexDirection: 'row', borderTopWidth: StyleSheet.hairlineWidth },
+  tool: { flex: 1, alignItems: 'center', gap: 2, paddingVertical: spacing.sm },
   footer: {
     gap: spacing.sm,
     paddingHorizontal: spacing.md,

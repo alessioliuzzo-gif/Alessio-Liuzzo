@@ -50,7 +50,9 @@ export async function uploadAvatar(userId: string, localUri: string): Promise<vo
 }
 
 /** Öffentliche Adresse des Profilbilds oder null, wenn keines gesetzt ist. */
-export function avatarUrl(profile: Pick<Profile, 'avatar_path' | 'updated_at'> | null): string | null {
+export function avatarUrl(
+  profile: Pick<Profile, 'avatar_path' | 'updated_at'> | null,
+): string | null {
   if (!supabase || !profile?.avatar_path) return null;
   const { data } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(profile.avatar_path);
   // updated_at als Anhängsel, damit nach einem Wechsel nicht das alte Bild aus dem Cache kommt.

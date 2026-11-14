@@ -24,7 +24,9 @@ describe('buildMonthGrid', () => {
   });
 
   it('kennt den Schalttag', () => {
-    const days = buildMonthGrid(2028, 1).flat().filter((cell) => cell.inMonth);
+    const days = buildMonthGrid(2028, 1)
+      .flat()
+      .filter((cell) => cell.inMonth);
     expect(days).toHaveLength(29);
     expect(days[28].key).toBe('2028-02-29');
   });

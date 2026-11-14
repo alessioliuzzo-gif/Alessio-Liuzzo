@@ -51,7 +51,10 @@ describe('Farbmatrizen', () => {
   it('verkettet in der richtigen Reihenfolge', () => {
     const first = tint(0.5, 1, 1);
     const second = contrast(1.4);
-    close(applyMatrix(compose(first, second), orange), applyMatrix(second, applyMatrix(first, orange)));
+    close(
+      applyMatrix(compose(first, second), orange),
+      applyMatrix(second, applyMatrix(first, orange)),
+    );
     close(compose(IDENTITY, second), second);
     close(compose(second, IDENTITY), second);
   });

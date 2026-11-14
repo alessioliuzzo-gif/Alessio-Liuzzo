@@ -14,7 +14,14 @@ describe('Eingabeprüfung', () => {
   it('prüft E-Mail-Adressen', () => {
     expect(validateEmail(' anna@example.ch ')).toBeNull();
     expect(validateEmail('')).toBe('validation.emailRequired');
-    for (const bad of ['anna', 'anna@', '@example.ch', 'anna@example', 'a b@example.ch', 'a@b@c.ch']) {
+    for (const bad of [
+      'anna',
+      'anna@',
+      '@example.ch',
+      'anna@example',
+      'a b@example.ch',
+      'a@b@c.ch',
+    ]) {
       expect(validateEmail(bad)).toBe('validation.emailInvalid');
     }
   });
@@ -71,9 +78,15 @@ describe('authErrorKey', () => {
 
   it('liefert nur Schlüssel, für die es einen Text gibt', () => {
     const inputs = [
-      { code: 'invalid_credentials' }, { code: 'email_not_confirmed' }, { code: 'email_exists' },
-      { code: 'weak_password' }, { code: 'email_address_invalid' }, { code: 'signup_disabled' },
-      { code: 'over_request_rate_limit' }, { name: 'AuthRetryableFetchError' }, {},
+      { code: 'invalid_credentials' },
+      { code: 'email_not_confirmed' },
+      { code: 'email_exists' },
+      { code: 'weak_password' },
+      { code: 'email_address_invalid' },
+      { code: 'signup_disabled' },
+      { code: 'over_request_rate_limit' },
+      { name: 'AuthRetryableFetchError' },
+      {},
     ];
     for (const input of inputs) {
       const key = authErrorKey(input).split('.')[1] as keyof typeof de.authErrors;

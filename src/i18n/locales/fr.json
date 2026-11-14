@@ -4,7 +4,8 @@
     "cancel": "Annuler",
     "save": "Enregistrer",
     "showPassword": "Afficher le mot de passe",
-    "hidePassword": "Masquer le mot de passe"
+    "hidePassword": "Masquer le mot de passe",
+    "close": "Fermer"
   },
   "tabs": {
     "calendar": "Calendrier",
@@ -70,7 +71,12 @@
     "emptyHint": "Pas encore de photos. Ta première photo du jour apparaîtra ici.",
     "previousMonth": "Mois précédent",
     "nextMonth": "Mois suivant",
-    "backToToday": "Revenir à aujourd'hui"
+    "backToToday": "Revenir à aujourd'hui",
+    "progress": "{{done}} jours sur {{total}}",
+    "yearOverview": "Année {{year}}",
+    "yearAgo": "Il y a un an aujourd'hui",
+    "photosInYear_one": "{{count}} photo cette année",
+    "photosInYear_other": "{{count}} photos cette année"
   },
   "feed": {
     "title": "Fil",
@@ -163,5 +169,26 @@
     "terms": "Conditions d'utilisation",
     "privacy": "Politique de confidentialité",
     "draftPending": "Ce texte est en cours de rédaction et suivra avant la publication de l'app."
+  },
+  "rewards": {
+    "title": "Récompenses",
+    "rule": "Un mois complet avec une photo chaque jour débloque la récompense suivante.",
+    "thisMonth": "Ce mois : {{done}} jours sur {{total}}",
+    "longest_one": "Plus longue série : {{count}} jour",
+    "longest_other": "Plus longue série : {{count}} jours",
+    "next": "Prochaine récompense",
+    "unlocked": "Débloqué",
+    "allUnlocked": "Tu as débloqué toutes les récompenses.",
+    "kinds": {
+      "filter": "Filtre",
+      "frame": "Cadre",
+      "design": "Style de calendrier"
+    },
+    "calendarDesign": "Style de calendrier",
+    "designs": {
+      "classic": "Classique",
+      "polaroid": "Polaroid",
+      "round": "Rond"
+    }
   }
 }

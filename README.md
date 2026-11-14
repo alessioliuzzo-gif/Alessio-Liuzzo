@@ -10,8 +10,8 @@ Gebaut mit Expo (React Native), TypeScript und Expo Router. "DayShot" ist ein Ar
 | 0 | Fundament: Projekt, Themes, Sprachen, Tests | fertig |
 | 1 | Konto (Supabase Auth, Profil, Row Level Security) | fertig, offen: Passwort vergessen, Rechtstexte |
 | 2 | Tagesfoto und Editor | fertig (Text und Sticker auf dem Handy noch zu prüfen) |
-| 3 | Kalender mit Fotos, Jahres-Collage, Streak | offen |
-| 4 | Belohnungen | offen |
+| 3 | Kalender mit Fotos, Jahres-Collage, Streak | fertig |
+| 4 | Belohnungen | fertig |
 | 5 | Freunde und Feeds | offen |
 | 6 | Chat | offen |
 | 7 | Moderation | offen |
